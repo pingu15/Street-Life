@@ -2,20 +2,18 @@ package streetLife;
 
 import java.io.*;
 
-public class Reader {
+public class Reader extends BufferedReader {
 	
-	BufferedReader br;
-	
-	public void setFile(String file) throws IOException {
-		br = new BufferedReader(new FileReader(file));
+	public Reader(String file) throws IOException {
+		super(new FileReader(file));
 	}
 	
-	public String readLine() throws IOException {
-		return br.readLine();
-	}
-	
-	public boolean ready() throws IOException {
-		return br.ready();
+	public String nextPara() throws IOException {
+		String tmp, s = "";
+		while((tmp = readLine()) != null) {
+			s += tmp + "\n";
+		}
+		return s;
 	}
 
 }
