@@ -1,0 +1,4 @@
+Microsoft Doors [Version 10.0.69000.420]
+(c) Macrohard Corporation. All lefts reserved.
+
+C:\Windows\system32> What's your name?
