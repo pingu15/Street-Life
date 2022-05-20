@@ -15,7 +15,7 @@ public class Functions {
 	public static void setScene(Stage stage, GridPane gp, Color bg) {
 		Scene sc = new Scene(gp, Main.WIDTH, Main.HEIGHT);
 		sc.setFill(bg);
-		sc.getStylesheets().add("C:\\Users\\maxsu\\eclipse-workspace\\Street Life\\stylesheets\\style.css");
+		sc.getStylesheets().add("style.css");
 		stage.setScene(sc);
 		stage.show();
 	}
