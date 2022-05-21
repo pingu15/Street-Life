@@ -9,15 +9,15 @@ public class ComputerFile {
 	public String pathName;
 	public ComputerFile par;
 	
-	public ComputerFile(String n, String pn, ComputerFile p) {
-		name = n;
-		pathName = pn;
-		par = p;
+	public ComputerFile(String name, String pathName, ComputerFile par) {
+		this.name = name;
+		this.pathName = pathName;
+		this.par = par;
 	}
 	
 	@Override
 	public String toString() {
-		return pathName;
+		return this.pathName;
 	}
 	
 }

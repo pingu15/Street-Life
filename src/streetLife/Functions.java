@@ -3,6 +3,7 @@ package streetLife;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
 
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
@@ -12,6 +13,12 @@ import javafx.stage.Stage;
 
 public class Functions {
 	
+	public static HashMap<String, Font> fonts;
+	
+	public static void onLoad() throws IOException {
+		addFont("computer", "SourceCodePro-Regular", 14);
+	}
+	
 	public static void setScene(Stage stage, GridPane gp, Color bg) {
 		Scene sc = new Scene(gp, Main.WIDTH, Main.HEIGHT);
 		sc.setFill(bg);
@@ -20,9 +27,13 @@ public class Functions {
 		stage.show();
 	}
 	
-	public static Font getFont(String name, int size) throws IOException {
+	public static void addFont(String key, String name, int size) throws IOException {
 		InputStream in = new FileInputStream("fonts\\"+name+".ttf");
-		return Font.loadFont(in, size);
+		fonts.put(key, Font.loadFont(in, size));
+	}
+	
+	public static Font getFont(String key) {
+		return fonts.get(key);
 	}
 
 }

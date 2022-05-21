@@ -1,6 +1,6 @@
 #ComputerText {
-    -fx-text-inner-color: white;
-    -fx-text-box-border: black;
+	-fx-text-inner-color: white;
+	-fx-text-box-border: black;
 }
 
 #ComputerText .content {
