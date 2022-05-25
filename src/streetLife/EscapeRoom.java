@@ -42,15 +42,13 @@ public class EscapeRoom implements EventHandler<ActionEvent> {
     private Group root4 = new Group();
     private Scene sc4 = new Scene(root4, 960, 540);
 
-
-
     Stage stage;
 
-    public EscapeRoom(){
+    public EscapeRoom(Stage stage) {
+    	this.stage = stage;
     }
 
-    public void start(Stage stage) {
-        this.stage=stage;
+    public void start() {
         Image logo = new Image("Scenes/isp_logo_nobg.png");
         stage.getIcons().add(logo);
         stage.setTitle("Escape Room");
