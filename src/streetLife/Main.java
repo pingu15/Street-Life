@@ -6,7 +6,7 @@ import javafx.stage.Stage;
 /**
  * Street Life teaches users about homelessness, through a fun and interactive game
  * 
- * @author Max Sun, Zoe Fan-Chaing, Derek Ma
+ * @author Max Sun, Zoe Fan-Chiang, Derek Ma
  * @version 1.0
  * @since 2022-05-20
  */
@@ -20,11 +20,14 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage stage) throws Exception {
+		Functions.onLoad();
 		stage.setTitle("Street Life");
-		EscapeRoom esc = new EscapeRoom();
-		esc.start(stage);
-		Computer comp = new Computer();
-		//comp.start(stage);
+		Intro intro = new Intro(stage);
+		intro.start();
+		Computer comp = new Computer(stage);
+		comp.start();
+		//EscapeRoom escape = new EscapeRoom(stage);
+		//escape.start();
 	}
 
 }

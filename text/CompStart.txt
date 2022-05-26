@@ -1,4 +1,7 @@
+4
 Microsoft Doors [Version 10.0.69000.420]
 (c) Macrohard Corporation. All lefts reserved.
 
 C:\Windows\system32> What's your name?
+1
+It's 10pm and you find yourself leaving a casino on the outskirts of Toronto. While you may have just lost $124 today, it was fun and you're sure you will make it back tomorrow. You check your bank account on the way home... wait this can't be right. (Type 'open bankaccount.png' to view your bank info)

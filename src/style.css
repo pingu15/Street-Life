@@ -1,8 +1,17 @@
 #ComputerText {
-	-fx-text-inner-color: white;
-	-fx-text-box-border: black;
+	-fx-text-fill: white;
+	-fx-text-box-border: transparent;
 }
 
 #ComputerText .content {
 	-fx-background-color: black;
+	-fx-text-box-border: transparent;
+}
+
+.root {
+	-fx-focus-color: transparent;
+}
+
+.text-area > .scroll-pane {
+    -fx-padding: 0;
 }

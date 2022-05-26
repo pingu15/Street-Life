@@ -17,5 +17,9 @@ public class Reader extends BufferedReader {
 		}
 		return s;
 	}
+	
+	public int readInt() throws IOException {
+		return Integer.parseInt(readLine());
+	}
 
 }

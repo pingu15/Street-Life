@@ -1,39 +1,56 @@
 package streetLife;
 
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.HashMap;
 
+import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.layout.GridPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class Functions {
 	
-	public static HashMap<String, Font> fonts;
+	private static HashMap<String, String> fonts;
+	private static HashMap<String, String> errors;
 	
-	public static void onLoad() throws IOException {
-		addFont("computer", "SourceCodePro-Regular", 14);
+	public static void openImage(Stage stage, String img) {
+		ImageView iv = new ImageView();
+		Image image = new Image("images\\"+img, false);
+		iv.setImage(image);
+		iv.setFitWidth(Main.WIDTH);
+		iv.setFitHeight(Main.HEIGHT);
+		Group g = new Group();
+		g.getChildren().add(iv);
+		Functions.setScene(stage, g, Color.BLACK);
 	}
 	
-	public static void setScene(Stage stage, GridPane gp, Color bg) {
-		Scene sc = new Scene(gp, Main.WIDTH, Main.HEIGHT);
-		sc.setFill(bg);
+	public static void onLoad() throws IOException {
+		fonts = new HashMap<String, String>();
+		fonts.put("computer", "Courier New");
+		errors = new HashMap<String, String>();
+		Reader r = new Reader("text\\Errors.txt");
+		while(r.ready()) {
+			errors.put(r.readLine(), r.readLine());
+		}
+		r.close();
+	}
+	
+	public static void setScene(Stage stage, Group g, Color bg) {
+		Scene sc = new Scene(g, Main.WIDTH, Main.HEIGHT, bg);
 		sc.getStylesheets().add("style.css");
 		stage.setScene(sc);
 		stage.show();
 	}
 	
-	public static void addFont(String key, String name, int size) throws IOException {
-		InputStream in = new FileInputStream("fonts\\"+name+".ttf");
-		fonts.put(key, Font.loadFont(in, size));
-	}
-	
-	public static Font getFont(String key) {
-		return fonts.get(key);
+	public static Font getFont(String key, int size) throws IOException {
+		return Font.font(fonts.get(key), size);
 	}
 
+	public static String getError(String key) {
+		return errors.get(key);
+	}
+	
 }
