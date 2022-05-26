@@ -20,6 +20,7 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage stage) throws Exception {
+		Functions.onLoad();
 		stage.setTitle("Street Life");
 		Intro intro = new Intro(stage);
 		intro.start();
