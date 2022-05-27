@@ -22,12 +22,14 @@ public class Main extends Application {
 	public void start(Stage stage) throws Exception {
 		Functions.onLoad();
 		stage.setTitle("Street Life");
-		Intro intro = new Intro(stage);
-		intro.start();
-		Computer comp = new Computer(stage);
-		comp.start();
+//		Intro intro = new Intro(stage);
+//		intro.start();
+//		Computer comp = new Computer(stage);
+//		comp.start();
 		//EscapeRoom escape = new EscapeRoom(stage);
 		//escape.start();
+		DeficiencyRoom dr = new DeficiencyRoom(stage);
+		dr.start();
 	}
 
 }

@@ -1,3 +1,7 @@
+/**
+ * class running the deficinecy room
+ */
+
 package streetLife;
 
 import javafx.event.ActionEvent;
@@ -13,21 +17,30 @@ import javafx.stage.Stage;
 public class DeficiencyRoom implements EventHandler<ActionEvent> {
     Stage stage;
 
+    //scene 1 variables
     private ImageView screen1 = new ImageView();
     private Button button1;
     private Pane pane1 = new Pane();
     private Group root1 = new Group();
     private Scene scene1 = new Scene(root1, 960, 540);
 
+    //scene 2 variables
     private ImageView screen2 = new ImageView();
     private Pane pane2 = new Pane();
     private Group root2 = new Group();
     private Scene scene2 = new Scene(root2, 960, 540);
 
+    /**
+     * constructor
+     * @param s stage which room should run on
+     */
     public DeficiencyRoom(Stage s){
         stage = s;
     }
 
+    /**
+     * setting up each scene and running it
+     */
     public void start(){
         stage.setTitle("Deficiency Room");
         stage.setX(10);
@@ -58,6 +71,10 @@ public class DeficiencyRoom implements EventHandler<ActionEvent> {
         stage.show();
     }
 
+    /**
+     * handle method for buttons and key presses, etc.
+     * @param event the event which occurred
+     */
     public void handle(ActionEvent event) {
         if(event.getSource() == button1){
             stage.setScene(scene2);
