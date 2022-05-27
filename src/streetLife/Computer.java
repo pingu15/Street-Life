@@ -98,14 +98,13 @@ public class Computer {
 		settled.setTranslateX(5);
 		settled.setTranslateY(20);
 		g.getChildren().add(settled);
-		double h = settled.getLayoutBounds().getHeight()-5;
+		double h = settled.getLayoutBounds().getHeight()-10;
 		input.setId("ComputerText");
 		input.setFont(Functions.getFont("computer", 14));
 		input.setWrapText(true);
 		input.setPrefWidth(Main.WIDTH-15);
 		input.setPrefHeight(Main.HEIGHT-h-10);
 		input.setTranslateY(h);
-		input.setMaxHeight(Main.HEIGHT-h-10);
 		g.getChildren().add(input);
 		g.prefHeight(Main.HEIGHT);
 		sp.setContent(g);
@@ -192,7 +191,6 @@ public class Computer {
 			return;
 		}
 		if(index == 2) {
-			System.out.println(v);
 			if(v.equalsIgnoreCase("y")) {
 				index = 3;
 				input = new TextArea();
@@ -209,7 +207,12 @@ public class Computer {
 				display();
 				return;
 			}
-			
+			input = new TextArea();
+			input();
+			s += "enter y or n.\n";
+			settled.setText(s);
+			display();
+			return;
 		}
 	}
 	
