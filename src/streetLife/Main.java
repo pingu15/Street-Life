@@ -13,6 +13,8 @@ import javafx.stage.Stage;
 public class Main extends Application {
 	
 	public static final int WIDTH = 960, HEIGHT = 540;
+	protected EscapeRoom esc;
+	public static Stage stage = new Stage();;
 
 	public static void main(String[] args) {
 		Application.launch(args);
@@ -20,8 +22,8 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage stage) throws Exception {
+		esc = new EscapeRoom(stage);
 		stage.setTitle("Street Life");
-		EscapeRoom esc = new EscapeRoom();
 		esc.start(stage);
 		Computer comp = new Computer();
 		//comp.start(stage);
