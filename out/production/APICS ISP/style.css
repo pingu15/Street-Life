@@ -1,0 +1,8 @@
+#ComputerText {
+	-fx-text-inner-color: white;
+	-fx-text-box-border: black;
+}
+
+#ComputerText .content {
+	-fx-background-color: black;
+}
