@@ -33,11 +33,11 @@ public class Functions {
 	 */
 	public static void openImage(String img, int x, int y, int w, int h, String id) throws IOException {
 		ImageView iv = new ImageView();
-		InputStream in = new FileInputStream("images\\"+img);
+		InputStream in = new FileInputStream("computer\\"+img);
 		Image image = new Image(in);
 		iv.setImage(image);
-		iv.setFitWidth(Main.WIDTH);
 		iv.setFitHeight(Main.HEIGHT);
+		iv.setPreserveRatio(true);
 		Group g = new Group();
 		g.getChildren().add(iv);
 		addBack(g, x, y, w, h, id);
@@ -97,9 +97,11 @@ public class Functions {
 		return errors.get(key);
 	}
 	
-	public static void addBack(Group g, int x, int y, int w, int h, String id) {
+	public static void addBack(Group g, int x, int y, int w, int h, String id) throws IOException {
 		Computer.back = new Button();
 		Computer.back.setId(id);
+		Computer.back.setFont(getFont("computer", 20));
+		Computer.back.setText("Back");
 		Computer.back.setTranslateX(x);
 		Computer.back.setTranslateY(y);
 		Computer.back.setPrefWidth(w);

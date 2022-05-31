@@ -80,6 +80,7 @@
     -fx-border-width: 0;
     -fx-background-radius: 0;
     -fx-background-color: transparent;
+    -fx-text-fill: transparent;
 }
 
 #backbutton:focused {
@@ -90,4 +91,22 @@
 
 #backbutton:pressed {
     -fx-background-color: transparent;
+}
+
+#backbuttonvisible{
+    -fx-text-fill: white;
+    -fx-border-color: black;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: black;
+}
+
+#backbuttonvisible:focused {
+    -fx-border-color: black;
+    -fx-border-width: 0;
+    -fx-border-radius: 0, 0;
+}
+
+#backbuttonvisible:pressed {
+    -fx-background-color: black;
 }
