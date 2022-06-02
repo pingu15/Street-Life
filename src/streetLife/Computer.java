@@ -1,75 +1,135 @@
 package streetLife;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 
 import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 
 public class Computer {
 	
-	Stage stage;
+	/**
+	 * number of choice prompts
+	 */
+	final static int CHOICES = 11;
 	
-	String name;
+	/**
+	 * name of user
+	 */
+	static String name;
 	
-	ComputerFile cur;
+	/**
+	 * reader to read from text files
+	 */
+	static Reader r;
 	
-	Reader r;
+	/**
+	 * scenes for the computer and when an image is displayed
+	 */
+	static Scene comp, image;
 	
-	Text settled;
+	/**
+	 * index of current choice
+	 */
+	static int index;
 	
-	TextArea input;
+	/**
+	 * array of choice prompts
+	 */
+	static String[] choice;
 	
-	int index;
+	/**
+	 * settled text the user cannot edit
+	 */
+	static Text settled;
 	
-	String[] choice;
+	/**
+	 * input text the user can edit
+	 */
+	static TextArea input;
 	
-	final int CHOICES = 2;
+	/**
+	 * current computer folder
+	 */
+	static ComputerFile cur;
 	
-	public Computer(Stage stage) throws IOException {
-		this.stage = stage;
+	
+	/**
+	 * back button to return to terminal screen
+	 */
+	static Button back;
+	
+	/**
+	 * whether or not user picked y in third choice
+	 */
+	static boolean checkedBank;
+	
+	/**
+	 * whether or not user has viewed the eviction notice
+	 */
+	static boolean viewedNotice;
+	
+	/**
+	 * Starts the panic stage using a computer terminal simulation
+	 * 
+	 * @throws IOException
+	 */
+	public static void start() throws IOException {
 		setChoices();
-	}
-	
-	public void setFile(String name, ComputerFile par) {
-		this.cur = new ComputerFile(name, par.pathName+"\\"+name, par);
-	}
-	
-	public void start() throws IOException {
 		settled = new Text();
 		settled.setText("");
 		input = new TextArea();
 		input.setText("");
 		display();
-		onEnter();
+		input();
 	}
 	
-	private void show() throws IOException {
+	/**
+	 * Creates screen with text
+	 * 
+	 * @throws IOException
+	 */
+	private static void show() throws IOException {
+		ScrollPane sp = new ScrollPane();
 		Group g = new Group();
-		Functions.setScene(stage, g, Color.BLACK);
+		g.setTranslateY(5);
 		settled.setLineSpacing(8);
 		settled.setFont(Functions.getFont("computer", 14));
 		settled.setFill(Color.WHITE);
-		settled.setWrappingWidth(Main.WIDTH-5);
+		settled.setWrappingWidth(Main.WIDTH-20);
 		settled.setTranslateX(5);
-		settled.setTranslateY(20);
 		g.getChildren().add(settled);
-		double h = settled.getLayoutBounds().getHeight()-5;
+		double h = settled.getLayoutBounds().getHeight()-35;
 		input.setId("ComputerText");
 		input.setFont(Functions.getFont("computer", 14));
 		input.setWrapText(true);
-		input.setPrefWidth(Main.WIDTH-5);
-		input.setPrefHeight(Main.HEIGHT-h);
+		input.setPrefWidth(Main.WIDTH-15);
+		input.setPrefHeight(Main.HEIGHT-h-20);
+		input.setMaxHeight(input.getPrefHeight());
 		input.setTranslateY(h);
 		g.getChildren().add(input);
+		g.prefHeight(Main.HEIGHT);
+		sp.setContent(g);
+		sp.setId("ScrollPane");
+		comp = new Scene(sp, Main.WIDTH, Main.HEIGHT);
+		Functions.setScene(comp, Color.BLACK);
 	}
 	
-	private void display() throws IOException {
+	/**
+	 * Adds input text to settled text and displays it
+	 * 
+	 * @throws IOException
+	 */
+	private static void display() throws IOException {
 		String s = settled.getText();
 		if(index > 0) {
 			s += cur + "> ";
@@ -81,57 +141,285 @@ public class Computer {
 		}
 		settled.setText(s);
 		show();
-		onEnter();
 	}
 	
-	private void onEnter() {
+	/**
+	 * On user key pressed
+	 */
+	private static void input() {
 		input.setOnKeyPressed((KeyEvent e) -> {
+			if(index == 9 || index == 10) {
+				System.out.println("transition to game");
+				return;
+			}
 			if(e.getCode() == KeyCode.ENTER) {
-				if(index == 0) {
-					String s = settled.getText();
-					name = input.getText();
-					input = new TextArea();
-					s += name + "\n";
-					setFile(name, new ComputerFile(name, "C:\\Users", null));
-					settled.setText(s);
-					index++;
-					try {
-						display();
-					} catch (IOException ex) {
-						ex.printStackTrace();
-					}
-					return;
-				} 
-				if(index == 1) {
-					String s = settled.getText();
-					String v = input.getText();
-					s += v + "\n";
-					if(v.split(" ").length == 1) {
-						s += "\'" + v + "\' is not a recognized command.\n";
-					} else if(v.split(" ")[0].equals("open")) {
-						if(v.split(" ")[1].equals("bankaccount.png")) {
-							Functions.openImage(stage, "bankaccount.png");
-							index++;
-						} else {
-							s += "open: \'" + v.split(" ")[1] + "\' is not an open command.\n";
-						}
-					} else {
-						s += "\'" + v.split(" ")[0] + "\' " + Functions.getError("command") + "\n";
-					}
-					settled.setText(s);
-					input = new TextArea();
-					try {
-						display();
-					} catch (IOException ex) {
-						ex.printStackTrace();
-					}
-					return;
+				try {
+					handle();
+				} catch (IOException ex) {
+					ex.printStackTrace();
 				}
 			}
 		});
 	}
 	
-	private void setChoices() throws IOException {
+	/**
+	 * Handles input on enter key
+	 * 
+	 * @throws IOException
+	 */
+	private static void handle() throws IOException {
+		String s = settled.getText();
+		String v = input.getText();
+		s += v + "\n";
+		if(index == 0) {
+			name = v;
+			input = new TextArea();
+			input();
+			setFile(name, new ComputerFile(name, "C:\\Users", null));
+			settled.setText(s);
+			index = 1;
+			display();
+			return;
+		} 
+		if(index == 1) {
+			input = new TextArea();
+			boolean flag = false;
+			if(v.split(" ").length == 1) {
+				s += "\'" + v + "\' is not a recognized command.\n";
+			} else if(v.split(" ")[0].equals("open")) {
+				if(v.split(" ")[1].equals("bankaccount.png")) {
+					flag = true;
+				} else {
+					s += "open: \'" + v.split(" ")[1] + "\' is not a valid file.\n";
+				}
+			} else {
+				s += "\'" + v.split(" ")[0] + "\' " + Functions.getError("command") + "\n";
+			}
+			settled.setText(s);
+			input();
+			if(flag) {
+				Functions.openImage("bankaccount.png", 72, 433, 200, 72, "backbutton");
+				onClick();
+			} else {
+				display();
+			}
+			return;
+		}
+		if(index == 2) {
+			if(v.equalsIgnoreCase("y")) {
+				checkedBank = true;
+				index = 3;
+				input = new TextArea();
+				input();
+				settled.setText(s);
+				display();
+				return;
+			}
+			if(v.equalsIgnoreCase("n")) {
+				checkedBank = false;
+				index = 8;
+				input = new TextArea();
+				settled.setText(s);
+				display();
+				input();
+				return;
+			}
+			input = new TextArea();
+			input();
+			s += "enter y or n.\n";
+			settled.setText(s);
+			display();
+			return;
+		}
+		if(index == 3) {
+			input = new TextArea();
+			boolean flag = false;
+			if(v.split(" ").length == 1) {
+				s += "\'" + v + "\' is not a recognized command.\n";
+			} else if(v.split(" ")[0].equals("unzip")) {
+				if(v.split(" ")[1].equals("envelope.zip")) {
+					flag = true;
+				} else {
+					s += "unzip: \'" + v.split(" ")[1] + "\' is not a valid file.\n";
+				}
+			} else {
+				s += "\'" + v.split(" ")[0] + "\' " + Functions.getError("command") + "\n";
+			}
+			if(flag) {
+				s += "\nenvelope.zip unzipped to " + cur.pathName + "\\" + "envelope.\n\n";
+				index = 5;
+			}
+			settled.setText(s);
+			input();
+			display();
+			return;
+		}
+		if(index == 4) {
+			if(v.equalsIgnoreCase("y")) {
+				s += "\nMom: \"boy u aint even come home for dinner hell naw u go find another job\"\n";
+				if(!checkedBank) {
+					s += "\nwell, guess I'll check my messages now...\n";
+					index = 10;
+				} else {
+					index = 9;
+				}
+				s += "\n";
+				input = new TextArea();
+				input();
+				settled.setText(s);
+				display();
+				return;
+			}
+			if(v.equalsIgnoreCase("n")) {
+				if(!checkedBank) {
+					s += "\nwell, guess I'll check my messages now...\n";
+					index = 10;
+				} else {
+					index = 9;
+				}
+				input = new TextArea();
+				input();
+				settled.setText(s);
+				display();
+				return;
+			}
+			input = new TextArea();
+			input();
+			s += "enter y or n.\n";
+			settled.setText(s);
+			display();
+			return;
+		}
+		if(index == 5) {
+			input = new TextArea();
+			boolean flag = false;
+			if(v.split(" ").length == 1) {
+				s += "\'" + v + "\' is not a recognized command.\n";
+			} else if(v.split(" ")[0].equals("cd")) {
+				if(v.split(" ")[1].equals("envelope")) {
+					flag = true;
+				} else {
+					s += "cd: \'" + v.split(" ")[1] + "\' is not a valid directory.\n";
+				}
+			} else {
+				s += "\'" + v.split(" ")[0] + "\' " + Functions.getError("command") + "\n";
+			}
+			if(flag) {
+				setFile("envelope", cur);
+				index = 6;
+			}
+			settled.setText(s);
+			input();
+			display();
+			return;
+		}
+		if(index == 6) {
+			input = new TextArea();
+			if(v.equals("dir")) {
+				s += "\n" + getFiles() + "\n";
+				index = 7;
+			} else {
+				s += "\'" + v + "\' is not a recognized command.\n";
+			}
+			settled.setText(s);
+			input();
+			display();
+			return;
+		}
+		if(index == 7) {
+			input = new TextArea();
+			boolean flag = false;
+			if(v.split(" ").length == 1) {
+				s += "\'" + v + "\' is not a recognized command.\n";
+			} else if(v.split(" ")[0].equals("open")) {
+				String pathName = "computer"+cur.pathName.substring(("C:\\Users\\"+name).length());
+				File f = new File(pathName);
+				for(File subFile : f.listFiles()) {
+					flag |= subFile.getName().equals(v.split(" ")[1]);
+				}
+				if(!flag) {
+					s += "open: \'" + v.split(" ")[1] + "\' is not a valid file.\n";
+				}
+			} else {
+				s += "\'" + v.split(" ")[0] + "\' " + Functions.getError("command") + "\n";
+			}
+			settled.setText(s);
+			input();
+			if(flag) {
+				viewedNotice = v.split(" ")[1].equals("notice.png");
+				Functions.openImage("envelope\\"+v.split(" ")[1], 440, 490, 80, 30, "backbuttonvisible");
+				onClick();
+			} else {
+				display();
+			}
+			return;
+		}
+		if(index == 8) {
+			input = new TextArea();
+			boolean flag = false;
+			if(v.split(" ").length == 1) {
+				s += "\'" + v + "\' is not a recognized command.\n";
+			} else if(v.split(" ")[0].equals("unzip")) {
+				if(v.split(" ")[1].equals("envelope.zip")) {
+					flag = true;
+				} else {
+					s += "unzip: \'" + v.split(" ")[1] + "\' is not a valid file.\n";
+				}
+			} else {
+				s += "\'" + v.split(" ")[0] + "\' " + Functions.getError("command") + "\n";
+			}
+			if(flag) {
+				s += "envelope.zip unzipped to " + cur.pathName + "\\" + "envelope.\n";
+				index = 5;
+			}
+			settled.setText(s);
+			input();
+			display();
+			return;
+		}
+	}
+	
+	/**
+	 * Goes back to terminal screen
+	 */
+	private static void onClick() {
+		back.setOnMouseClicked((MouseEvent e) -> {
+			try {
+				handleButton();
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
+		});
+	}
+	
+	/**
+	 * hands events based on current choice button is operating on 
+	 * 
+	 * @throws IOException
+	 */
+	private static void handleButton() throws IOException {
+		if(index == 1) {
+			index = 2;
+			display();
+			return;
+		}
+		if(index == 7) {
+			if(viewedNotice) {
+				index = 4;
+				display();
+				return;
+			}
+			display();
+			return;
+		}
+	}
+
+	/**
+	 * Adds the choice prompts from text file
+	 * 
+	 * @throws IOException
+	 */
+	private static void setChoices() throws IOException {
 		r = new Reader("text\\CompStart.txt");
 		choice = new String[CHOICES];
 		Arrays.fill(choice, "");
@@ -140,6 +428,33 @@ public class Computer {
 			for(int i = 0; i < lines; i++) {
 				choice[c] += r.readLine() + "\n";
 			}
+		}
+	}
+	
+	/**
+	 * 
+	 * @param name name of the folder or file
+	 * @param par name of the parent folder
+	 */
+	private static void setFile(String name, ComputerFile par) {
+		cur = new ComputerFile(name, par.pathName+"\\"+name, par);
+	}
+	
+	private static String getFiles() {
+		String pathName = "computer"+cur.pathName.substring(("C:\\Users\\"+name).length());
+		File f = new File(pathName);
+		String res = "";
+		for(File subFile : f.listFiles()) {
+			res += subFile.getName() + "\n";
+		}
+		return f.listFiles().length == 0 ? "No Files" : res;
+	}
+	
+	public static void sleep(int millis) {
+		try {
+			Thread.sleep(millis);
+		} catch(Exception e) {
+			e.printStackTrace();
 		}
 	}
 	
