@@ -1,12 +1,12 @@
 4
 Microsoft Doors [Version 10.0.69000.420]
-(c) Macrohard Corporation. All lefts reserved.
+(c) Microsoft Corporation. All rights reserved.
 
 C:\Windows\system32> What's your name?
 1
-It's 10pm and you find yourself leaving a casino on the outskirts of Toronto. While you may have just lost $124 today, it was fun and you're sure you will make it back tomorrow. You check your bank account on the way home... wait this can't be right. (Type 'open bankaccount.png' to view your bank info)
+It's 10pm and you find yourself leaving a friend's 18th birthday party. "Such a child" you think to yourself. You had already turned 18 a week ago. While you may have just lost $124 betting on a sports game, it was fun and you're sure you will make it back tomorrow. You check your bank account on the way home... wait this can't be right. (Type 'open bankaccount.png' to view your bank info)
 1
-It's the next day and you wake up to an envelope taped to your door. "Annie finally gave me my money!" you think to yourself. Before you check it though, you turn on your phone to see a plethra of unchecked messages. Do you want to check your messages first? (y/n)
+By the time you get home, it's midnight. You knock on your front door, to no avail. Before you check it though, you turn on your phone to see a plethra of unchecked messages. Do you want to check your messages first? (y/n)
 5
 Not much here, it looks like. Just mom, telling me to come for dinner again. Whatever. That was 3 hours ago. What else we got here... wait. Ayo ayo ayo holdup.  
 
@@ -14,7 +14,7 @@ Shane (Boss): "Hi, ur fired lol"
 
 No, no, no, this can't be... you have no money in your bank account and Annie still hasen't given me my money... wait. You remember the envelope taped to your door you found earlier, and you rush to open it. (Type unzip envelope.zip to open it).
 1
-"Now what?" you think to yourself. I have nowhere to go... oh. I suppose I can ask her I guess. Do you want to ask message your mom asking to live in your parent's basement? (y/n)
+"Now what?" you think to yourself. I have nowhere to go... oh. I suppose I can ask her I guess. Do you want to message your mom asking to live in your parent's basement? (y/n)
 1
 Enter 'cd envelope' to move to envelope folder
 1
