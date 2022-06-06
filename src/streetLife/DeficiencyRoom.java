@@ -83,6 +83,48 @@ public class DeficiencyRoom implements EventHandler<ActionEvent> {
     private Group root4h = new Group();
     private Scene scene4h = new Scene(root4h, 960, 540);
 
+    //screen 5 variables
+    private ImageView screen5 = new ImageView();
+    private Pane pane5 = new Pane();
+    private Group root5 = new Group();
+    private Scene scene5 = new Scene(root5, 960, 540);
+
+    //scene 5 pop up variables
+    private ImageView screen5a = new ImageView();
+    private Pane pane5a = new Pane();
+    private Group root5a = new Group();
+    private Scene scene5a = new Scene(root5a,960,540);
+
+    private ImageView screen5b = new ImageView();
+    private Pane pane5b = new Pane();
+    private Group root5b = new Group();
+    private Scene scene5b = new Scene(root5b,960,540);
+
+    private ImageView screen5c = new ImageView();
+    private Pane pane5c = new Pane();
+    private Group root5c = new Group();
+    private Scene scene5c = new Scene(root5c,960,540);
+
+    private ImageView screen5d = new ImageView();
+    private Pane pane5d = new Pane();
+    private Group root5d = new Group();
+    private Scene scene5d = new Scene(root5d,960,540);
+
+    private ImageView screen5e = new ImageView();
+    private Pane pane5e = new Pane();
+    private Group root5e = new Group();
+    private Scene scene5e = new Scene(root5e,960,540);
+
+    private ImageView screen5f = new ImageView();
+    private Pane pane5f = new Pane();
+    private Group root5f = new Group();
+    private Scene scene5f = new Scene(root5f,960,540);
+
+    private ImageView screen6 = new ImageView();
+    private Pane pane6 = new Pane();
+    private Group root6 = new Group();
+    private Scene scene6 = new Scene(root6, 960, 540);
+
     /**
      * constructor
      * @param s stage which room should run on
@@ -131,6 +173,8 @@ public class DeficiencyRoom implements EventHandler<ActionEvent> {
         screen4.setPreserveRatio(true);
 
         root4.getChildren().addAll(screen4, pane4);
+
+        //screen 4 pop ups
 
         Image image4a = new Image("deficiency 4 pop up.png");
         screen4a.setImage(image4a);
@@ -188,27 +232,82 @@ public class DeficiencyRoom implements EventHandler<ActionEvent> {
 
         root4h.getChildren().addAll(screen4h, pane4h);
 
+        //screen 5
+        Image image5 = new Image("deficiency 5.png");
+        screen5.setImage(image5);
+        screen5.setFitWidth(960);
+        screen5.setPreserveRatio(true);
+
+        root5.getChildren().addAll(screen5, pane5);
+
+        //screen 5 pop ups
+        Image image5a = new Image("deficiency 5 pop up.png");
+        screen5a.setImage(image5a);
+        screen5a.setFitWidth(960);
+        screen5a.setPreserveRatio(true);
+
+        root5a.getChildren().addAll(screen5a, pane5a);
+
+        Image image5b = new Image("deficiency 5 pop up (2).png");
+        screen5b.setImage(image5b);
+        screen5b.setFitWidth(960);
+        screen5b.setPreserveRatio(true);
+
+        root5b.getChildren().addAll(screen5b, pane5b);
+
+        Image image5c = new Image("deficiency 5 pop up (3).png");
+        screen5c.setImage(image5c);
+        screen5c.setFitWidth(960);
+        screen5c.setPreserveRatio(true);
+
+        root5c.getChildren().addAll(screen5c, pane5c);
+
+        Image image5d = new Image("deficiency 5 pop up (4).png");
+        screen5d.setImage(image5d);
+        screen5d.setFitWidth(960);
+        screen5d.setPreserveRatio(true);
+
+        root5d.getChildren().addAll(screen5d, pane5d);
+
+        Image image5e = new Image("deficiency 5 pop up (5).png");
+        screen5e.setImage(image5e);
+        screen5e.setFitWidth(960);
+        screen5e.setPreserveRatio(true);
+
+        root5e.getChildren().addAll(screen5e, pane5e);
+
+        Image image5f = new Image("deficiency 5 pop up (6).png");
+        screen5f.setImage(image5f);
+        screen5f.setFitWidth(960);
+        screen5f.setPreserveRatio(true);
+
+        root5f.getChildren().addAll(screen5f, pane5f);
+
+        //scene 6
+        Image image6 = new Image("deficiency complete.png");
+        screen6.setImage(image6);
+        screen6.setFitWidth(960);
+        screen6.setPreserveRatio(true);
+
+        root6.getChildren().addAll(screen6, pane6);
+
         //start
-        int start = LocalTime.now().getSecond();
-        if(start >= 54) {
-            start -= 60;
-        }
-
-        //trying to get timer two work so that scene switches after certain amount of time but it shows blank screen
         stage.setScene(scene1);
+        inputS1();
         stage.show();
-
-        while(true){
-            if(LocalTime.now().getSecond() == start + 6){
-                stage.setScene(scene2);
-                inputS2();
-                break;
-            }
-        }
     }
 
     public void handle(ActionEvent e){
 
+    }
+
+    public void inputS1(){
+        scene1.setOnKeyPressed((KeyEvent e) -> {
+            if(e.getCode() == KeyCode.SPACE){
+                stage.setScene(scene2);
+                inputS2();
+            }
+        });
     }
 
     /**
@@ -228,7 +327,7 @@ public class DeficiencyRoom implements EventHandler<ActionEvent> {
      */
        public void inputS3(){
         scene3.setOnMouseClicked((MouseEvent e) -> {
-            if(e.getX() > 150 && e.getX() < 260 && e.getY() > 350 && e.getY() < 380){
+            if(e.getX() > 130 && e.getX() < 240 && e.getY() > 350 && e.getY() < 380){
                 stage.setScene(scene4);
                 inputS4();
             }
@@ -272,6 +371,10 @@ public class DeficiencyRoom implements EventHandler<ActionEvent> {
                 stage.setScene(scene4h);
                 inputPopUpS4(scene4h);
             }
+            if(e.getX() > 790 && e.getX() < 905 && e.getY() > 255 && e.getY() < 280){
+                stage.setScene(scene5);
+                inputS5();
+            }
         });
     }
 
@@ -284,6 +387,57 @@ public class DeficiencyRoom implements EventHandler<ActionEvent> {
             if(e.getCode() == KeyCode.SPACE){
                 stage.setScene(scene4);
                 inputS4();
+            }
+        });
+    }
+
+    public void inputS5(){
+        scene5.setOnMouseClicked((MouseEvent e) -> {
+            if(e.getX() > 142 && e.getX() < 167 && e.getY() > 435 && e.getY() < 460){
+                stage.setScene(scene5a);
+                inputPopUpS5(scene5a);
+            }
+            if(e.getX() > 220 && e.getX() < 245 && e.getY() > 322 && e.getY() < 347){
+                stage.setScene(scene5b);
+                inputPopUpS5(scene5b);
+            }
+            if(e.getX() > 590 && e.getX() < 615 && e.getY() > 325 && e.getY() < 350){
+                stage.setScene(scene5c);
+                inputPopUpS5(scene5c);
+            }
+            if(e.getX() > 800 && e.getX() < 825 && e.getY() > 455 && e.getY() < 480){
+                stage.setScene(scene5d);
+                inputPopUpS5(scene5d);
+            }
+            if(e.getX() > 117 && e.getX() < 142 && e.getY() > 230 && e.getY() < 255){
+                stage.setScene(scene5e);
+                inputPopUpS5(scene5e);
+            }
+            if(e.getX() > 415 && e.getX() < 440 && e.getY() > 345 && e.getY() < 370){
+                stage.setScene(scene5f);
+                inputPopUpS5(scene5f);
+            }
+            if(e.getX() > 790 && e.getX() < 905 && e.getY() > 310 && e.getY() < 335){
+                stage.setScene(scene6);
+                inputS6();
+            }
+        });
+    }
+
+    public void inputPopUpS5(Scene s){
+        s.setOnKeyPressed((KeyEvent e) -> {
+            if(e.getCode() == KeyCode.SPACE){
+                stage.setScene(scene5);
+                inputS5();
+            }
+        });
+    }
+
+    public void inputS6(){
+        scene6.setOnKeyPressed((KeyEvent e) -> {
+            if(e.getCode() == KeyCode.SPACE){
+                stage.setScene(scene1);
+                inputS1(); //change later
             }
         });
     }
