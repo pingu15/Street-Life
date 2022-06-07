@@ -1,6 +1,7 @@
 package streetLife;
 
 import javafx.application.Application;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 /**
@@ -14,18 +15,29 @@ public class Main extends Application {
 	
 	public static final int WIDTH = 960, HEIGHT = 540;
 	protected EscapeRoom esc;
-	public static Stage stage = new Stage();;
+	public static Stage stage = new Stage();
+	SplashScreen splashScreen;
+	MainMenu mainMenu;
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 		Application.launch(args);
 	}
 
 	@Override
 	public void start(Stage stage) throws Exception {
-		esc = new EscapeRoom(stage);
 		stage.setTitle("Street Life");
-		esc.start(stage);
-		Computer comp = new Computer();
+		esc = new EscapeRoom(stage);
+		mainMenu = new MainMenu(stage);
+		splashScreen = new SplashScreen(stage, mainMenu);
+		Image logo = new Image("Scenes/isp_logo_nobg.png");
+		stage.getIcons().add(logo);
+		stage.setTitle("Escape Room");
+		stage.setX(10);
+		stage.setY(10);
+		stage.show();
+		splashScreen.run();
+
+		//Computer comp = new Computer();
 		//comp.start(stage);
 	}
 

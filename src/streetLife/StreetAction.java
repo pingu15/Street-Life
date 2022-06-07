@@ -79,7 +79,9 @@ public class StreetAction implements EventHandler<ActionEvent> {
 
     private void runText(String str) {
         this.str = str;
-        p2.getChildren().add(textDisplay);
+        if(!p2.getChildren().contains(textDisplay)) {
+            p2.getChildren().add(textDisplay);
+        }
         IntegerProperty i = new SimpleIntegerProperty(0);
         Timeline timeline = new Timeline();
         KeyValue kv = new KeyValue(text.layoutXProperty(), 150);

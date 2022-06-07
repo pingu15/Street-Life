@@ -40,6 +40,7 @@ public class EscapeRoom implements EventHandler<ActionEvent> {
     protected Scene sc4 = new Scene(root4, 960, 540);
 
     private StreetAction street;
+
     Stage stage;
 
     public EscapeRoom(Stage stage){
@@ -47,14 +48,7 @@ public class EscapeRoom implements EventHandler<ActionEvent> {
         street = new StreetAction(stage, this);
     }
 
-    public void start(Stage stage) {
-
-        Image logo = new Image("Scenes/isp_logo_nobg.png");
-        stage.getIcons().add(logo);
-        stage.setTitle("Escape Room");
-        stage.setX(10);
-        stage.setY(10);
-        //stage.setFullScreen(true);
+    public void start(Stage stage) throws InterruptedException {
 
         testerB = new Button();
         testerB.setText("continue");
