@@ -7,7 +7,7 @@ import java.io.IOException;
 public class Reader extends BufferedReader {
 	
 	public Reader(String file) throws IOException {
-		super(new FileReader(file));
+		super(new FileReader("text\\"+file));
 	}
 	
 	public String nextPara() throws IOException {

@@ -20,7 +20,7 @@ public class Computer {
 	/**
 	 * number of choice prompts
 	 */
-	final static int CHOICES = 11;
+	final static int CHOICES = 8;
 	
 	/**
 	 * name of user
@@ -62,21 +62,20 @@ public class Computer {
 	 */
 	static ComputerFile cur;
 	
-	
 	/**
-	 * back button to return to terminal screen
+	 * back button to return to computer screen
 	 */
 	static Button back;
 	
 	/**
-	 * whether or not user picked y in third choice
+	 * whether or not user has read message
 	 */
-	static boolean checkedBank;
+	static boolean readMom, readBoss;
 	
 	/**
-	 * whether or not user has viewed the eviction notice
+	 * commands for computer
 	 */
-	static boolean viewedNotice;
+	static String helpCommands;
 	
 	/**
 	 * Starts the panic stage using a computer terminal simulation
@@ -85,12 +84,99 @@ public class Computer {
 	 */
 	public static void start() throws IOException {
 		setChoices();
+		setCommands();
 		settled = new Text();
 		settled.setText("");
 		input = new TextArea();
 		input.setText("");
 		display();
-		input();
+		handle();
+	}
+	
+	/**
+	 * Opens the computer during escape room 
+	 * 
+	 * @throws IOException
+	 */
+	public static void open() throws IOException {
+		settled = new Text();
+		settled.setText("Microsoft Doors [Version 10.0.69000.420]\n"
+				+ "(c) Microsoft Corporation. All rights reserved.\n"
+				+ "\n");
+		input = new TextArea();
+		input.setText("");
+		display();
+		handle();
+	}
+	
+	/**
+	 * handles any event
+	 */
+	public static void handle() {
+		if(input != null) {
+			input.setOnKeyPressed((KeyEvent event) -> {
+				try {
+					handleKey(event);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			});
+		}
+		if(back != null) {
+			back.setOnMousePressed((MouseEvent event) -> {
+				try {
+					handleMouse(event);
+				} catch(IOException e) {
+					e.printStackTrace();
+				}
+			});
+		}
+	}
+
+	/**
+	 * Handles user key pressed
+	 * 
+	 * @param event
+	 * @throws IOException
+	 */
+	private static void handleKey(KeyEvent event) throws IOException {
+		if(event.getSource() == input) {
+			if(index == 7) {
+				index = CHOICES;
+				EscapeRoom.start();
+				return;
+			}
+			if(index >= 3 && index <= 6) {
+				handleChoice();
+				return;
+			}
+			if(event.getCode() == KeyCode.ENTER) {
+				if(index < CHOICES) {
+					handleChoice();
+					return;
+				}
+				handleCommand();
+				return;
+			}
+		}
+	}
+	
+	/**
+	 * Handles user mouse pressed
+	 * 
+	 * @param event
+	 * @throws IOException
+	 */
+	private static void handleMouse(MouseEvent event) throws IOException {
+		if(index == 1) {
+			index = 2;
+			display();
+			return;
+		}
+		if(index == CHOICES) {
+			display();
+			return;
+		}
 	}
 	
 	/**
@@ -103,17 +189,17 @@ public class Computer {
 		Group g = new Group();
 		g.setTranslateY(5);
 		settled.setLineSpacing(8);
-		settled.setFont(Functions.getFont("computer", 14));
+		settled.setFont(Functions.getFont("Courier", 13));
 		settled.setFill(Color.WHITE);
 		settled.setWrappingWidth(Main.WIDTH-20);
 		settled.setTranslateX(5);
 		g.getChildren().add(settled);
 		double h = settled.getLayoutBounds().getHeight()-35;
 		input.setId("ComputerText");
-		input.setFont(Functions.getFont("computer", 14));
+		input.setFont(Functions.getFont("Courier", 13));
 		input.setWrapText(true);
-		input.setPrefWidth(Main.WIDTH-15);
-		input.setPrefHeight(Main.HEIGHT-h-20);
+		input.setPrefWidth(Main.WIDTH);
+		input.setPrefHeight(Main.HEIGHT-h-15);
 		input.setMaxHeight(input.getPrefHeight());
 		input.setTranslateY(h);
 		g.getChildren().add(input);
@@ -125,7 +211,7 @@ public class Computer {
 	}
 	
 	/**
-	 * Adds input text to settled text and displays it
+	 * Adds prompts text to settled text
 	 * 
 	 * @throws IOException
 	 */
@@ -137,29 +223,108 @@ public class Computer {
 		if(index < CHOICES) {
 			s += choice[index];
 		} else {
-			s += "Press --help for a list of commands\n";
+			s += "Enter --help for a list of commands\n";
 		}
 		settled.setText(s);
 		show();
 	}
 	
 	/**
-	 * On user key pressed
+	 * Handles regular command
+	 * 
+	 * @throws IOException
 	 */
-	private static void input() {
-		input.setOnKeyPressed((KeyEvent e) -> {
-			if(index == 9 || index == 10) {
-				System.out.println("transition to game");
-				return;
+	private static void handleCommand() throws IOException {
+		String s = settled.getText();
+		String v = input.getText();
+		s += v + "\n";
+		if(v.equals("--help")) {
+			s += helpCommands;
+			update(s);
+			return;
+		}
+		if(v.equals("exit")) {
+			EscapeRoom.open();
+		}
+		if(v.equals("dir")) {
+			s += getFiles();
+			update(s);
+			return;
+		}
+		if(v.split(" ").length == 1) {
+			s += v + Functions.getError("command") +"\n";
+			update(s);
+			return;
+		}
+		if(v.split(" ")[0].equals("unzip")) {
+			String f = v.split(" ")[1];
+			if(f.contains(".zip")) {
+				boolean flag = false;
+				f = f.substring(0, f.indexOf(".zip"));
+				for(ComputerFile sub : cur.subFiles) {
+					if(sub.name.equals(f)) {
+						sub.unzipped = true;
+						flag = true;
+					}
+				}
+				if(!flag) {
+					s += "unzip: " + f + ".zip is not a valid file\n";
+				}
+			} else {
+				s += "unzip: " + f + " is not a valid file\n";
 			}
-			if(e.getCode() == KeyCode.ENTER) {
-				try {
-					handle();
-				} catch (IOException ex) {
-					ex.printStackTrace();
+			update(s);
+			return;
+		}
+		if(v.split(" ")[0].equals("cd")) {
+			String f = v.split(" ")[1];
+			boolean flag = false;
+			for(ComputerFile sub : cur.subFiles) {
+				if(sub.name.equals(f) && sub.isFolder && sub.unzipped) {
+					cur = sub;
+					flag = true;
 				}
 			}
-		});
+			if(!flag) {
+				s += "cd: " + f + " is not a valid file\n";
+			}
+			update(s);
+			return;
+		}
+		if(v.split(" ")[0].equals("open")) {
+			boolean flag = false;
+			String f = v.split(" ")[1];
+			for(ComputerFile sub : cur.subFiles) {
+				if(sub.name.equals(f)) {
+					flag = true;
+					Group g = new Group();
+					Functions.openComputerImage(g, sub.getRelativePath(), 0, 0, Main.WIDTH, Main.HEIGHT);
+					Functions.setButton(g, Main.WIDTH/2-50, Main.HEIGHT-50, 100, 30, "Back", "backbuttonvisible");
+					Scene sc = new Scene(g, Main.WIDTH, Main.HEIGHT);
+					Functions.setScene(sc, Color.BLACK);
+				}
+			}
+			settled.setText(s);
+			input = new TextArea();
+			if(!flag) {
+				s += "open: \'" + v.split(" ")[1] + "\' is not a valid file.\n";
+			}
+			handle();
+			return;
+		}
+	}
+	
+	/**
+	 * updates the text boxes
+	 * 
+	 * @param s The string to set settled text box as
+	 * @throws IOException
+	 */
+	private static void update(String s) throws IOException {
+		settled.setText(s);
+		input = new TextArea();
+		handle();
+		display();
 	}
 	
 	/**
@@ -167,22 +332,19 @@ public class Computer {
 	 * 
 	 * @throws IOException
 	 */
-	private static void handle() throws IOException {
+	private static void handleChoice() throws IOException {
 		String s = settled.getText();
 		String v = input.getText();
 		s += v + "\n";
 		if(index == 0) {
 			name = v;
-			input = new TextArea();
-			input();
-			setFile(name, new ComputerFile(name, "C:\\Users", null));
-			settled.setText(s);
+			cur = new ComputerFile(name, "C:\\Users\\"+name, null, true);
+			dfs(cur);
 			index = 1;
-			display();
+			update(s);
 			return;
 		} 
 		if(index == 1) {
-			input = new TextArea();
 			boolean flag = false;
 			if(v.split(" ").length == 1) {
 				s += "\'" + v + "\' is not a recognized command.\n";
@@ -196,220 +358,61 @@ public class Computer {
 				s += "\'" + v.split(" ")[0] + "\' " + Functions.getError("command") + "\n";
 			}
 			settled.setText(s);
-			input();
+			input = new TextArea();
 			if(flag) {
-				Functions.openImage("bankaccount.png", 72, 433, 200, 72, "backbutton");
-				onClick();
+				Group g = new Group();
+				Functions.openComputerImage(g, "computer\\bankaccount.png", 0, 0, Main.WIDTH, Main.HEIGHT);
+				Functions.setButton(g, 72, 433, 200, 72, "Back", "backbutton");
+				Scene sc = new Scene(g, Main.WIDTH, Main.HEIGHT);
+				Functions.setScene(sc, Color.BLACK);
 			} else {
 				display();
 			}
+			handle();
 			return;
 		}
 		if(index == 2) {
 			if(v.equalsIgnoreCase("y")) {
-				checkedBank = true;
+				readMom = true;
 				index = 3;
-				input = new TextArea();
-				input();
-				settled.setText(s);
-				display();
+				update(s);
 				return;
 			}
 			if(v.equalsIgnoreCase("n")) {
-				checkedBank = false;
-				index = 8;
-				input = new TextArea();
-				settled.setText(s);
-				display();
-				input();
+				readBoss = true;
+				index = 4;
+				update(s);
 				return;
 			}
-			input = new TextArea();
-			input();
 			s += "enter y or n.\n";
-			settled.setText(s);
-			display();
+			update(s);
 			return;
 		}
 		if(index == 3) {
-			input = new TextArea();
-			boolean flag = false;
-			if(v.split(" ").length == 1) {
-				s += "\'" + v + "\' is not a recognized command.\n";
-			} else if(v.split(" ")[0].equals("unzip")) {
-				if(v.split(" ")[1].equals("envelope.zip")) {
-					flag = true;
-				} else {
-					s += "unzip: \'" + v.split(" ")[1] + "\' is not a valid file.\n";
-				}
-			} else {
-				s += "\'" + v.split(" ")[0] + "\' " + Functions.getError("command") + "\n";
+			if(!readBoss) {
+				readBoss = true;
+				index = 6;
+				update(s);
+				return;
 			}
-			if(flag) {
-				s += "\nenvelope.zip unzipped to " + cur.pathName + "\\" + "envelope.\n\n";
-				index = 5;
-			}
-			settled.setText(s);
-			input();
-			display();
+			index = 7;
+			update(s);
 			return;
 		}
 		if(index == 4) {
-			if(v.equalsIgnoreCase("y")) {
-				s += "\nMom: \"boy u aint even come home for dinner hell naw u go find another job\"\n";
-				if(!checkedBank) {
-					s += "\nwell, guess I'll check my messages now...\n";
-					index = 10;
-				} else {
-					index = 9;
-				}
-				s += "\n";
-				input = new TextArea();
-				input();
-				settled.setText(s);
-				display();
-				return;
-			}
-			if(v.equalsIgnoreCase("n")) {
-				if(!checkedBank) {
-					s += "\nwell, guess I'll check my messages now...\n";
-					index = 10;
-				} else {
-					index = 9;
-				}
-				input = new TextArea();
-				input();
-				settled.setText(s);
-				display();
-				return;
-			}
-			input = new TextArea();
-			input();
-			s += "enter y or n.\n";
-			settled.setText(s);
-			display();
-			return;
-		}
-		if(index == 5) {
-			input = new TextArea();
-			boolean flag = false;
-			if(v.split(" ").length == 1) {
-				s += "\'" + v + "\' is not a recognized command.\n";
-			} else if(v.split(" ")[0].equals("cd")) {
-				if(v.split(" ")[1].equals("envelope")) {
-					flag = true;
-				} else {
-					s += "cd: \'" + v.split(" ")[1] + "\' is not a valid directory.\n";
-				}
-			} else {
-				s += "\'" + v.split(" ")[0] + "\' " + Functions.getError("command") + "\n";
-			}
-			if(flag) {
-				setFile("envelope", cur);
-				index = 6;
-			}
-			settled.setText(s);
-			input();
-			display();
-			return;
-		}
-		if(index == 6) {
-			input = new TextArea();
-			if(v.equals("dir")) {
-				s += "\n" + getFiles() + "\n";
-				index = 7;
-			} else {
-				s += "\'" + v + "\' is not a recognized command.\n";
-			}
-			settled.setText(s);
-			input();
-			display();
-			return;
-		}
-		if(index == 7) {
-			input = new TextArea();
-			boolean flag = false;
-			if(v.split(" ").length == 1) {
-				s += "\'" + v + "\' is not a recognized command.\n";
-			} else if(v.split(" ")[0].equals("open")) {
-				String pathName = "computer"+cur.pathName.substring(("C:\\Users\\"+name).length());
-				File f = new File(pathName);
-				for(File subFile : f.listFiles()) {
-					flag |= subFile.getName().equals(v.split(" ")[1]);
-				}
-				if(!flag) {
-					s += "open: \'" + v.split(" ")[1] + "\' is not a valid file.\n";
-				}
-			} else {
-				s += "\'" + v.split(" ")[0] + "\' " + Functions.getError("command") + "\n";
-			}
-			settled.setText(s);
-			input();
-			if(flag) {
-				viewedNotice = v.split(" ")[1].equals("notice.png");
-				Functions.openImage("envelope\\"+v.split(" ")[1], 440, 490, 80, 30, "backbuttonvisible");
-				onClick();
-			} else {
-				display();
-			}
-			return;
-		}
-		if(index == 8) {
-			input = new TextArea();
-			boolean flag = false;
-			if(v.split(" ").length == 1) {
-				s += "\'" + v + "\' is not a recognized command.\n";
-			} else if(v.split(" ")[0].equals("unzip")) {
-				if(v.split(" ")[1].equals("envelope.zip")) {
-					flag = true;
-				} else {
-					s += "unzip: \'" + v.split(" ")[1] + "\' is not a valid file.\n";
-				}
-			} else {
-				s += "\'" + v.split(" ")[0] + "\' " + Functions.getError("command") + "\n";
-			}
-			if(flag) {
-				s += "envelope.zip unzipped to " + cur.pathName + "\\" + "envelope.\n";
+			if(!readMom) {
+				readMom = true;
 				index = 5;
-			}
-			settled.setText(s);
-			input();
-			display();
-			return;
-		}
-	}
-	
-	/**
-	 * Goes back to terminal screen
-	 */
-	private static void onClick() {
-		back.setOnMouseClicked((MouseEvent e) -> {
-			try {
-				handleButton();
-			} catch (IOException ex) {
-				ex.printStackTrace();
-			}
-		});
-	}
-	
-	/**
-	 * hands events based on current choice button is operating on 
-	 * 
-	 * @throws IOException
-	 */
-	private static void handleButton() throws IOException {
-		if(index == 1) {
-			index = 2;
-			display();
-			return;
-		}
-		if(index == 7) {
-			if(viewedNotice) {
-				index = 4;
-				display();
+				update(s);
 				return;
 			}
-			display();
+			index = 7;
+			update(s);
+			return;
+		}
+		if(index == 5 || index == 6) {
+			index = 7;
+			update(s);
 			return;
 		}
 	}
@@ -420,7 +423,7 @@ public class Computer {
 	 * @throws IOException
 	 */
 	private static void setChoices() throws IOException {
-		r = new Reader("text\\CompStart.txt");
+		r = new Reader("CompStart.txt");
 		choice = new String[CHOICES];
 		Arrays.fill(choice, "");
 		for(int c = 0; c < CHOICES; c++) {
@@ -429,32 +432,46 @@ public class Computer {
 				choice[c] += r.readLine() + "\n";
 			}
 		}
+		r.close();
 	}
 	
 	/**
+	 * Gets all the subfiles of the current computer folder
 	 * 
-	 * @param name name of the folder or file
-	 * @param par name of the parent folder
+	 * @return the list of subfiles as a string
 	 */
-	private static void setFile(String name, ComputerFile par) {
-		cur = new ComputerFile(name, par.pathName+"\\"+name, par);
-	}
-	
 	private static String getFiles() {
-		String pathName = "computer"+cur.pathName.substring(("C:\\Users\\"+name).length());
-		File f = new File(pathName);
-		String res = "";
-		for(File subFile : f.listFiles()) {
-			res += subFile.getName() + "\n";
+		String s = "";
+		for(ComputerFile f : cur.subFiles) {
+			s += (f.isFolder && !f.unzipped ? f.name+".zip" : f.name) + "\n";
 		}
-		return f.listFiles().length == 0 ? "No Files" : res;
+		return s.equals("") ? "No files\n" : s;
 	}
 	
-	public static void sleep(int millis) {
-		try {
-			Thread.sleep(millis);
-		} catch(Exception e) {
-			e.printStackTrace();
+	/**
+	 * Sets the list of commands from the commands text file
+	 * 
+	 * @throws IOException
+	 */
+	private static void setCommands() throws IOException {
+		r = new Reader("Commands.txt");
+		helpCommands = r.nextPara();
+		r.close();
+	}
+	
+	/**
+	 * Finds all files in the computer folder to act as the computer database
+	 * 
+	 * @param f the current computer file being looked through
+	 */
+	private static void dfs(ComputerFile f) {
+		File file = new File(f.getRelativePath());
+		for(File n : file.listFiles()) {
+			ComputerFile c = new ComputerFile(n.getName(), f.pathName + "\\" + n.getName(), f, n.isDirectory());
+			f.addSubFile(c);
+			if(c.isFolder) {
+				dfs(c);
+			}
 		}
 	}
 	
