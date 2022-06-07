@@ -35,19 +35,28 @@ public class MainMenu implements EventHandler {
     private ImageView instructionsIcon;
     private Button instructionsB;
 
+    //background declarations
     private Image menuI;
-    private Image back;
     private ImageView menuIV;
+    private Image back;
+    //exit screen
     private Image exitI;
     private ImageView exitIV;
+    //credits screen
     private Image creditsI;
     private ImageView creditsIV;
     private ImageView creditsBackIcon;
     private Button creditsBackB;
+    //about screen
     private Image aboutI;
     private ImageView aboutIV;
     private ImageView aboutBackIcon;
     private Button aboutBackB;
+    //instructions screen
+    private Image instructionsI;
+    private ImageView instructionsIV;
+    private ImageView instructionsBackIcon;
+    private Button instructionsBackB;
 
     private Group menuG;
     private Scene menuS;
@@ -59,6 +68,8 @@ public class MainMenu implements EventHandler {
     private Scene creditsS;
     private Group aboutG;
     private Scene aboutS;
+    private Group instructionsG;
+    private Scene instructionsS;
 
     private Stage stage;
     Font prompterFont = Font.font("Courier New", FontWeight.BOLD, 16);
@@ -124,6 +135,25 @@ public class MainMenu implements EventHandler {
         menuG.getChildren().add(exitB);
 
         menuS = new Scene(menuG, 960, 540);
+
+        //instructions screen init-----------------------------------------------------
+        instructionsI = new Image("Scenes/instructionsScreen.png");
+        instructionsIV = new ImageView(instructionsI);
+        instructionsIV.setFitWidth(960);
+        instructionsIV.setPreserveRatio(true);
+
+        instructionsBackIcon = new ImageView(back);
+        instructionsBackIcon.setFitHeight(40);
+        instructionsBackIcon.setPreserveRatio(true);
+        instructionsBackB = new Button("", instructionsBackIcon);
+        instructionsBackB.setOnAction(this);
+        instructionsBackB.setLayoutX(50);
+        instructionsBackB.setLayoutY(50);
+
+        instructionsG = new Group();
+        instructionsG.getChildren().add(instructionsIV);
+        instructionsG.getChildren().add(instructionsBackB);
+        instructionsS = new Scene(instructionsG, 960, 540);
 
         //credits screen init----------------------------------------------------------
         creditsI = new Image("Scenes/creditsScreen.png");
@@ -194,7 +224,7 @@ public class MainMenu implements EventHandler {
     @Override
     public void handle(Event event) {
 
-        if(event.getSource() == aboutBackB || event.getSource() == creditsBackB){
+        if(event.getSource() == aboutBackB || event.getSource() == creditsBackB || event.getSource() == instructionsBackB){
             System.out.println("back button works");
             stage.setScene(menuS);
         }
@@ -209,6 +239,7 @@ public class MainMenu implements EventHandler {
             //testing the button's functionality
             System.out.println("instructions button works");
             //switches a boolean value, switching to the instructions screen
+            stage.setScene(instructionsS);
 
         }
 
