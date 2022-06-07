@@ -29,6 +29,11 @@ public class Main extends Application {
 	 */
 	public static Stage stage;
 
+	/**
+	 * Starts the program
+	 * 
+	 * @param args arguments
+	 */
 	public static void main(String[] args) {
 		Application.launch(args);
 	}
@@ -42,9 +47,16 @@ public class Main extends Application {
 	public void start(Stage stage) throws Exception {
 		Functions.onLoad();
 		Main.stage = stage;
+		stage.setWidth(Main.WIDTH);
+		stage.setHeight(Main.HEIGHT);
+		stage.setX(0);
+		stage.setY(0);
+		stage.getIcons().add(Functions.getImage("logo.png", 500, 500));
 		stage.setResizable(false);
 		stage.setTitle("Street Life");
-		Computer.start();
+		stage.show();
+		SplashScreen s = new SplashScreen(stage, new MainMenu(stage));
+		s.run();
 	}
 
 }

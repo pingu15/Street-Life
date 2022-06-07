@@ -4,6 +4,8 @@
 
 package streetLife;
 
+import java.io.IOException;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -13,7 +15,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.scene.input.*;
-import java.time.LocalTime;
 
 public class DeficiencyRoom implements EventHandler<ActionEvent> {
     Stage stage;
@@ -69,7 +70,6 @@ public class DeficiencyRoom implements EventHandler<ActionEvent> {
     private Scene scene4e = new Scene(root4e, 960, 540);
 
     private ImageView screen4f = new ImageView();
-    private Pane pane4f = new Pane();
     private Group root4f = new Group();
     private Scene scene4f = new Scene(root4f, 960, 540);
 
@@ -135,15 +135,14 @@ public class DeficiencyRoom implements EventHandler<ActionEvent> {
 
     /**
      * setting up each scene and running the first scene
+     * @throws IOException 
      */
-    public void start(){
+    public void start() throws IOException{
         //general
         stage.setTitle("Deficiency Room");
-        stage.setX(10);
-        stage.setY(10);
 
         //scene 1
-        Image image1 = new Image("deficiency 1.png");
+        Image image1 = Functions.getDefImg("deficiency 1.png");
         screen1.setImage(image1);
         screen1.setFitWidth(960);
         screen1.setPreserveRatio(true);
@@ -151,7 +150,7 @@ public class DeficiencyRoom implements EventHandler<ActionEvent> {
         root1.getChildren().addAll(screen1, pane1);
 
         //scene 2
-        Image image2 = new Image("deficiency 2.png");
+        Image image2 = Functions.getDefImg("deficiency 2.png");
         screen2.setImage(image2);
         screen2.setFitWidth(960);
         screen2.setPreserveRatio(true);
@@ -159,7 +158,7 @@ public class DeficiencyRoom implements EventHandler<ActionEvent> {
         root2.getChildren().addAll(screen2, pane2);
 
         //scene 3
-        Image image3 = new Image("deficiency 3.png");
+        Image image3 = Functions.getDefImg("deficiency 3.png");
         screen3.setImage(image3);
         screen3.setFitWidth(960);
         screen3.setPreserveRatio(true);
@@ -167,7 +166,7 @@ public class DeficiencyRoom implements EventHandler<ActionEvent> {
         root3.getChildren().addAll(screen3, pane3);
 
         //scene 4
-        Image image4 = new Image("deficiency 4.png");
+        Image image4 = Functions.getDefImg("deficiency 4.png");
         screen4.setImage(image4);
         screen4.setFitWidth(960);
         screen4.setPreserveRatio(true);
@@ -176,56 +175,56 @@ public class DeficiencyRoom implements EventHandler<ActionEvent> {
 
         //screen 4 pop ups
 
-        Image image4a = new Image("deficiency 4 pop up.png");
+        Image image4a = Functions.getDefImg("deficiency 4 pop up.png");
         screen4a.setImage(image4a);
         screen4a.setFitWidth(960);
         screen4a.setPreserveRatio(true);
 
         root4a.getChildren().addAll(screen4a, pane4a);
 
-        Image image4b = new Image("deficiency 4 pop up (2).png");
+        Image image4b = Functions.getDefImg("deficiency 4 pop up (2).png");
         screen4b.setImage(image4b);
         screen4b.setFitWidth(960);
         screen4b.setPreserveRatio(true);
 
         root4b.getChildren().addAll(screen4b, pane4b);
 
-        Image image4c = new Image("deficiency 4 pop up (3).png");
+        Image image4c = Functions.getDefImg("deficiency 4 pop up (3).png");
         screen4c.setImage(image4c);
         screen4c.setFitWidth(960);
         screen4c.setPreserveRatio(true);
 
         root4c.getChildren().addAll(screen4c, pane4c);
 
-        Image image4d = new Image("deficiency 4 pop up (4).png");
+        Image image4d = Functions.getDefImg("deficiency 4 pop up (4).png");
         screen4d.setImage(image4d);
         screen4d.setFitWidth(960);
         screen4d.setPreserveRatio(true);
 
         root4d.getChildren().addAll(screen4d, pane4d);
 
-        Image image4e = new Image("deficiency 4 pop up (5).png");
+        Image image4e = Functions.getDefImg("deficiency 4 pop up (5).png");
         screen4e.setImage(image4e);
         screen4e.setFitWidth(960);
         screen4e.setPreserveRatio(true);
 
         root4e.getChildren().addAll(screen4e, pane4e);
 
-        Image image4f = new Image("deficiency 4 pop up (6).png");
+        Image image4f = Functions.getDefImg("deficiency 4 pop up (6).png");
         screen4f.setImage(image4f);
         screen4f.setFitWidth(960);
         screen4f.setPreserveRatio(true);
 
         root4f.getChildren().addAll(screen4f, pane4c);
 
-        Image image4g = new Image("deficiency 4 pop up (7).png");
+        Image image4g = Functions.getDefImg("deficiency 4 pop up (7).png");
         screen4g.setImage(image4g);
         screen4g.setFitWidth(960);
         screen4g.setPreserveRatio(true);
 
         root4g.getChildren().addAll(screen4g, pane4g);
 
-        Image image4h = new Image("deficiency 4 pop up (8).png");
+        Image image4h = Functions.getDefImg("deficiency 4 pop up (8).png");
         screen4h.setImage(image4h);
         screen4h.setFitWidth(960);
         screen4h.setPreserveRatio(true);
@@ -233,7 +232,7 @@ public class DeficiencyRoom implements EventHandler<ActionEvent> {
         root4h.getChildren().addAll(screen4h, pane4h);
 
         //screen 5
-        Image image5 = new Image("deficiency 5.png");
+        Image image5 = Functions.getDefImg("deficiency 5.png");
         screen5.setImage(image5);
         screen5.setFitWidth(960);
         screen5.setPreserveRatio(true);
@@ -241,42 +240,42 @@ public class DeficiencyRoom implements EventHandler<ActionEvent> {
         root5.getChildren().addAll(screen5, pane5);
 
         //screen 5 pop ups
-        Image image5a = new Image("deficiency 5 pop up.png");
+        Image image5a = Functions.getDefImg("deficiency 5 pop up.png");
         screen5a.setImage(image5a);
         screen5a.setFitWidth(960);
         screen5a.setPreserveRatio(true);
 
         root5a.getChildren().addAll(screen5a, pane5a);
 
-        Image image5b = new Image("deficiency 5 pop up (2).png");
+        Image image5b = Functions.getDefImg("deficiency 5 pop up (2).png");
         screen5b.setImage(image5b);
         screen5b.setFitWidth(960);
         screen5b.setPreserveRatio(true);
 
         root5b.getChildren().addAll(screen5b, pane5b);
 
-        Image image5c = new Image("deficiency 5 pop up (3).png");
+        Image image5c = Functions.getDefImg("deficiency 5 pop up (3).png");
         screen5c.setImage(image5c);
         screen5c.setFitWidth(960);
         screen5c.setPreserveRatio(true);
 
         root5c.getChildren().addAll(screen5c, pane5c);
 
-        Image image5d = new Image("deficiency 5 pop up (4).png");
+        Image image5d = Functions.getDefImg("deficiency 5 pop up (4).png");
         screen5d.setImage(image5d);
         screen5d.setFitWidth(960);
         screen5d.setPreserveRatio(true);
 
         root5d.getChildren().addAll(screen5d, pane5d);
 
-        Image image5e = new Image("deficiency 5 pop up (5).png");
+        Image image5e = Functions.getDefImg("deficiency 5 pop up (5).png");
         screen5e.setImage(image5e);
         screen5e.setFitWidth(960);
         screen5e.setPreserveRatio(true);
 
         root5e.getChildren().addAll(screen5e, pane5e);
 
-        Image image5f = new Image("deficiency 5 pop up (6).png");
+        Image image5f = Functions.getDefImg("deficiency 5 pop up (6).png");
         screen5f.setImage(image5f);
         screen5f.setFitWidth(960);
         screen5f.setPreserveRatio(true);
@@ -284,7 +283,7 @@ public class DeficiencyRoom implements EventHandler<ActionEvent> {
         root5f.getChildren().addAll(screen5f, pane5f);
 
         //scene 6
-        Image image6 = new Image("deficiency complete.png");
+        Image image6 = Functions.getDefImg("deficiency complete.png");
         screen6.setImage(image6);
         screen6.setFitWidth(960);
         screen6.setPreserveRatio(true);
@@ -436,8 +435,11 @@ public class DeficiencyRoom implements EventHandler<ActionEvent> {
     public void inputS6(){
         scene6.setOnKeyPressed((KeyEvent e) -> {
             if(e.getCode() == KeyCode.SPACE){
-                stage.setScene(scene1);
-                inputS1(); //change later
+                try {
+					Computer.start();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
             }
         });
     }
