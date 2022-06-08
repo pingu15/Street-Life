@@ -133,16 +133,8 @@ public class DeficiencyRoom implements EventHandler<ActionEvent> {
         stage = s;
     }
 
-    /**
-     * setting up each scene and running the first scene
-     * @throws IOException 
-     */
-    public void start() throws IOException{
-        //general
-        stage.setTitle("Deficiency Room");
-
-        //scene 1
-        Image image1 = Functions.getDefImg("deficiency 1.png");
+    public void setScenes() throws IOException {
+    	Image image1 = Functions.getDefImg("deficiency 1.png");
         screen1.setImage(image1);
         screen1.setFitWidth(960);
         screen1.setPreserveRatio(true);
@@ -289,7 +281,13 @@ public class DeficiencyRoom implements EventHandler<ActionEvent> {
         screen6.setPreserveRatio(true);
 
         root6.getChildren().addAll(screen6, pane6);
-
+    }
+    
+    /**
+     * setting up each scene and running the first scene
+     * @throws IOException 
+     */
+    public void start() throws IOException{
         //start
         stage.setScene(scene1);
         inputS1();
