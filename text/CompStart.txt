@@ -1,0 +1,35 @@
+4
+Microsoft Doors [Version 10.0.69000.420]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Windows\system32> What's your name?
+1
+It's 10pm and you find yourself leaving a friend's 18th birthday party. You yourself had already turned 18 a week ago, except you didn't even get a birthday party. Your parents aren't exactly the most supportive. On the way home, you stop to buy some snacks... wait this can't be right. (Type 'open bankaccount.png' to view your bank info)
+1
+No snacks, you figure. By the time you get home, it's midnight. You knock on your front door, yet to no answer. Suddenly, your phone buzzes. You see two new messages: one from your mom, the other from your boss. Do you want to check your mom's message first? (y/n)
+5
+You open your messages, and take a look. Oh, just mom telling me to come for dinner again. Whatever. That was 3 hours ago... ayo ayo ayo holdup.  
+
+Mom: You come home late again? It's the fourth time this week. You don't help around the house, and all you do is go out and spend money. We're kicking you out of the house.
+
+Well that would explain why no ones answering the door... You remember the other text from your boss, and you quickly open it (Press any key to open).
+5
+You open your messages, and take a look.
+
+Shane (Boss): You missed work again today. I'm sorry, but we're going to have to fire you. You have done a subpar job this entire year, and we just can't take any more absences.
+
+No, no, no, this can't be. You already have no money in your bank account... You remember the other text from your mom, and you quickly open it (Press any key to open).
+5
+Oh, just mom telling me to come for dinner again. Whatever. That was 3 hours ago... ayo ayo ayo holdup.  
+
+Mom: You come home late again? It's the fourth time this week. You don't help around the house, and all you do is go out and spend money. We're kicking you out of the house.
+
+Well that would explain why no ones answering the door... Press any key to continue.
+3
+Shane (Boss): You missed work again today. I'm sorry, but we're going to have to fire you. You have done a subpar job this entire year, and we just can't take any more absences.
+
+No, no, no, this can't be. You already have no money in your bank account... Press any key to continue.
+3
+You end up on the streets, hungry and left wondering what to do. It slowly dawns on you that as you are now homeless teenager, there's not much left to do but work your way to finding a place to stay.
+
+Press any key to continue.
