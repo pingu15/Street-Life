@@ -4,17 +4,25 @@ Microsoft Doors [Version 10.0.69000.420]
 
 C:\Windows\system32> What's your name?
 1
-It's 10pm and you find yourself leaving a friend's 18th birthday party. "Such a child" you think to yourself. You had already turned 18 a week ago. While you may have just lost $124 betting on a sports game, it was fun and you're sure you will make it back tomorrow. You check your bank account on the way home... wait this can't be right. (Type 'open bankaccount.png' to view your bank info)
+It's 10pm and you find yourself leaving a friend's 17th birthday party. "Such a child" you think to yourself. You had already turned 17 a week ago. While you may have just lost $124 betting on sports games with friends, it was fun. You're sure you will make it back tomorrow. You check your bank account on the way home... wait this can't be right. (Type 'open bankaccount.png' to view your bank info)
 1
-By the time you get home, it's midnight. You knock on your front door, to no avail. Before you check it though, you turn on your phone to see a plethra of unchecked messages. Do you want to check your messages first? (y/n)
+By the time you get home, it's midnight. You knock on your front door, to no avail. However, you spot an envelope taped to the door. First, you turn on your phone to see a plethora of unchecked messages. Do you want to check your messages first? (y/n)
 5
-Not much here, it looks like. Just mom, telling me to come for dinner again. Whatever. That was 3 hours ago. What else we got here... wait. Ayo ayo ayo holdup.  
+Not much here, it looks like a bunch of spam. Nothing from your parents. Whatever. What else have we got here... wait. Ayo ayo ayo holdup.
 
-Shane (Boss): "Hi, ur fired lol"
+Annie Chen (Boss): "Hi, we were notified by an anonymous source that you have been uncooperative and ignorant towards your fellow employees. As this goes against our company policy, you are fired from your part-time position at our company. L"
 
-No, no, no, this can't be... you have no money in your bank account and Annie still hasen't given me my money... wait. You remember the envelope taped to your door you found earlier, and you rush to open it. (Type unzip envelope.zip to open it).
+Wait. You were uncooperative? They were the ones calling you poor and making fun of you but you're the one fired? No. This can't be... now you have no money in your bank account, no job, and your parents... well, they aren't much support. Never have been. Ever since you were young, you were neglected and labeled as a mistake... Whatever. You remember the envelope taped to the door which you found earlier, and you rush to open it. (Type unzip envelope.zip to open it).
 1
-"Now what?" you think to yourself. I have nowhere to go... oh. I suppose I can ask her I guess. Do you want to message your mom asking to live in your parent's basement? (y/n)
+"What the FRIDGE" you think to yourself. They can't even say that to your face!? Well, what did you expect. Shoot! Now you have nowhere to go though... Do you want to message your parents and negotiate? (y/n)
+5
+You think of a message to send:
+
+"I got your letter. Though I don't understand why, I understand what you want. But at least be kind enough to give me a month at home to figure things out. I just lost my job and have no money. Please."
+
+You open the messages app and click on your mom's conta- wait. Did she block you!? Seriously?? Screw that. You turn off your phone in anger and walk away from the place you once called 'home'.
+1
+They wouldn't have been much help. You walk away from the place you once called 'home'.
 1
 Enter 'cd envelope' to move to envelope folder
 1
@@ -22,22 +30,24 @@ Enter 'dir' to view contents of directory
 1
 Enter 'open <file name>' to open a file
 1
-You go to open the envelope taped to your door you found earlier instead. (Type unzip envelope.zip to open it).
-5
-You end up on the street, a bit of cash in hand. At least ramen is only 89 cents per serving. You sleep in a tent your parents were kind enough to lend you, and three days go buy, with little donations from begging in a subway station.
+Then might as well go open the envelope taped to the door. (Type unzip envelope.zip to open it).
+6
 
-It looks like we gotta git gud.
+You end up on the street, a bit of cash in hand from the envelope. At least ramen is only 89 cents per serving. You sleep where you can and still try to attend school, though some classmates at school make fun of you. You beg for donations on the street, gaining barely enough money to have a proper meal a day.
+
+It looks like you gotta git gud.
 
 Press any key to continue. 
-11
-Not much here, it looks like. Just mom, telling me to come for dinner again. Whatever. That was 3 hours ago. What else we got here... wait. Ayo ayo ayo holdup.  
+12
+Not much here, it looks like spam. Nothing from your parents. Whatever. What else have we got here... wait. Ayo ayo ayo holdup.
 
-Shane (Boss): "Hi, ur fired lol"
+Annie Chen (Boss): "Hi, we were notified by an anonymous source that you have been uncooperative and ignorant towards your fellow employees. As this goes against our company policy, you are fired from your part-time position at our company. L"
 
-No, no, no, this can't be... you have no money in your bank account and Annie still hasen't given me my money.
+Wait. You were uncooperative? They were the ones calling you poor and making fun of you but you're the one fired? No. This can't be... now you have no money in your bank account, no job, and your parents just kicked you out. Talk about a bad day.
 
-You end up on the street, a bit of cash in hand. At least ramen is only 89 cents per serving. You sleep in a tent your parents were kind enough to lend you, and three days go buy, with little donations from begging in a subway station.
 
-It looks like we gotta git gud. 
+You end up on the street, a bit of cash in hand from the envelope. At least ramen is only 89 cents per serving. You sleep where you can and still try to attend school, though some classmates at school make fun of you. You beg for donations on the street, gaining barely enough money to have a proper meal a day.
+
+It looks like you gotta git gud.
 
 Press any key to continue.
