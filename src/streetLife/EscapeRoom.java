@@ -14,7 +14,7 @@ public class EscapeRoom {
 	/**
 	 * Button for switching backgrounds
 	 */
-	static Button alley, shelter, start, street;
+	static Button school, library, street;
 	
 	/**
 	 * the background image
@@ -32,24 +32,21 @@ public class EscapeRoom {
 	static StackPane sp;
 	
 	/**
+	 * the current location
+	 */
+	static String cur;
+	
+	/**
+	 * starts the escape room
 	 * 
 	 * @throws IOException
 	 */
 	public static void start() throws IOException {
 		sp = new StackPane();
-		bg = new Background(Functions.getBg("start"));
+		bg = new Background(Functions.getBg("library"));
 		sp.setBackground(bg);
 		sc = new Scene(sp, Main.WIDTH, Main.HEIGHT);
 		Functions.setScene(sc, Color.BLACK);
-		alley = new Button();
-		alley.setVisible(true);
-		alley.setId("switchbutton");
-		shelter = new Button();
-		shelter.setVisible(true);
-		shelter.setId("switchbutton");
-		start = new Button();
-		start.setVisible(false);
-		start.setId("switchbutton");
 		street = new Button();
 		street.setVisible(true);
 		street.setId("switchbutton");
@@ -67,37 +64,7 @@ public class EscapeRoom {
 	}
 	
 	private static void handleMouse(MouseEvent e) throws IOException {
-		if(e.getSource() == alley) {
-			sp.setBackground(new Background(Functions.getBg("alley")));
-			alley.setVisible(false);
-			shelter.setVisible(false);
-			start.setVisible(true);
-			street.setVisible(false);
-		}
-		if(e.getSource() == shelter) {
-			sp.setBackground(new Background(Functions.getBg("shelter")));
-			alley.setVisible(false);
-			shelter.setVisible(false);
-			start.setVisible(true);
-			street.setVisible(false);
-		}
-		if(e.getSource() == start) {
-			sp.setBackground(new Background(Functions.getBg("start")));
-			alley.setVisible(true);
-			shelter.setVisible(true);
-			start.setVisible(false);
-			street.setVisible(true);
-		}
-		if(e.getSource() == street) {
-			sp.setBackground(new Background(Functions.getBg("street")));
-			alley.setVisible(false);
-			shelter.setVisible(false);
-			start.setVisible(true);
-			street.setVisible(false);
-		}
-		if(e.getSource() == sp) {
-			Computer.open();
-		}
+		
 	}
 	
 }

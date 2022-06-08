@@ -47,8 +47,6 @@ public class Main extends Application {
 	public void start(Stage stage) throws Exception {
 		Functions.onLoad();
 		Main.stage = stage;
-		stage.setWidth(Main.WIDTH);
-		stage.setHeight(Main.HEIGHT);
 		stage.setX(0);
 		stage.setY(0);
 		stage.getIcons().add(Functions.getImage("logo.png", 500, 500));

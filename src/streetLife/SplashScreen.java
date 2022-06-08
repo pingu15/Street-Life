@@ -51,7 +51,7 @@ public class SplashScreen {
         logo = Functions.getScene("logoScreen.png");
         logoIV = new ImageView(logo);
         logoIV.setFitWidth(960);
-        logoIV.setPreserveRatio(true);
+        logoIV.setFitHeight(540);
         logoG = new Group();
         logoG.getChildren().add(logoIV);
         logoS = new Scene(logoG, 960,540);
@@ -59,7 +59,7 @@ public class SplashScreen {
         //regular scene init-------------------------------------------------------
         regularIV = new ImageView(Functions.getScene("isp_main.png"));
         regularIV.setFitWidth(960);
-        regularIV.setPreserveRatio(true);
+        regularIV.setFitHeight(540);
         regularG = new Group();
         regularG.getChildren().add(regularIV);
         regularS = new Scene(regularG, 960, 540);
@@ -67,7 +67,7 @@ public class SplashScreen {
         //flicker scene init-------------------------------------------------------
         flickerIV = new ImageView(Functions.getScene("isp_mainF.png"));
         flickerIV.setFitWidth(960);
-        flickerIV.setPreserveRatio(true);
+        flickerIV.setFitHeight(540);
 
         prompter = new Text(600,290,"Press any key to continue...");
         prompter.setFill(Color.WHITE);

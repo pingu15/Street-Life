@@ -34,7 +34,9 @@ public class MainMenu implements EventHandler {
     private Button exitB;
     private ImageView instructionsIcon;
     private Button instructionsB;
-
+    private ImageView insBackIcon;
+    private Button insBackB;
+    
     private Image menuI;
     private Image back;
     private ImageView menuIV;
@@ -59,15 +61,22 @@ public class MainMenu implements EventHandler {
     private Scene creditsS;
     private Group aboutG;
     private Scene aboutS;
+    private Image instructionsI;
+    private ImageView instructionsIV;
+    private Group instructionsG;
+    private Scene instructionsS;
 
     private Stage stage;
     Font prompterFont = Font.font("Courier New", FontWeight.BOLD, 16);
+    
+    DeficiencyRoom d;
 
     @SuppressWarnings("unchecked")
 	public MainMenu(Stage stage) throws IOException{
         //stage init------------------------------------------------------------------
         this.stage = stage;
-
+        d = new DeficiencyRoom(Main.stage);
+        d.setScenes();
         //Button init-----------------------------------------------------------------
         startIcon = new ImageView(Functions.getScene("startbutton.png"));
         startIcon.setFitHeight(40);
@@ -76,7 +85,8 @@ public class MainMenu implements EventHandler {
         startB.setOnAction(this);
         startB.setLayoutX(200);
         startB.setLayoutY(220);
-
+        startB.setPrefWidth(startIcon.getFitWidth());
+        startB.setMaxHeight(startIcon.getFitHeight());
         instructionsIcon = new ImageView(Functions.getScene("instructions.png"));
         instructionsIcon.setFitHeight(40);
         instructionsIcon.setPreserveRatio(true);
@@ -113,7 +123,7 @@ public class MainMenu implements EventHandler {
         menuI = Functions.getScene("mainMenuScreen.png");
         menuIV = new ImageView(menuI);
         menuIV.setFitWidth(960);
-        menuIV.setPreserveRatio(true);
+        menuIV.setFitHeight(540);
         back = Functions.getScene("back.png");
 
         menuG = new Group();
@@ -125,12 +135,12 @@ public class MainMenu implements EventHandler {
         menuG.getChildren().add(exitB);
 
         menuS = new Scene(menuG, 960, 540);
-
+        menuS.getStylesheets().add("style.css");
         //credits screen init----------------------------------------------------------
         creditsI = Functions.getScene("creditsScreen.png");
         creditsIV = new ImageView(creditsI);
         creditsIV.setFitWidth(960);
-        creditsIV.setPreserveRatio(true);
+        creditsIV.setFitHeight(540);
 
         creditsBackIcon = new ImageView(back);
         creditsBackIcon.setFitHeight(40);
@@ -144,12 +154,12 @@ public class MainMenu implements EventHandler {
         creditsG.getChildren().add(creditsIV);
         creditsG.getChildren().add(creditsBackB);
         creditsS = new Scene(creditsG, 960, 540);
-
+        creditsS.getStylesheets().add("style.css");
         //about screen init------------------------------------------------------------
         aboutI = Functions.getScene("aboutScreen.png");
         aboutIV = new ImageView(aboutI);
         aboutIV.setFitWidth(960);
-        aboutIV.setPreserveRatio(true);
+        aboutIV.setFitHeight(540);
 
         aboutBackIcon = new ImageView(back);
         aboutBackIcon.setFitHeight(40);
@@ -163,12 +173,12 @@ public class MainMenu implements EventHandler {
         aboutG.getChildren().add(aboutIV);
         aboutG.getChildren().add(aboutBackB);
         aboutS = new Scene(aboutG, 960, 540);
-
+        aboutS.getStylesheets().add("style.css");
         //exit screen init-------------------------------------------------------------
         exitI = Functions.getScene("exitScreen.png");
         exitIV = new ImageView(exitI);
         exitIV.setFitWidth(960);
-        exitIV.setPreserveRatio(true);
+        exitIV.setFitHeight(540);
 
         prompter = new Text(600,290,"Press any key to continue...");
         prompter.setFill(Color.WHITE);
@@ -180,11 +190,28 @@ public class MainMenu implements EventHandler {
         prompterFade.setToValue(0);
         prompterFade.setAutoReverse(true);
         prompterFade.setCycleCount(Timeline.INDEFINITE);
-
+        instructionsI = Functions.getScene("instructionsScreen.png");
+        instructionsIV = new ImageView(instructionsI);
+        instructionsIV.setFitWidth(960);
+        instructionsIV.setPreserveRatio(true);
+        insBackIcon = new ImageView(back);
+        insBackIcon.setFitHeight(40);
+        insBackIcon.setPreserveRatio(true);
+        insBackB = new Button("", insBackIcon);
+        insBackB.setOnAction(this);
+        insBackB.setLayoutX(50);
+        insBackB.setLayoutY(50);
+        instructionsG = new Group();
+        instructionsG.getChildren().add(instructionsIV);
+        instructionsG.getChildren().add(prompter);
+        instructionsG.getChildren().add(insBackB);
+        instructionsS = new Scene(instructionsG, 960, 540);
+        instructionsS.getStylesheets().add("style.css");
         exitG = new Group();
         exitG.getChildren().add(exitIV);
         exitG.getChildren().add(prompter);
         exitS = new Scene(exitG,  960, 540);
+        exitS.getStylesheets().add("style.css");
     }
 
     public void run(){
@@ -195,13 +222,12 @@ public class MainMenu implements EventHandler {
     @Override
     public void handle(Event event) {
 
-        if(event.getSource() == aboutBackB || event.getSource() == creditsBackB){
+        if(event.getSource() == aboutBackB || event.getSource() == creditsBackB || event.getSource() == insBackB){
             stage.setScene(menuS);
         }
 
         if(event.getSource()==startB){
             //testing the button's functionality
-            DeficiencyRoom d = new DeficiencyRoom(Main.stage);
             try {
 				d.start();
 			} catch (IOException e) {
@@ -212,7 +238,7 @@ public class MainMenu implements EventHandler {
         if(event.getSource()==instructionsB){
             //testing the button's functionality
             //switches a boolean value, switching to the instructions screen
-
+        	stage.setScene(instructionsS);
         }
 
         if(event.getSource()==aboutB){
