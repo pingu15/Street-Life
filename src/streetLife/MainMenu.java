@@ -84,7 +84,7 @@ public class MainMenu implements EventHandler {
         startB = new Button("", startIcon);
         startB.setOnAction(this);
         startB.setLayoutX(200);
-        startB.setLayoutY(220);
+        startB.setLayoutY(265);
         startB.setPrefWidth(startIcon.getFitWidth());
         startB.setMaxHeight(startIcon.getFitHeight());
         instructionsIcon = new ImageView(Functions.getScene("instructions.png"));
@@ -93,7 +93,7 @@ public class MainMenu implements EventHandler {
         instructionsB = new Button("", instructionsIcon);
         instructionsB.setOnAction(this);
         instructionsB.setLayoutX(200);
-        instructionsB.setLayoutY(280);
+        instructionsB.setLayoutY(320);
 
         aboutIcon = new ImageView(Functions.getScene("about.png"));
         aboutIcon.setFitHeight(40);
@@ -101,7 +101,7 @@ public class MainMenu implements EventHandler {
         aboutB = new Button("", aboutIcon);
         aboutB.setOnAction(this);
         aboutB.setLayoutX(200);
-        aboutB.setLayoutY(340);
+        aboutB.setLayoutY(375);
 
         creditsIcon = new ImageView(Functions.getScene("credits.png"));
         creditsIcon.setFitHeight(40);
@@ -109,15 +109,15 @@ public class MainMenu implements EventHandler {
         creditsB = new Button("", creditsIcon);
         creditsB.setOnAction(this);
         creditsB.setLayoutX(200);
-        creditsB.setLayoutY(400);
+        creditsB.setLayoutY(430);
 
         exitIcon = new ImageView(Functions.getScene("exit.png"));
         exitIcon.setFitHeight(40);
         exitIcon.setPreserveRatio(true);
         exitB = new Button("", exitIcon);
         exitB.setOnAction(this);
-        exitB.setLayoutX(200);
-        exitB.setLayoutY(460);
+        exitB.setLayoutX(790);
+        exitB.setLayoutY(475);
 
         //main menu scene init------------------------------------------------------------------
         menuI = Functions.getScene("mainMenuScreen.png");
@@ -180,7 +180,7 @@ public class MainMenu implements EventHandler {
         exitIV.setFitWidth(960);
         exitIV.setFitHeight(540);
 
-        prompter = new Text(600,290,"Press any key to continue...");
+        prompter = new Text(105,190,"Press any key to continue...");
         prompter.setFill(Color.WHITE);
         prompter.setFont(prompterFont);
         prompter.setVisible(false);

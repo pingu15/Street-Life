@@ -69,7 +69,7 @@ public class SplashScreen {
         flickerIV.setFitWidth(960);
         flickerIV.setFitHeight(540);
 
-        prompter = new Text(600,290,"Press any key to continue...");
+        prompter = new Text(185,390,"Press any key to continue...");
         prompter.setFill(Color.WHITE);
         prompter.setFont(prompterFont);
         prompter.setVisible(false);
