@@ -1,5 +1,7 @@
 package streetLife;
 
+import javafx.animation.FadeTransition;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -8,9 +10,12 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class EscapeRoom implements EventHandler<ActionEvent> {
 
@@ -39,7 +44,14 @@ public class EscapeRoom implements EventHandler<ActionEvent> {
     protected Group root4 = new Group();
     protected Scene sc4 = new Scene(root4, 960, 540);
 
+    private Image instructionsI;
+    private ImageView instructionsIV;
+    private Group instructionsG;
+    private Scene instructionsS;
     private StreetAction street;
+
+    private Text prompter;
+    private FadeTransition prompterFade;
 
     Stage stage;
 
@@ -48,7 +60,7 @@ public class EscapeRoom implements EventHandler<ActionEvent> {
         street = new StreetAction(stage, this);
     }
 
-    public void start(Stage stage) throws InterruptedException {
+    public void start() throws InterruptedException {
 
         testerB = new Button();
         testerB.setText("continue");
@@ -116,7 +128,33 @@ public class EscapeRoom implements EventHandler<ActionEvent> {
         root3.getChildren().addAll(background3,p3);
         root4.getChildren().addAll(background4,p4);
 
-        stage.setScene(sc1);
+        //instruction screen init
+
+        prompter = new Text(600,500,"Press any key to continue...");
+        prompter.setFill(Color.WHITE);
+        prompter.setFont(Font.font("Courier New", FontWeight.BOLD, 16));
+        prompterFade = new FadeTransition(Duration.seconds(1),prompter);
+        prompterFade.setFromValue(1);
+        prompterFade.setToValue(0);
+        prompterFade.setAutoReverse(true);
+        prompterFade.setCycleCount(Timeline.INDEFINITE);
+
+        instructionsI = new Image("Scenes/instructionsScreen.png");
+        instructionsIV = new ImageView(instructionsI);
+        instructionsIV.setFitWidth(960);
+        instructionsIV.setPreserveRatio(true);
+
+        instructionsG = new Group();
+        instructionsG.getChildren().add(instructionsIV);
+        instructionsG.getChildren().add(prompter);
+        instructionsS = new Scene(instructionsG, 960, 540);
+
+        stage.setScene(instructionsS);
+        prompterFade.play();
+
+        instructionsS.setOnKeyPressed(event -> {
+            stage.setScene(sc1);
+        });
         stage.show();
     }
 

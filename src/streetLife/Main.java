@@ -35,7 +35,7 @@ public class Main extends Application {
 		stage.setX(10);
 		stage.setY(10);
 		stage.show();
-		splashScreen.run();
+		esc.start();
 
 		//Computer comp = new Computer();
 		//comp.start(stage);
