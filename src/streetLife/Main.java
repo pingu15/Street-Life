@@ -54,7 +54,8 @@ public class Main extends Application {
 		stage.setTitle("Street Life");
 		stage.show();
 		SplashScreen s = new SplashScreen(stage, new MainMenu(stage));
-		s.run();
+		DirectionsGame dg = new DirectionsGame(stage);
+		dg.newGame();
 	}
 
 }

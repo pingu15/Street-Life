@@ -7,6 +7,8 @@ import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -14,6 +16,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class DirectionsGame implements EventHandler {
@@ -32,6 +35,14 @@ public class DirectionsGame implements EventHandler {
     private Button button6;
     private boolean b6Pressed;
     private boolean buttonTrue;
+
+    //6 ImageView declarations
+    private ImageView imageView1;
+    private ImageView imageView2;
+    private ImageView imageView3;
+    private ImageView imageView4;
+    private ImageView imageView5;
+    private ImageView imageView6;
 
     private FadeTransition b1Fade;
     private FadeTransition b2Fade;
@@ -56,7 +67,7 @@ public class DirectionsGame implements EventHandler {
 
     Stage stage;
 
-    public DirectionsGame(Stage stage){
+    public DirectionsGame(Stage stage) throws IOException {
         //stage and utility variables init------------------------------------------------------------------------------
         this.stage = stage;
         buttonX = new int[]{50, 90, 130, 170, 210, 250, 290, 330, 370, 410, 450, 490, 530, 570, 610, 650, 690, 730, 770, 810};
@@ -65,14 +76,33 @@ public class DirectionsGame implements EventHandler {
         usedYValues = new ArrayList<Integer>();
         orderCounter = 0;
 
+        //initialize 6 ImageViews--------------------------------------------------------------------------------------
+        imageView1 = new ImageView(Functions.getScene("mapIcon.png"));
+        imageView1.setFitWidth(25);
+        imageView1.setPreserveRatio(true);
+        imageView2 = new ImageView(Functions.getScene("mapIcon.png"));
+        imageView2.setFitWidth(25);
+        imageView2.setPreserveRatio(true);
+        imageView3 = new ImageView(Functions.getScene("mapIcon.png"));
+        imageView3.setFitWidth(25);
+        imageView3.setPreserveRatio(true);
+        imageView4 = new ImageView(Functions.getScene("mapIcon.png"));
+        imageView4.setFitWidth(25);
+        imageView4.setPreserveRatio(true);
+        imageView5 = new ImageView(Functions.getScene("mapIcon.png"));
+        imageView5.setFitWidth(25);
+        imageView5.setPreserveRatio(true);
+        imageView6 = new ImageView(Functions.getScene("mapIcon.png"));
+        imageView6.setFitWidth(25);
+        imageView6.setPreserveRatio(true);
 
         //Buttons and their respective variables init-------------------------------------------------------------------
-        button1 = new Button();
-        button2 = new Button();
-        button3 = new Button();
-        button4 = new Button();
-        button5 = new Button();
-        button6 = new Button();
+        button1 = new Button("", imageView1);
+        button2 = new Button("", imageView2);
+        button3 = new Button("", imageView3);
+        button4 = new Button("", imageView4);
+        button5 = new Button("", imageView5);
+        button6 = new Button("", imageView6);
 
         b1Pressed = false;
         b2Pressed = false;
