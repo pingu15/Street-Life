@@ -7,7 +7,6 @@ import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -51,8 +50,14 @@ public class DirectionsGame implements EventHandler {
     private FadeTransition b5Fade;
     private FadeTransition b6Fade;
 
-    private Text prompter;
-    private FadeTransition prompterFade;
+    private Text losePrompter;
+    private FadeTransition losePrompterFade;
+    private Text winPrompter;
+    private FadeTransition winPrompterFade;
+    private Text startPrompter;
+    private FadeTransition startPrompterFade;
+
+    private ImageView map;
 
     //potential locations of buttons------------------------------------------------------------------------------------
     private int[] buttonX;
@@ -65,16 +70,32 @@ public class DirectionsGame implements EventHandler {
     Group directionsGameG;
     Scene directionsGameS;
 
+    ImageView winIV;
+    ImageView loseIV;
+    ImageView startIV;
+    Group winG;
+    Scene winS;
+    Group loseG;
+    Scene loseS;
+    Group startG;
+    Scene startS;
+
+
     Stage stage;
 
     public DirectionsGame(Stage stage) throws IOException {
         //stage and utility variables init------------------------------------------------------------------------------
         this.stage = stage;
-        buttonX = new int[]{50, 90, 130, 170, 210, 250, 290, 330, 370, 410, 450, 490, 530, 570, 610, 650, 690, 730, 770, 810};
-        buttonY = new int[]{50, 90, 130, 170, 210, 250, 290, 330, 370, 410, 450};
+        buttonX = new int[]{50, 90, 130, 170, 210, 250, 290, 330, 370, 410, 450, 490, 530, 570, 610, 650, 690, 730};
+        buttonY = new int[]{50, 90, 130, 170, 210, 250, 290, 330, 370};
         usedXValues = new ArrayList<Integer>();
         usedYValues = new ArrayList<Integer>();
         orderCounter = 0;
+
+        //initialize map ImageView-----------------------------------------------------------------------------------
+        map = new ImageView(Functions.getScene("map.png"));
+        map.setFitWidth(960);
+        map.setPreserveRatio(true);
 
         //initialize 6 ImageViews--------------------------------------------------------------------------------------
         imageView1 = new ImageView(Functions.getScene("mapIcon.png"));
@@ -167,31 +188,97 @@ public class DirectionsGame implements EventHandler {
                     b6Fade.play();
                 }
         );
+        b6Fade.setOnFinished(
+                event -> {
+                    button1.setOnAction(this);
+                    button2.setOnAction(this);
+                    button3.setOnAction(this);
+                    button4.setOnAction(this);
+                    button5.setOnAction(this);
+                    button6.setOnAction(this);
+                }
+        );
 
-        //flashing prompter---------------------------------------------------------------------------------------------
-        prompter = new Text(650,480,"Press any key to continue...");
-        prompter.setFill(Color.BLACK);
-        prompter.setFont(Font.font("Courier New", FontWeight.BOLD, 16));
-        prompter.setVisible(false);
+        //flashing lose prompter---------------------------------------------------------------------------------------------
+        losePrompter = new Text(650,480,"Press any key to continue...");
+        losePrompter.setFill(Color.WHITE);
+        losePrompter.setFont(Font.font("Courier New", FontWeight.BOLD, 16));
+        losePrompter.setVisible(false);
 
-        //prompter blink animation-------------------------------------------------------
-        prompterFade = new FadeTransition(Duration.seconds(1),prompter);
-        prompterFade.setFromValue(1);
-        prompterFade.setToValue(0);
-        prompterFade.setAutoReverse(true);
-        prompterFade.setCycleCount(Timeline.INDEFINITE);
+        //lose prompter blink animation-------------------------------------------------------
+        losePrompterFade = new FadeTransition(Duration.seconds(1), losePrompter);
+        losePrompterFade.setFromValue(1);
+        losePrompterFade.setToValue(0);
+        losePrompterFade.setAutoReverse(true);
+        losePrompterFade.setCycleCount(Timeline.INDEFINITE);
 
-        //adding buttons to the scene-----------------------------------------------------------------------------------
+        //flashing win prompter---------------------------------------------------------------------------------------------
+        winPrompter = new Text(650,480,"Press any key to continue...");
+        winPrompter.setFill(Color.WHITE);
+        winPrompter.setFont(Font.font("Courier New", FontWeight.BOLD, 16));
+
+        //win prompter blink animation---------------------------------------------------------------------------------------------
+
+        winPrompterFade = new FadeTransition(Duration.seconds(1), winPrompter);
+        winPrompterFade.setFromValue(1);
+        winPrompterFade.setToValue(0);
+        winPrompterFade.setAutoReverse(true);
+        winPrompterFade.setCycleCount(Timeline.INDEFINITE);
+        winPrompterFade.play();
+
+        //flashing start prompter---------------------------------------------------------------------------------------------
+        startPrompter = new Text(650,480,"Press any key to continue...");
+        startPrompter.setFill(Color.WHITE);
+        startPrompter.setFont(Font.font("Courier New", FontWeight.BOLD, 16));
+
+        //start prompter blink animation---------------------------------------------------------------------------------------------
+        startPrompterFade = new FadeTransition(Duration.seconds(1), startPrompter);
+        startPrompterFade.setFromValue(1);
+        startPrompterFade.setToValue(0);
+        startPrompterFade.setAutoReverse(true);
+        startPrompterFade.setCycleCount(Timeline.INDEFINITE);
+        startPrompterFade.play();
+
+        //adding nodes to the game scene-----------------------------------------------------------------------------------
         directionsGameG = new Group();
+        directionsGameG.getChildren().add(map);
         directionsGameG.getChildren().add(button2);
         directionsGameG.getChildren().add(button1);
         directionsGameG.getChildren().add(button5);
         directionsGameG.getChildren().add(button6);
         directionsGameG.getChildren().add(button4);
         directionsGameG.getChildren().add(button3);
-        directionsGameG.getChildren().add(prompter);
 
         directionsGameS = new Scene(directionsGameG, 960, 540);
+
+        //initialize win and lose scene--------------------------------------------------------------------------------
+        winIV = new ImageView(Functions.getScene("directionsGameWin.png"));
+        winIV.setFitWidth(960);
+        winIV.setPreserveRatio(true);
+        loseIV = new ImageView(Functions.getScene("directionsGameLose.png"));
+        loseIV.setFitWidth(960);
+        loseIV.setPreserveRatio(true);
+        startIV = new ImageView(Functions.getScene("directionsInstructions.png"));
+        startIV.setFitWidth(960);
+        startIV.setPreserveRatio(true);
+
+        winG = new Group();
+        winG.getChildren().add(winIV);
+        winS = new Scene(winG, 960, 540);
+
+        loseG = new Group();
+        loseG.getChildren().add(loseIV);
+        loseS = new Scene(loseG, 960, 540);
+
+        startG = new Group();
+        startG.getChildren().add(startIV);
+        startS = new Scene(startG, 960, 540);
+
+        //adding buttons to the end scene-----------------------------------------------------------------------------------
+        loseG.getChildren().add(losePrompter);
+        winG.getChildren().add(winPrompter);
+        startG.getChildren().add(startPrompter);
+
     }
 
     public void newGame(){
@@ -202,10 +289,23 @@ public class DirectionsGame implements EventHandler {
         this.setUpButton(button5);
         this.setUpButton(button6);
 
-        this.run();
+        stage.setScene(startS);
+        startS.setOnKeyPressed(
+                event -> {
+                    this.run();
+                }
+        );
     }
 
     public void run(){
+        stage.setScene(directionsGameS);
+        button1.setOnAction(null);
+        button2.setOnAction(null);
+        button3.setOnAction(null);
+        button4.setOnAction(null);
+        button5.setOnAction(null);
+        button6.setOnAction(null);
+
         orderCounter = 0;
         buttonTrue = true;
         b1Pressed = false;
@@ -220,7 +320,7 @@ public class DirectionsGame implements EventHandler {
         button4.setVisible(false);
         button5.setVisible(false);
         button6.setVisible(false);
-        prompter.setVisible(false);
+        losePrompter.setVisible(false);
 
         button1.setVisible(true);
         b1Fade.play();
@@ -233,8 +333,8 @@ public class DirectionsGame implements EventHandler {
         int randomY;
         boolean repeats;
         while(true) {
-            randomX = (int) (Math.random()*20);
-            randomY = (int) (Math.random()*11);
+            randomX = (int) (Math.random()*18);
+            randomY = (int) (Math.random()*9);
             repeats = false;
             //checks if the x - y combination repeat or not
             for (int usedX : usedXValues) {
@@ -258,23 +358,26 @@ public class DirectionsGame implements EventHandler {
         b.setMinHeight(30);
         b.setLayoutX(buttonX[randomX]);
         b.setLayoutY(buttonY[randomY]);
-        b.setOnAction(this);
     }
 
     private void handleResult(){
         if(buttonTrue){
             //what happens when the buttons are pressed in the correct order
             System.out.println("correct");
+            stage.setScene(winS);
             directionsGameS.setOnKeyPressed(
-                    event -> {}
+                    event -> {
+                        //proceed
+                    }
             );
 
         } else {
             //what happens when the buttons are pressed in the incorrect order
             System.out.println("incorrect");
-            prompter.setVisible(true);
-            prompterFade.play();
-            directionsGameS.setOnKeyPressed(
+            losePrompter.setVisible(true);
+            losePrompterFade.play();
+            stage.setScene(loseS);
+            loseS.setOnKeyPressed(
                     event-> {
                         this.run();
                     }
