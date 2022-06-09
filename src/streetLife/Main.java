@@ -53,8 +53,9 @@ public class Main extends Application {
 		stage.setResizable(false);
 		stage.setTitle("Street Life");
 		stage.show();
-		SplashScreen s = new SplashScreen(stage, new MainMenu(stage));
-		s.run();
+		Computer.start();
+//		SplashScreen s = new SplashScreen(stage, new MainMenu(stage));
+//		s.run();
 	}
 
 }

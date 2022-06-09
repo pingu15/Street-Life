@@ -146,7 +146,7 @@ public class Functions {
 	 * @throws IOException
 	 */
 	public static BackgroundImage getBg(String img) throws IOException {
-		InputStream in = new FileInputStream("scenes\\"+img+".png");
+		InputStream in = new FileInputStream("scenes\\"+img);
 		Image image = new Image(in, Main.WIDTH, Main.HEIGHT, true, true);
 		return new BackgroundImage(image,
                 BackgroundRepeat.NO_REPEAT,

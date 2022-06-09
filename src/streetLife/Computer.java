@@ -141,7 +141,7 @@ public class Computer {
 	 */
 	private static void handleKey(KeyEvent event) throws IOException {
 		if(event.getSource() == input) {
-			if(index == 7) {
+			if(index == CHOICES-1) {
 				index = CHOICES;
 				EscapeRoom.start();
 				return;
@@ -236,7 +236,7 @@ public class Computer {
 	 */
 	private static void handleCommand() throws IOException {
 		String s = settled.getText();
-		String v = input.getText();
+		String v = input.getText().trim();
 		s += v + "\n";
 		if(v.equals("--help")) {
 			s += helpCommands;
@@ -245,6 +245,7 @@ public class Computer {
 		}
 		if(v.equals("exit")) {
 			EscapeRoom.open();
+			return;
 		}
 		if(v.equals("dir")) {
 			s += getFiles();
@@ -262,7 +263,7 @@ public class Computer {
 				boolean flag = false;
 				f = f.substring(0, f.indexOf(".zip"));
 				for(ComputerFile sub : cur.subFiles) {
-					if(sub.name.equals(f)) {
+					if(sub.name.equals(f) && !sub.unzipped) {
 						sub.unzipped = true;
 						flag = true;
 					}
@@ -279,6 +280,15 @@ public class Computer {
 		if(v.split(" ")[0].equals("cd")) {
 			String f = v.split(" ")[1];
 			boolean flag = false;
+			if(f.equals("..")) {
+				if(cur.par != null) {
+					cur = cur.par;
+				} else {
+					s += "cd: parent directory does not exist\n";
+				}
+				update(s);
+				return;
+			}
 			for(ComputerFile sub : cur.subFiles) {
 				if(sub.name.equals(f) && sub.isFolder && sub.unzipped) {
 					cur = sub;
@@ -299,7 +309,11 @@ public class Computer {
 					flag = true;
 					Group g = new Group();
 					Functions.openComputerImage(g, sub.getRelativePath(), 0, 0, Main.WIDTH, Main.HEIGHT);
-					Functions.setButton(g, Main.WIDTH/2-50, Main.HEIGHT-50, 100, 30, "Back", "backbuttonvisible");
+					if(f.equals("bankaccount.png")) {
+						Functions.setButton(g, 72, 433, 200, 72, "Back", "backbutton");
+					} else {
+						Functions.setButton(g, Main.WIDTH/2-50, Main.HEIGHT-50, 100, 30, "Back", "backbuttonvisible");
+					}
 					Scene sc = new Scene(g, Main.WIDTH, Main.HEIGHT);
 					Functions.setScene(sc, Color.BLACK);
 				}
@@ -308,8 +322,10 @@ public class Computer {
 			input = new TextArea();
 			if(!flag) {
 				s += "open: \'" + v.split(" ")[1] + "\' is not a valid file.\n";
+				display();
+			} else {
+				handle();
 			}
-			handle();
 			return;
 		}
 	}
