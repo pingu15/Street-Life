@@ -147,8 +147,8 @@ public class MainMenu implements EventHandler {
         creditsBackIcon.setPreserveRatio(true);
         creditsBackB = new Button("", creditsBackIcon);
         creditsBackB.setOnAction(this);
-        creditsBackB.setLayoutX(50);
-        creditsBackB.setLayoutY(50);
+        creditsBackB.setLayoutX(790);
+        creditsBackB.setLayoutY(475);
 
         creditsG = new Group();
         creditsG.getChildren().add(creditsIV);
@@ -166,8 +166,8 @@ public class MainMenu implements EventHandler {
         aboutBackIcon.setPreserveRatio(true);
         aboutBackB = new Button("", aboutBackIcon);
         aboutBackB.setOnAction(this);
-        aboutBackB.setLayoutX(50);
-        aboutBackB.setLayoutY(50);
+        aboutBackB.setLayoutX(790);
+        aboutBackB.setLayoutY(475);
 
         aboutG = new Group();
         aboutG.getChildren().add(aboutIV);
@@ -199,8 +199,8 @@ public class MainMenu implements EventHandler {
         insBackIcon.setPreserveRatio(true);
         insBackB = new Button("", insBackIcon);
         insBackB.setOnAction(this);
-        insBackB.setLayoutX(50);
-        insBackB.setLayoutY(50);
+        insBackB.setLayoutX(790);
+        insBackB.setLayoutY(475);
         instructionsG = new Group();
         instructionsG.getChildren().add(instructionsIV);
         instructionsG.getChildren().add(prompter);
