@@ -19,7 +19,7 @@ public class Reader extends BufferedReader {
 	}
 	
 	public int readInt() throws IOException {
-		return Integer.parseInt(readLine());
+		return Integer.parseInt(this.readLine());
 	}
 
 }

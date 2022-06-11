@@ -1,0 +1,35 @@
+8
+1 2
+2 3
+3 4
+2 5
+5 6
+5 7
+1 8
+8 3
+8 5
+
+1
+Do you have any tips on making a resume?
+I could give you some pointers. Do you want to focus on the resume or the jobs you're applying for?
+2
+The jobs.
+Okay. You might've experienced this already, but there definitely aren't many jobs for teenagers like you. If anything, I suggest that you try to finish school and get a diploma. Are you planning to?
+3
+Yes.
+Ok. I'm glad you're thinking about your future. It's best to keep your options open, even when you're facing such a rough time.
+4
+Thank you for the list.
+I'll let you know how it goes.
+5
+No, I don't see the point.
+Hmmm. For now, it might not affect you, but it will definitely limit your options in the future. I'm going to suggest against that, but again, it's about your current situation.
+6
+I suppose so.
+Good luck.
+7
+I don't think I'm able to. Thank you, though.
+No problem, good luck.
+8
+The resume.
+Sure! If you follow me, I can get that done in under half an hour. Along with this resume though, I still strongly suggest thinking of finishing your degree. Would you be interested in that?

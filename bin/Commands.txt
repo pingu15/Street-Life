@@ -1,0 +1,6 @@
+'dir': view contents of directory
+'unzip <file>': unzip a zipped file
+'open <file>': open a file
+'cd <folder>': moves to a sub folder
+'cd ..': moves to parent folder
+'exit' closes the computer

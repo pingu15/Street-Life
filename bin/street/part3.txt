@@ -1,0 +1,28 @@
+6
+1 2
+2 3
+3 4
+3 5
+5 6
+
+1
+Hi, how are you?
+Hi there. I have something to tell you.
+2
+What is it?
+One of my employees are leaving, and there's a new job opening.
+3
+Can I apply for the position?
+That's what I came to talk about. I've gotten a few good applicants that also want a longer term job, and you haven't even submitted a resume yet.
+4
+I can get the resume done.
+If so, I'll take a look. Since I don't think you have much to work with, I suggest going to the library. Come back when you have it done.
+5
+Oh, I have my resume already. Here.
+Your resume looks good. You've had a bit of experience helping out already, so I'd be happy to hire you after a short interview. How does that sound?
+6
+On second thought, I don't know if I want to go into this full-time. I have school as well.
+It's your decision. I'm leaving it open to anybody else, so maybe I'll see you again soon.
+7
+Great! Thank you so much.
+Welcome to the business.

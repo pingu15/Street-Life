@@ -1,0 +1,19 @@
+4
+1 2
+2 3
+1 4
+4 3
+
+1
+Hi there! It's good to see you again.
+Hey, I actually found a new opportunity for housing youth around here. Are you interested?
+2
+Absolutely!
+Nice, I'll see if I can register on your behalf.
+3
+Thank you so much.
+No problem!
+4
+Maybe I'll skip on this opportunity.
+Oh, okay. I'll let yo know about any future
+opportunities.
