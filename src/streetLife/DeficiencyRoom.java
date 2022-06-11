@@ -3,6 +3,8 @@
  * Time spent: 6 hours
  *
  * @author Zoe Fan-Chiang
+ * @author Max Sun
+ * @author Derek Ma
  * @version 3.0
  * @since 2022-06-10
  */
