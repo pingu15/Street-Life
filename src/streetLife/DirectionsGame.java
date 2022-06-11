@@ -427,6 +427,10 @@ public class DirectionsGame implements EventHandler {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
+                    });
+            directionsGameS.setOnKeyPressed(
+                    event -> {
+                        //proceed
                     }
             );
 

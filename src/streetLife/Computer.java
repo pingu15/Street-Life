@@ -1,3 +1,13 @@
+/**
+ * MAX DO THISSS
+ *
+ * @author Max Sun
+ * @author Zoe Fan-Chiang
+ * @author Derek Ma
+ * @version 3.0
+ * @since 2022-05-24
+ */
+
 package streetLife;
 
 import java.io.File;

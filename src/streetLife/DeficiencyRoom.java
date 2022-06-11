@@ -1,11 +1,17 @@
 /**
- * class running the deficinecy room
+ * Class that runs the first level, otherwise known as the Deficiency Room. In this level, the user will learn about youth homelessness through interactive screens.
+ * Time spent: 6 hours
+ *
+ * @author Zoe Fan-Chiang
+ * @author Max Sun
+ * @author Derek Ma
+ * @version 3.0
+ * @since 2022-05-29
  */
 
 package streetLife;
 
 import java.io.IOException;
-
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -17,33 +23,46 @@ import javafx.stage.Stage;
 import javafx.scene.input.*;
 
 public class DeficiencyRoom implements EventHandler<ActionEvent> {
+    /**
+     * stage variable where all the scenes appear on
+     */
     Stage stage;
 
-    //scene 1 variables
+    /**
+     * variables for the first scene including imageView, pane, group, and scene
+     */
     private ImageView screen1 = new ImageView();
     private Pane pane1 = new Pane();
     private Group root1 = new Group();
     private Scene scene1 = new Scene(root1, 960, 540);
 
-    //scene 2 variables
+    /**
+     * variables for the second scene including imageView, pane, group, and scene
+     */
     private ImageView screen2 = new ImageView();
     private Pane pane2 = new Pane();
     private Group root2 = new Group();
     private Scene scene2 = new Scene(root2, 960, 540);
 
-    //scene 3 variables
+    /**
+     * variables for the third scene including imageView, pane, group, and scene
+     */
     private ImageView screen3 = new ImageView();
     private Pane pane3 = new Pane();
     private Group root3 = new Group();
     private Scene scene3 = new Scene(root3, 960, 540);
 
-    //scene 4 variables
+    /**
+     * variables for the fourth scene including imageView, pane, group, and scene
+     */
     private ImageView screen4 = new ImageView();
     private Pane pane4 = new Pane();
     private Group root4 = new Group();
     private Scene scene4 = new Scene(root4, 960, 540);
 
-    //scene 4 popup variables
+    /**
+     * variables for the fourth scene pop ups (technically just new scenes) including multiple imageView, pane, group, and scene
+     */
     private ImageView screen4a = new ImageView();
     private Pane pane4a = new Pane();
     private Group root4a = new Group();
@@ -83,13 +102,17 @@ public class DeficiencyRoom implements EventHandler<ActionEvent> {
     private Group root4h = new Group();
     private Scene scene4h = new Scene(root4h, 960, 540);
 
-    //screen 5 variables
+    /**
+     * variables for the fifth scene including imageView, pane, group, and scene
+     */
     private ImageView screen5 = new ImageView();
     private Pane pane5 = new Pane();
     private Group root5 = new Group();
     private Scene scene5 = new Scene(root5, 960, 540);
 
-    //scene 5 pop up variables
+    /**
+     * variables for the fifth scene pop ups (once again, just new scenes) including imageView, pane, group, and scene
+     */
     private ImageView screen5a = new ImageView();
     private Pane pane5a = new Pane();
     private Group root5a = new Group();
@@ -126,15 +149,20 @@ public class DeficiencyRoom implements EventHandler<ActionEvent> {
     private Scene scene6 = new Scene(root6, 960, 540);
 
     /**
-     * constructor
-     * @param s stage which room should run on
+     * Deficiency Room constructor
+     * @param s stage which the room should run on
      */
     public DeficiencyRoom(Stage s){
         stage = s;
     }
 
+    /**
+     * Declaring and setting all the scenes
+     * @throws IOException
+     */
     public void setScenes() throws IOException {
-    	Image image1 = Functions.getDefImg("deficiency 1.png");
+    	//scene 1
+        Image image1 = Functions.getDefImg("deficiency 1.png");
         screen1.setImage(image1);
         screen1.setFitWidth(960);
         screen1.setPreserveRatio(true);
@@ -284,7 +312,7 @@ public class DeficiencyRoom implements EventHandler<ActionEvent> {
     }
     
     /**
-     * setting up each scene and running the first scene
+     * Running the first scene and starting the Room
      * @throws IOException 
      */
     public void start() throws IOException{
@@ -298,6 +326,9 @@ public class DeficiencyRoom implements EventHandler<ActionEvent> {
 
     }
 
+    /**
+     * Method that deals with key press input on first screen to second screen
+     */
     public void inputS1(){
         scene1.setOnKeyPressed((KeyEvent e) -> {
             if(e.getCode() == KeyCode.SPACE){
@@ -308,7 +339,7 @@ public class DeficiencyRoom implements EventHandler<ActionEvent> {
     }
 
     /**
-     * method to deal with input on screen 2 which calls screen 3
+     * Method that deals with key press input on second screen to third screen
      */
     public void inputS2(){
         scene2.setOnKeyPressed((KeyEvent e) -> {
@@ -320,7 +351,7 @@ public class DeficiencyRoom implements EventHandler<ActionEvent> {
     }
 
     /**
-     * method to deal with input on screen 3 which calls screen 4
+     * Method that deals with mouse click input on third screen to fourth screen
      */
        public void inputS3(){
         scene3.setOnMouseClicked((MouseEvent e) -> {
@@ -332,7 +363,7 @@ public class DeficiencyRoom implements EventHandler<ActionEvent> {
     }
 
     /**
-     * method to deal with input on screen 4 which calls pop up screens
+     * Method that deals with mouse click input on fourth screen to corresponding pop ups
      */
     public void inputS4(){
         scene4.setOnMouseClicked((MouseEvent e) -> {
@@ -371,13 +402,13 @@ public class DeficiencyRoom implements EventHandler<ActionEvent> {
             if(e.getX() > 790 && e.getX() < 905 && e.getY() > 255 && e.getY() < 280){
                 stage.setScene(scene5);
                 inputS5();
-            }
+            } //click to next screen
         });
     }
 
     /**
-     * method for the input on pop up screens which calls back to screen 4
-     * @param s
+     * Method that deals with key press input on fourth screen pop ups and brings back to fourth screen
+     * @param s scene of the pop up currently displayed
      */
     public void inputPopUpS4(Scene s){
         s.setOnKeyPressed((KeyEvent e) -> {
@@ -388,6 +419,9 @@ public class DeficiencyRoom implements EventHandler<ActionEvent> {
         });
     }
 
+    /**
+     * Method that deals with mouse click input on fifth screen to the corresponding pop ups
+     */
     public void inputS5(){
         scene5.setOnMouseClicked((MouseEvent e) -> {
             if(e.getX() > 142 && e.getX() < 167 && e.getY() > 435 && e.getY() < 460){
@@ -417,10 +451,14 @@ public class DeficiencyRoom implements EventHandler<ActionEvent> {
             if(e.getX() > 790 && e.getX() < 905 && e.getY() > 310 && e.getY() < 335){
                 stage.setScene(scene6);
                 inputS6();
-            }
+            } //continue to next screen
         });
     }
 
+    /**
+     * Method that deals with key press input back to fifth screen
+     * @param s scene of the pop up currently displayed
+     */
     public void inputPopUpS5(Scene s){
         s.setOnKeyPressed((KeyEvent e) -> {
             if(e.getCode() == KeyCode.SPACE){
@@ -430,6 +468,9 @@ public class DeficiencyRoom implements EventHandler<ActionEvent> {
         });
     }
 
+    /**
+     * Method to deal with key press from sixth to panic room start screen
+     */
     public void inputS6(){
         scene6.setOnKeyPressed((KeyEvent e) -> {
             if(e.getCode() == KeyCode.SPACE){
