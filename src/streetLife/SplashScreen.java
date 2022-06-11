@@ -1,3 +1,13 @@
+/**
+ * The Splash Screen displays the logo and an animation before the game is loaded into the main menu.
+ *
+ * @author Max Sun
+ * @author Zoe Fan-Chiang
+ * @author Derek Ma
+ * @version 1.0
+ * @since 2022-05-20
+ */
+
 package streetLife;
 
 import java.io.IOException;
@@ -17,28 +27,34 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class SplashScreen {
+    //stage declaration
     private Stage stage;
     private MainMenu mainMenu;
 
+    //regular street scene declaration
     private ImageView regularIV;
     private Group regularG;
     private Scene regularS;
 
+    //flicker street scene declaration
     private ImageView flickerIV;
     private Text prompter;
     private Group flickerG;
     private Scene flickerS;
 
+    //logo display scene declaration
     private Image logo;
     private ImageView logoIV;
     private Group logoG;
     private Scene logoS;
 
+    //fade transitions declaration
     private FadeTransition logoFade;
     private FadeTransition prompterFade;
     private Timeline flicker;
     private Timeline pause;
 
+    // font declaration and initializations
     Font titleFont = Font.font("Courier New", FontWeight.BOLD, 24);
     Font prompterFont = Font.font("Courier New", FontWeight.BOLD, 16);
 
@@ -110,7 +126,13 @@ public class SplashScreen {
         prompterFade.setAutoReverse(true);
         prompterFade.setCycleCount(Timeline.INDEFINITE);
 
-        //control specifications---------------------------------------------------------
+        /**
+         * control specifications---------------------------------------------------------
+         * 1. logoFade: fade in the logo
+         * 2. flicker: animate the flicker scene
+         * 3. pause: pause for 2 seconds
+         * 4. prompterFade: blink the prompter and wait for the user to press a key
+        */
         logoFade.setOnFinished(finish -> {
                     flicker.play();
                 }
@@ -128,8 +150,8 @@ public class SplashScreen {
                     });
                 }
         );
+        //starts the animations
         stage.setScene(logoS);
         logoFade.play();
-
     }
 }
