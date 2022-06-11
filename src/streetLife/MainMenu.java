@@ -173,6 +173,12 @@ public class MainMenu implements EventHandler {
         insBackB.setLayoutX(790);
         insBackB.setLayoutY(475);
 
+        //exit back button init
+        prompter = new Text(105,190,"Press any key to continue...");
+        prompter.setFill(Color.WHITE);
+        prompter.setFont(prompterFont);
+        prompter.setVisible(false);
+
         //adds all buttons to the instructions group as well as the background image
         instructionsG = new Group();
         instructionsG.getChildren().add(instructionsIV);
@@ -236,12 +242,6 @@ public class MainMenu implements EventHandler {
         exitIV = new ImageView(exitI);
         exitIV.setFitWidth(960);
         exitIV.setFitHeight(540);
-
-            //exit back button init
-        prompter = new Text(105,190,"Press any key to continue...");
-        prompter.setFill(Color.WHITE);
-        prompter.setFont(prompterFont);
-        prompter.setVisible(false);
 
             //prompter animation
         prompterFade = new FadeTransition(Duration.seconds(1),prompter);
