@@ -5,8 +5,8 @@
  * @author Max Sun
  * @author Zoe Fan-Chiang
  * @author Derek Ma
- * @version 3.0
- * @since 2022-06-10
+ * @version 2.0
+ * @since 2022-05-30
  */
 
 package streetLife;
@@ -29,7 +29,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-@SuppressWarnings("rawtypes")
 public class MainMenu implements EventHandler {
     //button declaration
     private ImageView startIcon;
@@ -83,7 +82,16 @@ public class MainMenu implements EventHandler {
     
     DeficiencyRoom d;
 
-    //class constructor
+    /**
+     * Class constructor
+     * initializes a main menu object
+     *
+     * @author Derek Ma
+     * @version 1.0
+     * @since 2022-05-25
+     * @param stage the stage that all the scenes are set on
+     * @throws IOException
+     */
     @SuppressWarnings("unchecked")
 	public MainMenu(Stage stage) throws IOException{
         //stage init------------------------------------------------------------------
@@ -173,16 +181,9 @@ public class MainMenu implements EventHandler {
         insBackB.setLayoutX(790);
         insBackB.setLayoutY(475);
 
-        //exit back button init
-        prompter = new Text(105,190,"Press any key to continue...");
-        prompter.setFill(Color.WHITE);
-        prompter.setFont(prompterFont);
-        prompter.setVisible(false);
-
         //adds all buttons to the instructions group as well as the background image
         instructionsG = new Group();
         instructionsG.getChildren().add(instructionsIV);
-        instructionsG.getChildren().add(prompter);
         instructionsG.getChildren().add(insBackB);
 
         instructionsS = new Scene(instructionsG, 960, 540);
@@ -243,6 +244,12 @@ public class MainMenu implements EventHandler {
         exitIV.setFitWidth(960);
         exitIV.setFitHeight(540);
 
+            //exit back button init
+        prompter = new Text(105,190,"Press any key to continue...");
+        prompter.setFill(Color.WHITE);
+        prompter.setFont(prompterFont);
+        prompter.setVisible(false);
+
             //prompter animation
         prompterFade = new FadeTransition(Duration.seconds(1),prompter);
         prompterFade.setFromValue(1);
@@ -258,13 +265,31 @@ public class MainMenu implements EventHandler {
         exitS.getStylesheets().add("style.css");
     }
 
-    //runs all Menu Items-------------------------------------------------------
+    /**
+     * Sets the stage to the main menu scene
+     *
+     * @author Derek Ma
+     * @version 1.0
+     * @since 2022-05-27
+     */
     public void run(){
         stage.setScene(menuS);
     }
 
-
-    //handle method which handles all button clicks------------------------------------
+    /**
+     * handles all button events
+     * if any screen's back button is pressed, the scene switches back to the main menu
+     * if the start button is pressed the deficiency room is called
+     * if the instructions button is pressed the instruction page is brought up
+     * if the about button is pressed the about page is brought up
+     * if the credits button is pressed the credit page is brought up
+     * if the exit button is pressed the game exits
+     *
+     * @author Derek Ma
+     * @version 3.0
+     * @since 2022-05-30
+     * @param event the button press event to handle
+     */
     @Override
     public void handle(Event event) {
 

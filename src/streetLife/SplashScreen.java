@@ -5,7 +5,7 @@
  * @author Zoe Fan-Chiang
  * @author Derek Ma
  * @version 1.0
- * @since 2022-05-20
+ * @since 2022-05-30
  */
 
 package streetLife;
@@ -58,6 +58,14 @@ public class SplashScreen {
     Font titleFont = Font.font("Courier New", FontWeight.BOLD, 24);
     Font prompterFont = Font.font("Courier New", FontWeight.BOLD, 16);
 
+    /**
+     * animation of the splash screen
+     * displays the company logo in a fade transition
+     *
+     * @author Derek Ma
+     * @version 2.0
+     * @since 2022-05-30
+     */
     public SplashScreen(Stage stage, MainMenu mainMenu) throws IOException{
         //stage init
         this.stage = stage;
@@ -97,6 +105,14 @@ public class SplashScreen {
 
     }
 
+    /**
+     * declares, initializes, and runs the animations in order for the splash screen
+     *
+     * @author Derek Ma
+     * @version 3.0
+     * @since 2022-05-25
+     * @throws InterruptedException
+     */
     public void run() throws InterruptedException {
         //timeline declaration to animate the splash screen
 
@@ -126,8 +142,8 @@ public class SplashScreen {
         prompterFade.setAutoReverse(true);
         prompterFade.setCycleCount(Timeline.INDEFINITE);
 
-        /**
-         * control specifications---------------------------------------------------------
+        /*
+         * control specifications:
          * 1. logoFade: fade in the logo
          * 2. flicker: animate the flicker scene
          * 3. pause: pause for 2 seconds

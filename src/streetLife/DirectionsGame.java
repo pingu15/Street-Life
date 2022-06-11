@@ -1,3 +1,13 @@
+/**
+ * The DirectionsGame is a minigame found in the EscapeRoom, which would be run in intervals.
+ *
+ * @author Max Sun
+ * @author Zoe Fan-Chiang
+ * @author Derek Ma
+ * @version 1.0
+ * @since 2022-05-30
+ */
+
 package streetLife;
 
 import javafx.animation.FadeTransition;
@@ -83,6 +93,14 @@ public class DirectionsGame implements EventHandler {
 
     Stage stage;
 
+    /**
+     * initializes a new Directions minigame with a new set of buttons
+     *
+     * @author Derek Ma
+     * @version 2.0
+     * @since 2022-05-30
+     * @param stage the stage that everything is put on
+     */
     public DirectionsGame(Stage stage) throws IOException {
         //stage and utility variables init------------------------------------------------------------------------------
         this.stage = stage;
@@ -281,6 +299,13 @@ public class DirectionsGame implements EventHandler {
 
     }
 
+    /**
+     * initializes a new Directions minigame with a new set of buttons
+     *
+     * @author Derek Ma
+     * @version 3.0
+     * @since 2022-06-03
+     */
     public void newGame(){
         this.setUpButton(button1);
         this.setUpButton(button2);
@@ -297,6 +322,16 @@ public class DirectionsGame implements EventHandler {
         );
     }
 
+    /**
+     * runs the directions minigame
+     * resets all variables and states to their starting value
+     * resets the buttons and restarts the game
+     * called in newGame and handleResult
+     *
+     * @author Derek Ma
+     * @version 4.0
+     * @since 2022-06-01
+     */
     public void run(){
         stage.setScene(directionsGameS);
         button1.setOnAction(null);
@@ -328,6 +363,16 @@ public class DirectionsGame implements EventHandler {
         stage.setScene(directionsGameS);
     }
 
+    /**
+     * helper method to set up buttons
+     * includes randomly positioning the button
+     * sets the size of the button
+     *
+     * @author Derek Ma
+     * @version 1.0
+     * @since 2022-06-01
+     * @param b the button passed to be set up
+     */
     private void setUpButton(Button b){
         int randomX;
         int randomY;
@@ -360,6 +405,15 @@ public class DirectionsGame implements EventHandler {
         b.setLayoutY(buttonY[randomY]);
     }
 
+    /**
+     * handles the result of each round of the game
+     * if the win condition is met, the game is won
+     * if the win condition is not met, the game is lost
+     *
+     * @author Derek Ma
+     * @version 1.0
+     * @since 2022-06-08
+     */
     private void handleResult(){
         if(buttonTrue){
             //what happens when the buttons are pressed in the correct order
@@ -385,12 +439,22 @@ public class DirectionsGame implements EventHandler {
         }
     }
 
+
+    /**
+     * handles all button events
+     * handles whether the button's order pressed is correct to meet the win condition
+     * makes each button disappear upon being pressed
+     *
+     * @author Derek Ma
+     * @version 3.0
+     * @since 2022-06-06
+     * @param event the button press event to handle
+     */
     @Override
     public void handle(Event event) {
         if(event.getSource() == button1){
             b1Pressed = true;
             orderCounter++;
-            System.out.println("button 1 works");
             if(orderCounter != 1){
                 buttonTrue = false;
             }
@@ -403,7 +467,6 @@ public class DirectionsGame implements EventHandler {
         if(event.getSource() == button2){
             b2Pressed = true;
             orderCounter++;
-            System.out.println("button 2 works");
             if(orderCounter != 2){
                 buttonTrue = false;
             }
@@ -416,7 +479,6 @@ public class DirectionsGame implements EventHandler {
         if(event.getSource() == button3){
             b3Pressed = true;
             orderCounter++;
-            System.out.println("button 3 works");
             if(orderCounter != 3){
                 buttonTrue = false;
             }
@@ -429,7 +491,6 @@ public class DirectionsGame implements EventHandler {
         if(event.getSource() == button4){
             b4Pressed = true;
             orderCounter++;
-            System.out.println("button 4 works");
             if(orderCounter != 4){
                 buttonTrue = false;
             }
@@ -442,7 +503,6 @@ public class DirectionsGame implements EventHandler {
         if(event.getSource() == button5){
             b5Pressed = true;
             orderCounter++;
-            System.out.println("button 5 works");
             if(orderCounter != 5){
                 buttonTrue = false;
             }
@@ -455,7 +515,6 @@ public class DirectionsGame implements EventHandler {
         if(event.getSource() == button6){
             b6Pressed = true;
             orderCounter++;
-            System.out.println("button 6 works");
             if(orderCounter != 6){
                 buttonTrue = false;
             }
