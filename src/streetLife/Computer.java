@@ -26,7 +26,7 @@ public class Computer {
 	/**
 	 * number of choice prompts
 	 */
-	final static int CHOICES = 8;
+	final static int CHOICES = 13;
 	
 	/**
 	 * name of user
@@ -76,7 +76,7 @@ public class Computer {
 	/**
 	 * whether or not user has read message
 	 */
-	static boolean readMom, readBoss;
+	static boolean readBoss;
 	
 	/**
 	 * commands for computer
@@ -147,13 +147,10 @@ public class Computer {
 	 */
 	private static void handleKey(KeyEvent event) throws IOException {
 		if(event.getSource() == input) {
-			if(index == CHOICES-1) {
+			if(index == 9 || index == 10 || index == 12) {
 				index = CHOICES;
+				cur = cur.par;
 				EscapeRoom.start();
-				return;
-			}
-			if(index >= 3 && index <= 6) {
-				handleChoice();
 				return;
 			}
 			if(event.getCode() == KeyCode.ENTER) {
@@ -176,6 +173,11 @@ public class Computer {
 	private static void handleMouse(MouseEvent event) throws IOException {
 		if(index == 1) {
 			index = 2;
+			display();
+			return;
+		}
+		if(index == 7) {
+			index = 8;
 			display();
 			return;
 		}
@@ -328,6 +330,7 @@ public class Computer {
 			input = new TextArea();
 			if(!flag) {
 				s += "open: \'" + v.split(" ")[1] + "\' is not a valid file.\n";
+				settled.setText(s);
 				display();
 			} else {
 				handle();
@@ -395,13 +398,12 @@ public class Computer {
 		}
 		if(index == 2) {
 			if(v.equalsIgnoreCase("y")) {
-				readMom = true;
+				readBoss = true;
 				index = 3;
 				update(s);
 				return;
 			}
 			if(v.equalsIgnoreCase("n")) {
-				readBoss = true;
 				index = 4;
 				update(s);
 				return;
@@ -410,30 +412,140 @@ public class Computer {
 			update(s);
 			return;
 		}
-		if(index == 3) {
-			if(!readBoss) {
-				readBoss = true;
-				index = 6;
-				update(s);
-				return;
+		if(index == 3 || index == 4) {
+			boolean flag = false;
+			if(v.split(" ").length == 1) {
+				s += "\'" + v + "\' is not a recognized command.\n";
+			} else if(v.split(" ")[0].equals("unzip")) {
+				if(v.split(" ")[1].equals("envelope.zip")) {
+					flag = true;
+				} else {
+					s += "unzip: \'" + v.split(" ")[1] + "\' is not a valid file.\n";
+				}
+			} else {
+				s += "\'" + v.split(" ")[0] + "\' " + Functions.getError("command") + "\n";
 			}
-			index = 7;
-			update(s);
-			return;
-		}
-		if(index == 4) {
-			if(!readMom) {
-				readMom = true;
+			if(flag) {
+				for(ComputerFile sub : cur.subFiles) {
+					if(sub.name.equals("envelope")) {
+						sub.unzipped = true;
+					}
+				}
+				s += "\nenvelope.zip unzipped to " + cur.pathName + "\\" + "envelope.\n\n";
 				index = 5;
-				update(s);
-				return;
 			}
-			index = 7;
+			settled.setText(s);
 			update(s);
 			return;
 		}
-		if(index == 5 || index == 6) {
-			index = 7;
+		if(index == 5) {
+			boolean flag = false;
+			if(v.split(" ").length == 1) {
+				s += "\'" + v + "\' is not a recognized command.\n";
+			} else if(v.split(" ")[0].equals("cd")) {
+				if(v.split(" ")[1].equals("envelope")) {
+					flag = true;
+				} else {
+					s += "cd: \'" + v.split(" ")[1] + "\' is not a valid directory.\n";
+				}
+			} else {
+				s += "\'" + v.split(" ")[0] + "\' " + Functions.getError("command") + "\n";
+			}
+			if(flag) {
+				for(ComputerFile sub : cur.subFiles) {
+					if(sub.name.equals("envelope")) {
+						cur = sub;
+					}
+				}
+				index = 6;
+			}
+			update(s);
+			return;
+		}
+		if(index == 6) {
+			if(v.equals("dir")) {
+				s += getFiles();
+				index = 7;
+				update(s);
+				return;
+			}
+			s += v + Functions.getError("command") + "\n";
+			update(s);
+			return;
+		}
+		if(index == 7) {
+			if(v.split(" ")[0].equals("open") && v.split(" ").length > 1) {
+				boolean flag = false;
+				String f = v.split(" ")[1];
+				for(ComputerFile sub : cur.subFiles) {
+					if(sub.name.equals(f)) {
+						flag = true;
+						Group g = new Group();
+						Functions.openComputerImage(g, sub.getRelativePath(), 0, 0, Main.WIDTH, Main.HEIGHT);
+						if(f.equals("bankaccount.png")) {
+							Functions.setButton(g, 72, 433, 200, 72, "Back", "backbutton");
+						} else {
+							Functions.setButton(g, Main.WIDTH/2-50, Main.HEIGHT-50, 100, 30, "Back", "backbuttonvisible");
+						}
+						Scene sc = new Scene(g, Main.WIDTH, Main.HEIGHT);
+						Functions.setScene(sc, Color.BLACK);
+					}
+				}
+				settled.setText(s);
+				input = new TextArea();
+				if(!flag) {
+					s += "open: \'" + v.split(" ")[1] + "\' is not a valid file.\n";
+					settled.setText(s);
+					display();
+					handle();
+				} else {
+					handle();
+				}
+				return;
+			}
+			s += v + Functions.getError("command") + "\n";
+			update(s);
+			return;
+		}
+		if(index == 8) {
+			if(readBoss) {
+				if(v.equalsIgnoreCase("y")) {
+					index = 9;
+					update(s);
+					return;
+				}
+				if(v.equalsIgnoreCase("n")) {
+					index = 10;
+					update(s);
+					return;
+				}
+				s += "enter y or n.\n";
+				update(s);
+				return;
+			} else {
+				if(v.equalsIgnoreCase("y")) {
+					readBoss = true;
+					index = 11;
+					update(s);
+					return;
+				}
+				if(v.equalsIgnoreCase("n")) {
+					index = 12;
+					update(s);
+					return;
+				}
+				s += "enter y or n.\n";
+				update(s);
+				return;
+			}
+		}
+		if(index == 11) {
+			if(v.equals("open messages.exe")) {
+				index = 12;
+				update(s);
+				return;
+			}
+			s += v + Functions.getError("command") + "\n";
 			update(s);
 			return;
 		}
@@ -449,7 +561,7 @@ public class Computer {
 		choice = new String[CHOICES];
 		Arrays.fill(choice, "");
 		for(int c = 0; c < CHOICES; c++) {
-			int lines = r.readInt();
+			int lines = Integer.parseInt(r.readLine().split(" ")[0]);
 			for(int i = 0; i < lines; i++) {
 				choice[c] += r.readLine() + "\n";
 			}

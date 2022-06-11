@@ -1,53 +1,65 @@
-4
+4 - 0
 Microsoft Doors [Version 10.0.69000.420]
 (c) Microsoft Corporation. All rights reserved.
 
 C:\Windows\system32> What's your name?
-1
+1 - 1
 It's 10pm and you find yourself leaving a friend's 17th birthday party. "Such a child" you think to yourself. You had already turned 17 a week ago. While you may have just lost $124 betting on sports games with them, it was fun. You're sure you will make it back tomorrow. You check your bank account on the way home... wait this can't be right. (Type 'open bankaccount.png' to view your bank info)
-3
+3 - 2
 What!? You remembered having around a thousand dollars in your bank account after saving up through your part-time job! Who could've taken it...the only other people with access to your account are your parents... No way... You hurry home.
 
-By the time you get home, it's midnight. You knock on your front door, to no avail. However, you spot an envelope taped to the door. First, you turn on your phone to see a plethora of unchecked messages. Do you want to check your messages first? (y/n)
-6
+By the time you get home, it's midnight. You knock on your front door, to no avail. However, you spot an envelope taped to the door. Before you open it, your phone buzzes and you see a plethora of unchecked messages. Do you want to check your messages first? (y/n)
+6 - 3
 Not much there, it looks like a bunch of spam. Nothing from your parents. Whatever. What else have we got here... wait. Ayo ayo ayo holdup.
 
 Annie Chen (Boss): "Hi, we were notified by an anonymous source that you have been uncooperative and ignorant towards your fellow employees. As this goes against our company policy, you are fired from your part-time position at our company. L"
 
 Wait. You were uncooperative? They were the ones calling you poor and making fun of you... but you're the one fired? No. This can't be... now you have no money in your bank account, no job, and your parents... well, they aren't much support. Never have been.
 Ever since you were young, you were neglected and labeled as a mistake... and they probably took your money too. You remember the envelope taped to the door which you found earlier, and you rush to open it. (Type unzip envelope.zip to open it).
-1
-Then might as well go open the envelope taped to the door. (Type unzip envelope.zip to open it).
-1
+1 - 4
+You go open the envelope taped to the door. (Type unzip envelope.zip to open it).
+1 - 5
 Enter 'cd envelope' to move to envelope folder
-1
+1 - 6
 Enter 'dir' to view contents of directory
-1
+1 - 7
 Enter 'open <file name>' to open a file
-1
+1 - 8
 "What the FRIDGE" you think to yourself. They can't even say that to your face!? Well, what did you expect. At least they left a bit of cash. But... shoot! Now you have nowhere to go... Do you want to message your parents and negotiate? (y/n)
-5
+11 - 9
 You think of a message to send:
 
 "I got your letter. Though I don't understand why, I understand what you want. But at least be kind enough to give me a month at home to figure things out. I just lost my job and have no money. Please."
 
 You open the messages app and click on your mom's conta- wait. Did she block you!? Seriously?? Screw that. You turn off your phone in anger and walk away from the place you once called 'home'.
-1
-They wouldn't have been much help. You walk away from the place you once called 'home'.
-12
-Guess you should check your messages though... You turn on your phone again. Not much there, it looks like spam. What else have we got here... wait. Ayo ayo ayo holdup.
-
-Annie Chen (Boss): "Hi, we were notified by an anonymous source that you have been uncooperative and ignorant towards your fellow employees. As this goes against our company policy, you are fired from your part-time position at our company. L"
-
-Wait. You were uncooperative? They were the ones calling you poor and making fun of you but you're the one fired? No. This can't be... now you have no money in your bank account, no job, and your parents just kicked you out. Talk about a bad day.
-
 
 You end up on the street, a bit of cash in hand from the envelope. At least ramen is only 89 cents per serving. You sleep where you can and still try to attend school, though some classmates at school make fun of you. You beg for donations on the street, gaining barely enough money to have a proper meal a day.
 
 It looks like you gotta git gud.
 
 Press any key to continue.
-6
+7 - 10
+They wouldn't have been much help. You walk away from the place you once called 'home'.
+
+You end up on the street, a bit of cash in hand from the envelope. At least ramen is only 89 cents per serving. You sleep where you can and still try to attend school, though some classmates at school make fun of you. You beg for donations on the street, gaining barely enough money to have a proper meal a day.
+
+It looks like you gotta git gud.
+
+Press any key to continue.
+7 - 11
+You think of a message to send:
+
+"I got your letter. Though I don't understand why, I understand what you want. But at least be kind enough to give me a month at home to figure things out. I just lost my job and have no money. Please."
+
+You open the messages app and click on your mom's conta- wait. Did she block you!? Seriously?? Screw that. You turn off your phone in anger and walk away from the place you once called 'home'.
+
+In the night, you suddenly remember the messages you haven't checked. (Type open messages.exe to open them)
+11 - 12
+You turn on your phone again. Not much there, it looks like spam. What else have we got here... wait. Ayo ayo ayo holdup.
+
+Annie Chen (Boss): "Hi, we were notified by an anonymous source that you have been uncooperative and ignorant towards your fellow employees. As this goes against our company policy, you are fired from your part-time position at our company. L"
+
+Wait. You were uncooperative? They were the ones calling you poor and making fun of you but you're the one fired? No. This can't be... now you have no money in your bank account, no job, and your parents just kicked you out. Talk about a bad day.
 
 You end up on the street, a bit of cash in hand from the envelope. At least ramen is only 89 cents per serving. You sleep where you can and still try to attend school, though some classmates at school make fun of you. You beg for donations on the street, gaining barely enough money to have a proper meal a day.
 
