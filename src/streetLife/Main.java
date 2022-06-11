@@ -1,17 +1,17 @@
-package streetLife;
-
-import javafx.application.Application;
-import javafx.stage.Stage;
-
 /**
  * Street Life is a JavaFX Application that teaches users about homelessness through an interactive game.
- * 
+ *
  * @author Max Sun
  * @author Zoe Fan-Chiang
  * @author Derek Ma
  * @version 3.0
  * @since 2022-06-10
  */
+
+package streetLife;
+
+import javafx.application.Application;
+import javafx.stage.Stage;
 public class Main extends Application {
 	
 	/**
