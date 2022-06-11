@@ -1,13 +1,3 @@
-/**
- * MAXX DO THISSS
- *
- * @author Max Sun
- * @author Zoe Fan-Chiang
- * @author Derek Ma
- * @version 3.0
- * @since 2022-05-24
- */
-
 package streetLife;
 
 import java.io.IOException;
@@ -29,6 +19,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
+/**
+ * The "escape room" for the user to get out of
+ * 
+ * @author Max Sun
+ * @since 1.0
+ */
 public class EscapeRoom {
 	
 	/**

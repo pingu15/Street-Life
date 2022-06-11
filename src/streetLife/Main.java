@@ -1,17 +1,16 @@
-/**
- * Street Life is a JavaFX Application that teaches users about homelessness through an interactive game.
- *
- * @author Max Sun
- * @author Zoe Fan-Chiang
- * @author Derek Ma
- * @version 3.0
- * @since 2022-05-20
- */
-
 package streetLife;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+
+/**
+ * Street Life is a JavaFX Application that teaches users about homelessness through an interactive game
+ *
+ * @author Max Sun
+ * @author Zoe Fan-Chiang
+ * @author Derek Ma
+ * @version 1.0
+ */
 public class Main extends Application {
 	
 	/**
@@ -28,7 +27,12 @@ public class Main extends Application {
 	 * primary stage
 	 */
 	public static Stage stage;
-
+	
+	/**
+	 * main menu
+	 */
+	public static MainMenu mainMenu;
+	
 	/**
 	 * Starts the program
 	 * 
@@ -39,9 +43,9 @@ public class Main extends Application {
 	}
 
 	/**
-	 * Starts the application.
+	 * Starts the application
 	 * 
-	 * @param stage The primary stage on which the program runs
+	 * @param stage the primary stage on which the program runs
 	 * @Override
 	 */
 	public void start(Stage stage) throws Exception {

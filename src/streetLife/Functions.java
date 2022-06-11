@@ -1,13 +1,3 @@
-/**
- * MAXX DO THISSS
- *
- * @author Max Sun
- * @author Zoe Fan-Chiang
- * @author Derek Ma
- * @version 3.0
- * @since 2022-05-24
- */
-
 package streetLife;
 
 import java.io.FileInputStream;
@@ -27,6 +17,12 @@ import javafx.scene.layout.BackgroundSize;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
+/**
+ * Functions to assist program
+ * 
+ * @author Max Sun
+ * @since 1.0
+ */
 public class Functions {
 	
 	/**
@@ -179,11 +175,25 @@ public class Functions {
 		return new Image(in, w, h, true, true);
 	}
 	
+	/**
+	 * Returns a deficiency graphic
+	 * 
+	 * @param img the image requested
+	 * @return the image required
+	 * @throws IOException
+	 */
 	public static Image getDefImg(String img) throws IOException {
 		InputStream in = new FileInputStream("deficiency graphics\\"+img);
 		return new Image(in, Main.WIDTH, Main.HEIGHT, true, true);
 	}
 	
+	/**
+	 * Returns a scene graphic
+	 * 
+	 * @param img the image requested
+	 * @return the image required
+	 * @throws IOException
+	 */
 	public static Image getScene(String img) throws IOException {
 		InputStream in = new FileInputStream("scenes\\"+img);
 		return new Image(in);

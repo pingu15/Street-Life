@@ -1,17 +1,13 @@
-/**
- * MAXX DO THISSS
- *
- * @author Max Sun
- * @author Zoe Fan-Chiang
- * @author Derek Ma
- * @version 3.0
- * @since 2022-05-24
- */
-
 package streetLife;
 
 import java.util.ArrayList;
 
+/**
+ * "Computer File" for the terminal
+ * 
+ * @author Max Sun
+ * @since 1.0
+ */
 public class ComputerFile {
 
 	public String name;

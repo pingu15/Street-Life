@@ -1,13 +1,3 @@
-/**
- * The DirectionsGame is a minigame found in the EscapeRoom, which would be run in intervals.
- *
- * @author Max Sun
- * @author Zoe Fan-Chiang
- * @author Derek Ma
- * @version 3.0
- * @since 2022-06-06
- */
-
 package streetLife;
 
 import javafx.animation.FadeTransition;
@@ -28,6 +18,13 @@ import javafx.util.Duration;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * The DirectionsGame is a minigame found in the EscapeRoom, which would be run in intervals.
+ *
+ * @author Derek Ma
+ * @since 1.0
+ */
+@SuppressWarnings("rawtypes")
 public class DirectionsGame implements EventHandler {
 
     //button and usages declarations------------------------------------------------------------------------------------
@@ -96,12 +93,11 @@ public class DirectionsGame implements EventHandler {
     /**
      * initializes a new Directions minigame with a new set of buttons
      *
-     * @author Derek Ma
-     * @version 2.0
-     * @since 2022-05-30
      * @param stage the stage that everything is put on
+     * @throws IOException
      */
-    public DirectionsGame(Stage stage) throws IOException {
+    @SuppressWarnings("unchecked")
+	public DirectionsGame(Stage stage) throws IOException {
         //stage and utility variables init------------------------------------------------------------------------------
         this.stage = stage;
         buttonX = new int[]{50, 90, 130, 170, 210, 250, 290, 330, 370, 410, 450, 490, 530, 570, 610, 650, 690, 730};
@@ -301,10 +297,6 @@ public class DirectionsGame implements EventHandler {
 
     /**
      * initializes a new Directions minigame with a new set of buttons
-     *
-     * @author Derek Ma
-     * @version 3.0
-     * @since 2022-06-03
      */
     public void newGame(){
         this.setUpButton(button1);
@@ -323,14 +315,10 @@ public class DirectionsGame implements EventHandler {
     }
 
     /**
-     * runs the directions minigame
-     * resets all variables and states to their starting value
-     * resets the buttons and restarts the game
-     * called in newGame and handleResult
-     *
-     * @author Derek Ma
-     * @version 4.0
-     * @since 2022-06-01
+     * <li>runs the directions minigame
+     * <li>resets all variables and states to their starting value
+     * <li>resets the buttons and restarts the game
+     * <li>called in newGame and handleResult
      */
     public void run(){
         stage.setScene(directionsGameS);
@@ -365,13 +353,8 @@ public class DirectionsGame implements EventHandler {
 
     /**
      * helper method to set up buttons
-     * includes randomly positioning the button
-     * sets the size of the button
-     *
-     * @author Derek Ma
-     * @version 1.0
-     * @since 2022-06-01
-     * @param b the button passed to be set up
+     * <li>includes randomly positioning the button
+     * <li>sets the size of the button
      */
     private void setUpButton(Button b){
         int randomX;
@@ -407,12 +390,8 @@ public class DirectionsGame implements EventHandler {
 
     /**
      * handles the result of each round of the game
-     * if the win condition is met, the game is won
-     * if the win condition is not met, the game is lost
-     *
-     * @author Derek Ma
-     * @version 1.0
-     * @since 2022-06-08
+     * <li>if the win condition is met, the game is won
+     * <li>if the win condition is not met, the game is lost
      */
     private void handleResult(){
         if(buttonTrue){
@@ -450,14 +429,9 @@ public class DirectionsGame implements EventHandler {
 
 
     /**
-     * handles all button events
-     * handles whether the button's order pressed is correct to meet the win condition
-     * makes each button disappear upon being pressed
-     *
-     * @author Derek Ma
-     * @version 3.0
-     * @since 2022-06-06
-     * @param event the button press event to handle
+     * <li>handles all button events
+     * <li>handles whether the button's order pressed is correct to meet the win condition
+     * <li>makes each button disappear upon being pressed
      */
     @Override
     public void handle(Event event) {

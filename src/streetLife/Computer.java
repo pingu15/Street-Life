@@ -1,13 +1,3 @@
-/**
- * MAX DO THISSS
- *
- * @author Max Sun
- * @author Zoe Fan-Chiang
- * @author Derek Ma
- * @version 3.0
- * @since 2022-05-24
- */
-
 package streetLife;
 
 import java.io.File;
@@ -25,6 +15,12 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
+/**
+ * Terminal-like screen to run commands
+ * 
+ * @author Max Sun
+ * @since 1.0
+ */
 public class Computer {
 	
 	/**

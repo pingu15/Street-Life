@@ -1,19 +1,6 @@
-/**
- * Class that runs the first level, otherwise known as the Deficiency Room. In this level, the user will learn about youth homelessness through interactive screens.
- * Time spent: 6 hours
- *
- * @author Zoe Fan-Chiang
- * @author Max Sun
- * @author Derek Ma
- * @version 3.0
- * @since 2022-05-29
- */
-
 package streetLife;
 
 import java.io.IOException;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -22,7 +9,13 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.scene.input.*;
 
-public class DeficiencyRoom implements EventHandler<ActionEvent> {
+/**
+ * Class that runs the first level, otherwise known as the Deficiency Room. In this level, the user will learn about youth homelessness through interactive screens.
+ *
+ * @author Zoe Fan-Chiang
+ * @since 1.0
+ */
+public class DeficiencyRoom {
     /**
      * stage variable where all the scenes appear on
      */
@@ -320,10 +313,6 @@ public class DeficiencyRoom implements EventHandler<ActionEvent> {
         stage.setScene(scene1);
         inputS1();
         stage.show();
-    }
-
-    public void handle(ActionEvent e){
-
     }
 
     /**
