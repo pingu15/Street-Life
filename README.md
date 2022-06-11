@@ -6,3 +6,4 @@ To access our user manual, company blogs, and meeting logs, please go to: https:
 
 TO BE IMPROVED:
 - Escape room dialogue is currently unavailable, to be implemented later (current win condition is passing the minigame 7 times)
+- Panic room story is working but has to be changed to be geared towards our target audience (new story is complete but has not been implemented)
