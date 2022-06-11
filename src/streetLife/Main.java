@@ -9,8 +9,8 @@ import javafx.stage.Stage;
  * @author Max Sun
  * @author Zoe Fan-Chiang
  * @author Derek Ma
- * @version 1.0
- * @since 2022-05-20
+ * @version 3.0
+ * @since 2022-06-10
  */
 public class Main extends Application {
 	
@@ -54,8 +54,7 @@ public class Main extends Application {
 		stage.setTitle("Street Life");
 		stage.show();
 		SplashScreen s = new SplashScreen(stage, new MainMenu(stage));
-		DirectionsGame dg = new DirectionsGame(stage);
-		dg.newGame();
+		s.run();
 	}
 
 }
