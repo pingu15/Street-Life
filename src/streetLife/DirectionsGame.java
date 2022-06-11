@@ -4,8 +4,8 @@
  * @author Max Sun
  * @author Zoe Fan-Chiang
  * @author Derek Ma
- * @version 1.0
- * @since 2022-05-30
+ * @version 3.0
+ * @since 2022-06-06
  */
 
 package streetLife;

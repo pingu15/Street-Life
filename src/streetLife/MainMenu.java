@@ -5,7 +5,7 @@
  * @author Max Sun
  * @author Zoe Fan-Chiang
  * @author Derek Ma
- * @version 2.0
+ * @version 3.0
  * @since 2022-05-30
  */
 
