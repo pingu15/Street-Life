@@ -296,8 +296,8 @@ public class EscapeRoom {
 				cp.getChildren().remove(left);
 				if(right != null) cp.getChildren().remove(right);
 				lastSettled = set;
-				left = left.left;
 				right = left.right;
+				left = left.left;
 				displayChat();
 			} else {
 				ROUND.put(cur, ROUND.get(cur)+1);
@@ -368,6 +368,7 @@ public class EscapeRoom {
 	}
 	
 	private static void closeChat() {
+		left = right = null;
 		cp.setVisible(false);
 	}
 	
@@ -391,11 +392,7 @@ public class EscapeRoom {
 				}
 				for(int j = 1; j <= N; j++) {
 					TextOption t = new TextOption();
-					try {
-						t.IDX = r.readInt();
-					} catch (Exception ex) {
-						System.out.println(s+"\\part"+i+".txt");
-					}
+					r.readLine();
 					t.setText(r.readLine());
 					t.response = r.readLine();
 					t.res = ' ';

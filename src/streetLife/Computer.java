@@ -313,7 +313,7 @@ public class Computer {
 			boolean flag = false;
 			String f = v.split(" ")[1];
 			for(ComputerFile sub : cur.subFiles) {
-				if(sub.name.equals(f)) {
+				if(sub.name.equals(f) && !sub.isFolder) {
 					flag = true;
 					Group g = new Group();
 					Functions.openComputerImage(g, sub.getRelativePath(), 0, 0, Main.WIDTH, Main.HEIGHT);
@@ -332,6 +332,7 @@ public class Computer {
 				s += "open: \'" + v.split(" ")[1] + "\' is not a valid file.\n";
 				settled.setText(s);
 				display();
+				handle();
 			} else {
 				handle();
 			}
