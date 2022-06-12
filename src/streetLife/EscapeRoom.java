@@ -90,7 +90,7 @@ public class EscapeRoom {
 	
 	static Group g;
 	
-	static int week = 1;
+	static int week;
 	
 	/**
 	 * starts the escape room
@@ -98,6 +98,7 @@ public class EscapeRoom {
 	 * @throws IOException
 	 */
 	public static void start() throws IOException {
+		week = 1;
 		setParts();
 		sp = new StackPane();
 		bg = new Background(Functions.getBg("street.png"));
@@ -151,11 +152,12 @@ public class EscapeRoom {
 		cp = new StackPane();
 		b = new Button("Advance Week");
 		b.setTranslateX(400);
-		b.setTranslateY(250);
-		b.setPrefWidth(150);
+		b.setTranslateY(240);
+		b.setPrefWidth(180);
 		b.setPrefHeight(50);
 		b.setTextFill(Color.BLACK);
-		b.setFont(Functions.getFont("Courier", 12));
+		b.setFont(Functions.getFont("Courier", 20));
+		b.setId("switchbutton");
 		but(b);
 		sp.getChildren().add(b);
 		g = new Group();
