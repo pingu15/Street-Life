@@ -114,14 +114,12 @@
     -fx-opacity: 0;
 }
 .text-area{
-
     -fx-text-fill: #d4d4d4;
     -fx-control-inner-background: #1b191a;
     -fx-text-box-border: transparent;
     -fx-faint-focus-color: transparent;
     -fx-focus-color: transparent;
     -fx-prompt-text-fill: #a2a2a2;
-
 }
 .text-area .content {
     -fx-background-radius: 0 ;
@@ -173,9 +171,34 @@
 
 #selectbutton {
     -fx-background-color: transparent;
-    -fx-border-color: grey;
+    -fx-border-color: transparent;
 }
 
 #selectbutton:hover{
-    -fx-border-color: black;
+    -fx-border-color: transparent;
+}
+
+#gamebut{
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
+    -fx-text-fill: transparent;
+}
+
+#gamebut:focused {
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-border-radius: 0, 0;
+}
+
+#gamebut:pressed {
+    -fx-background-color: transparent;
+}
+
+#libprompt {
+    -fx-control-inner-background: rgb(174, 174, 174);
+    -fx-background-color: rgb(174, 174, 174);
+    -fx-prompt-text-fill: #8c8383;
+    -fx-text-fill: #000000;
 }

@@ -4,11 +4,13 @@ import java.io.IOException;
 import java.util.HashMap;
 
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -16,6 +18,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
@@ -56,6 +59,8 @@ public class EscapeRoom {
 	 * icons for chat and comp
 	 */
 	static ImageView chat, comp;
+	
+	static Rectangle chatr, compr;
 
 	/**
 	 * chat pane
@@ -91,6 +96,14 @@ public class EscapeRoom {
 	static Group g;
 	
 	static int week;
+	
+	static Text weekText;
+	
+	final static String LIB = "27131133966796";
+	
+	static boolean validCard;
+	
+	static ImageView chatImg;
 	
 	/**
 	 * starts the escape room
@@ -140,13 +153,34 @@ public class EscapeRoom {
 		chat.setTranslateY(440);
 		comp.setTranslateX(500);
 		comp.setTranslateY(440);
-		sp.getChildren().addAll(chat, comp);
 		but(library);
 		but(school);
 		but(street);
-		but(chat);
-		but(comp);
+		sp.getChildren().addAll(chat, comp);
+		chatr = new Rectangle();
+		chatr.setTranslateX(chat.getTranslateX());
+		chatr.setTranslateY(chat.getTranslateY());
+		chatr.setWidth(70);
+		chatr.setHeight(70);
+		chatr.setFill(Color.TRANSPARENT);
+		sp.getChildren().add(chatr);
+		but(chatr);
+		compr = new Rectangle();
+		compr.setTranslateX(comp.getTranslateX());
+		compr.setTranslateY(comp.getTranslateY());
+		compr.setWidth(70);
+		compr.setHeight(70);
+		compr.setFill(Color.TRANSPARENT);
+		sp.getChildren().add(compr);
+		but(compr);
 		cur = "street";
+		weekText = new Text();
+		weekText.setTranslateX(415);
+		weekText.setTranslateY(30);
+		weekText.setFont(Functions.getFont("Courier", 40));
+		weekText.setFill(Color.WHITE);
+		weekText.setText("Week 1");
+		sp.getChildren().add(weekText);
 		picked = "";
 		left = MAP.get(cur)[ROUND.get(cur)][1];
 		cp = new StackPane();
@@ -161,7 +195,9 @@ public class EscapeRoom {
 		but(b);
 		sp.getChildren().add(b);
 		g = new Group();
+		chatImg = new ImageView();
 		displayChat();
+		click();
 	}
 	
 	public static void open() throws IOException {
@@ -214,39 +250,46 @@ public class EscapeRoom {
 	}
 	
 	private static void handleHover(MouseEvent e) throws IOException {
-		if(e.getSource() == chat) {
+		if(e.getSource() == chatr) {
 			chat.setTranslateY(430);
 		}
-		if(e.getSource() == comp) {
+		if(e.getSource() == compr) {
 			comp.setTranslateY(430);
+		}
+		if(e.getSource() == leftB || e.getSource() == rightB) {
+			sc.setCursor(Cursor.HAND);
 		}
 	}
 	
 	private static void handleExit(MouseEvent e) throws IOException {
-		if(e.getSource() == chat) {
+		if(e.getSource() == chatr) {
 			chat.setTranslateY(440);
 		}
-		if(e.getSource() == comp) {
+		if(e.getSource() == compr) {
 			comp.setTranslateY(440);
+		}
+		if(e.getSource() == leftB || e.getSource() == rightB) {
+			sc.setCursor(Cursor.DEFAULT);
 		}
 	}
 	
 	private static void handleMouse(MouseEvent e) throws IOException {
 		if(e.getSource() == library) {
-			closeChat();
-			chatOpen = false;
-			bg = new Background(Functions.getBg("library.png"));
-			cur = "library";
-			sp.setBackground(bg);
-			library.setVisible(false);
-			school.setVisible(false);
-			street.setVisible(true);
+			Group r = new Group();
+			ImageView i = new ImageView(Functions.getScene("libraryprompt.png"));
+			r.getChildren().add(i);
+			Scene lib = new Scene(r, Main.WIDTH, Main.HEIGHT);
+			Functions.setScene(lib, Color.BLACK);
+			newT(r, false);
 		}
 		if(e.getSource() == school) {
 			closeChat();
 			chatOpen = false;
+			DirectionsGame d = new DirectionsGame(Main.stage);
+			d.newGame();
 			bg = new Background(Functions.getBg("school.png"));
 			cur = "school";
+			weekText.setFill(Color.BLACK);
 			sp.setBackground(bg);
 			library.setVisible(false);
 			school.setVisible(false);
@@ -255,14 +298,17 @@ public class EscapeRoom {
 		if(e.getSource() == street) {
 			closeChat();
 			chatOpen = false;
+			DirectionsGame d = new DirectionsGame(Main.stage);
+			d.newGame();
 			bg = new Background(Functions.getBg("street.png"));
 			cur = "street";
+			weekText.setFill(Color.WHITE);
 			sp.setBackground(bg);
 			library.setVisible(true);
 			school.setVisible(true);
 			street.setVisible(false);
 		}
-		if(e.getSource() == chat) {
+		if(e.getSource() == chatr) {
 			if(chatOpen) {
 				openChat();
 			} else {
@@ -270,7 +316,7 @@ public class EscapeRoom {
 			}
 			chatOpen = !chatOpen;
 		}
-		if(e.getSource() == comp) {
+		if(e.getSource() == compr) {
 			closeChat();
 			chatOpen = false;
 			Computer.open();
@@ -303,6 +349,8 @@ public class EscapeRoom {
 				displayChat();
 			} else {
 				ROUND.put(cur, ROUND.get(cur)+1);
+				cp.getChildren().remove(left);
+				if(right != null) cp.getChildren().remove(right);
 				left = right = null;
 				picked = cur;
 				displayChat();
@@ -332,6 +380,8 @@ public class EscapeRoom {
 				displayChat();
 			} else {
 				ROUND.put(cur, ROUND.get(cur)+1);
+				cp.getChildren().remove(left);
+				if(right != null) cp.getChildren().remove(right);
 				left = right = null;
 				picked = cur;
 				displayChat();
@@ -340,32 +390,22 @@ public class EscapeRoom {
 	}
 	
 	private static void openChat() throws IOException {
-		ch = new ScrollPane();
-		ch.setTranslateX(5);
-		ch.setTranslateY(5);
-		ch.setPrefWidth(630);
-		ch.setMaxWidth(630);
-		ch.setMaxHeight(280);
-		g = new Group();
-		g.setTranslateX(5);
-		g.setTranslateY(5);
-		ch.setContent(g);
-		ch.setId("ChatScroll");
 		cp = new StackPane();
+		cp.setAlignment(Pos.TOP_LEFT);
 		cp.setTranslateX(160);
 		cp.setTranslateY(20);
-		cp.setPrefWidth(640);
 		cp.setMaxWidth(640);
 		cp.setMaxHeight(400);
-		cp.setPrefHeight(400);
-		cp.setId("ChatPane");
-		cp.setVisible(true);
-		cp.setAlignment(Pos.TOP_LEFT);
-		cp.getChildren().add(ch);
 		sp.getChildren().add(cp);
-		left = MAP.get(cur)[ROUND.get(cur)][1];
-		left.setTextAlignment(TextAlignment.CENTER);
-		ch.setContent(g);
+		if(ROUND.get(cur) < 4) {
+			left = MAP.get(cur)[ROUND.get(cur)][1];
+			left.setTextAlignment(TextAlignment.CENTER);
+		} else {
+			displayChat();
+			return;
+		}
+		chatImg.setImage(Functions.getImage(cur+"1.png", 640, 400));
+		cp.getChildren().add(chatImg);
 		displayChat();
 	}
 	
@@ -416,54 +456,61 @@ public class EscapeRoom {
 	}
 	
 	private static void displayChat() throws IOException {
+		chatImg.setImage(Functions.getImage(cur+(right == null ? "1.png" : "2.png"), 640, 400));
 		cp.getChildren().remove(rightB);
 		cp.getChildren().remove(leftB);
 		if(!picked.equals("")) {
 			Text t = new Text("You already spoke with someone this week. Advance week to speak again.");
-			t.setTranslateX(165);
-			t.setTranslateY(360);
-			t.prefWidth(630);
-			t.prefHeight(55);
+			t.setTranslateX(35);
+			t.setTranslateY(310);
+			t.setWrappingWidth(570);
+			t.setTextAlignment(TextAlignment.CENTER);
 			t.setId("textoption");
+			t.setFont(Functions.getFont("Courier", 14));
+			cp.getChildren().add(t);
 			return;
 		}
 		if(ROUND.get(cur) == 4) {
 			Text t = new Text("No more text options with this person.");
-			t.setTranslateX(165);
-			t.setTranslateY(360);
-			t.prefWidth(630);
-			t.prefHeight(55);
+			t.setTranslateX(35);
+			t.setTranslateY(310);
+			t.setWrappingWidth(570);
+			t.setTextAlignment(TextAlignment.CENTER);
 			t.setId("textoption");
+			t.setFont(Functions.getFont("Courier", 14));
+			cp.getChildren().add(t);
 			return;
 		}
-		left.setTranslateX(5);
-		left.setTranslateY(290);
-		left.setWrappingWidth(right == null ? 630 : 310);
+		left.setTranslateX(35);
+		left.setTranslateY(310);
+		left.setWrappingWidth(right == null ? 570 : 270);
 		left.setId("textoption");
 		left.setFill(Color.BLACK);
+		left.setTextAlignment(TextAlignment.CENTER);
 		left.setVisible(true);
 		left.setFont(Functions.getFont("Courier", 12));
 		leftB = new Button();
 		rightB = new Button();
-		leftB.setTranslateX(left.getTranslateX());
-		leftB.setTranslateY(left.getTranslateY());
+		leftB.setTranslateX(30);
+		leftB.setTranslateY(300);
 		leftB.setId("selectbutton");
-		leftB.setPrefWidth(left.getWrappingWidth());
-		leftB.setPrefHeight(100);
+		leftB.setPrefWidth(right == null ? 768-189 : 280);
+		leftB.setPrefHeight(70);
 		if(right != null) {
-			right.setTranslateX(320);
-			right.setTranslateY(290);
-			right.setWrappingWidth(310);
+			right.setTranslateX(345);
+			right.setTranslateY(310);
+			right.setWrappingWidth(260);
 			right.setFont(Functions.getFont("Courier", 12));
 			right.prefHeight(50);
 			right.setId("textoption");
+			right.setTextAlignment(TextAlignment.CENTER);
 			cp.getChildren().remove(rightB);
 			rightB = new Button();
-			rightB.setTranslateX(right.getTranslateX());
-			rightB.setTranslateY(right.getTranslateY());
+			rightB.setTranslateX(339);
+			rightB.setTranslateY(300);
 			rightB.setId("selectbutton");
-			rightB.setPrefWidth(right.getWrappingWidth());
-			rightB.setPrefHeight(100);
+			rightB.setPrefWidth(270);
+			rightB.setPrefHeight(70);
 		}
 		cp.getChildren().add(leftB);
 		cp.getChildren().add(left);
@@ -476,7 +523,8 @@ public class EscapeRoom {
 	
 	private static void advWeek() throws IOException {
 		week++;
-		if(week == 7) {
+		picked = "";
+		if(week == 8) {
 			Group r = new Group();
 			ImageView i = new ImageView(Functions.getScene("win.png"));
 			r.getChildren().add(i);
@@ -484,18 +532,90 @@ public class EscapeRoom {
 			Functions.setScene(win, Color.BLACK);
 			win.setOnKeyPressed((KeyEvent event) -> {
 				if(event.getCode() == KeyCode.SPACE) {
-					try {
-						MainMenu m = new MainMenu(Main.stage);
-						m.run();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
+					Main.mainMenu.run();
 				}
 			});
 		} else {
-			DirectionsGame d = new DirectionsGame(Main.stage);
-			d.newGame();
+			weekText.setText("Week " + week);
 		}
+	}
+	
+	private static void click() {
+		sp.setOnMouseClicked((MouseEvent e) -> {
+			System.out.println((int)e.getX() + " " + (int)e.getY());
+		});
+	}
+	
+	private static void newT(Group r, boolean wa) throws IOException {
+		TextArea t = new TextArea();
+		t.setPromptText("Enter a "+  LIB.length() + " digit card number");
+		t.setTranslateX(165);
+		t.setTranslateY(205);
+		t.setPrefWidth(660);
+		t.setPrefHeight(110);
+		t.setId("libprompt");
+		t.setFont(Functions.getFont("Courier", 30));
+		r.getChildren().add(t);
+		Text err = new Text("Invalid card number");
+		if(wa) {
+			r.getChildren().add(err);
+			err.setFill(Color.RED);
+			try {
+				err.setFont(Functions.getFont("Courier", 16));
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
+			err.setTranslateX(420);
+			err.setTranslateY(300);
+			
+		}
+		t.setOnKeyPressed((KeyEvent event) -> {
+			if(event.getCode() == KeyCode.ENTER) {
+				if(t.getText().equals(LIB)) {
+					closeChat();
+					chatOpen = false;
+					DirectionsGame d;
+					try {
+						d = new DirectionsGame(Main.stage);
+						d.newGame();
+					} catch (IOException e2) {
+						e2.printStackTrace();
+					}
+					try {
+						bg = new Background(Functions.getBg("library.png"));
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+					cur = "library";
+					weekText.setFill(Color.WHITE);
+					sp.setBackground(bg);
+					library.setVisible(false);
+					school.setVisible(false);
+					street.setVisible(true);
+					r.getChildren().remove(t);
+					r.getChildren().remove(err);
+					return;
+				}
+				r.getChildren().remove(t);
+				try {
+					newT(r, true);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			if(event.getCode() == KeyCode.ESCAPE) {
+				try {
+					bg = new Background(Functions.getBg("street.png"));
+				} catch (IOException ex) {
+					ex.printStackTrace();
+				}
+				sp.setBackground(bg);
+				library.setVisible(true);
+				school.setVisible(true);
+				street.setVisible(false);
+				Functions.setScene(sc, Color.BLACK);
+			}
+		});
 	}
 	
 }

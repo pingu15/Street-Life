@@ -138,7 +138,12 @@ public class DirectionsGame implements EventHandler {
         button4 = new Button("", imageView4);
         button5 = new Button("", imageView5);
         button6 = new Button("", imageView6);
-
+        button1.setId("gamebut");
+        button2.setId("gamebut");
+        button3.setId("gamebut");
+        button4.setId("gamebut");
+        button5.setId("gamebut");
+        button6.setId("gamebut");
         b1Pressed = false;
         b2Pressed = false;
         b3Pressed = false;
@@ -396,7 +401,6 @@ public class DirectionsGame implements EventHandler {
     private void handleResult(){
         if(buttonTrue){
             //what happens when the buttons are pressed in the correct order
-            System.out.println("correct");
             stage.setScene(winS);
             winS.setOnKeyPressed(
                     event -> {
@@ -415,7 +419,6 @@ public class DirectionsGame implements EventHandler {
 
         } else {
             //what happens when the buttons are pressed in the incorrect order
-            System.out.println("incorrect");
             losePrompter.setVisible(true);
             losePrompterFade.play();
             stage.setScene(loseS);
