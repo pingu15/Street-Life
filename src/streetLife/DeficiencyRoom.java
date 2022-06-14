@@ -1,11 +1,13 @@
 package streetLife;
 
 import java.io.IOException;
+
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.scene.input.*;
 
@@ -309,10 +311,19 @@ public class DeficiencyRoom {
      * @throws IOException 
      */
     public void start() throws IOException{
+    	Group g = new Group();
+    	Scene tmp = new Scene(g, Main.WIDTH, Main.HEIGHT);
+    	ImageView img = new ImageView(Functions.getScene("about1.png"));
+		g.getChildren().add(img);
+		Functions.setScene(tmp, Color.BLACK);
+		tmp.setOnKeyPressed((KeyEvent event) -> {
+			if(event.getCode() == KeyCode.SPACE) {
+				 stage.setScene(scene1);
+			     inputS1();
+			     stage.show();
+			}
+		});
         //start
-        stage.setScene(scene1);
-        inputS1();
-        stage.show();
     }
 
     /**

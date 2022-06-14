@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -89,14 +90,27 @@ public class Computer {
 	 * @throws IOException
 	 */
 	public static void start() throws IOException {
-		setChoices();
-		setCommands();
-		settled = new Text();
-		settled.setText("");
-		input = new TextArea();
-		input.setText("");
-		display();
-		handle();
+		Group g = new Group();
+    	Scene tmp = new Scene(g, Main.WIDTH, Main.HEIGHT);
+    	ImageView img = new ImageView(Functions.getScene("about2.png"));
+		g.getChildren().add(img);
+		Functions.setScene(tmp, Color.BLACK);
+		tmp.setOnKeyPressed((KeyEvent event) -> {
+			if(event.getCode() == KeyCode.SPACE) {
+				try {
+					setChoices();
+					setCommands();
+					settled = new Text();
+					settled.setText("");
+					input = new TextArea();
+					input.setText("");
+					display();
+					handle();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 	
 	/**
@@ -150,7 +164,21 @@ public class Computer {
 			if(index == 9 || index == 10 || index == 12) {
 				index = CHOICES;
 				cur = cur.par;
-				EscapeRoom.start();
+				ImageView nxt = new ImageView(Functions.getScene("part2done.png"));
+				nxt.setFitWidth(Main.WIDTH);
+				nxt.setPreserveRatio(true);
+				Group gr = new Group(nxt);
+				Scene temp = new Scene(gr, Main.WIDTH, Main.HEIGHT);
+				Functions.setScene(temp, Color.BLACK);
+				temp.setOnKeyPressed((KeyEvent e) -> {
+					if(e.getCode() == KeyCode.SPACE) {
+						try {
+							EscapeRoom.start();
+						} catch (IOException e1) {
+							e1.printStackTrace();
+						}
+					}
+				});
 				return;
 			}
 			if(event.getCode() == KeyCode.ENTER) {

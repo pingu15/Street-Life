@@ -3,6 +3,8 @@ package streetLife;
 import java.io.IOException;
 import java.util.HashMap;
 
+import javafx.animation.FadeTransition;
+import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
@@ -21,6 +23,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import javafx.util.Duration;
 
 /**
  * The "escape room" for the user to get out of
@@ -105,99 +108,30 @@ public class EscapeRoom {
 	
 	static ImageView chatImg;
 	
+	static Text response;
+	
+	static DirectionsGame d;
+	
 	/**
 	 * starts the escape room
 	 * 
 	 * @throws IOException
 	 */
 	public static void start() throws IOException {
-		week = 1;
-		setParts();
-		sp = new StackPane();
-		bg = new Background(Functions.getBg("street.png"));
-		sp.setBackground(bg);
-		sp.setAlignment(Pos.TOP_LEFT);
-		sc = new Scene(sp, Main.WIDTH, Main.HEIGHT);
-		Functions.setScene(sc, Color.BLACK);
-		street = new Button();
-		street.setVisible(false);
-		street.setId("switchbutton");
-		street.setText("Back");
-		street.setPrefWidth(100);
-		street.setPrefHeight(50);
-		street.setFont(Functions.getFont("Courier", 20));
-		street.setTranslateX(50);
-		street.setTranslateY(50);
-		library = new Button();
-		library.setPrefWidth(100);
-		library.setPrefHeight(50);
-		library.setVisible(true);
-		library.setId("switchbutton");
-		library.setText("Library");
-		library.setTranslateX(50);
-		library.setTranslateY(240);
-		library.setFont(Functions.getFont("Courier", 20));
-		school = new Button();
-		school.setPrefWidth(100);
-		school.setPrefHeight(50);
-		school.setVisible(true);
-		school.setId("switchbutton");
-		school.setText("School");
-		school.setFont(Functions.getFont("Courier", 20));
-		school.setTranslateX(810);
-		school.setTranslateY(240);
-		sp.getChildren().addAll(school, library, street);
-		chat = new ImageView(Functions.getImage("chat.png", 70, 70));
-		comp = new ImageView(Functions.getImage("comp.png", 70, 70));
-		chat.setTranslateX(390);
-		chat.setTranslateY(440);
-		comp.setTranslateX(500);
-		comp.setTranslateY(440);
-		but(library);
-		but(school);
-		but(street);
-		sp.getChildren().addAll(chat, comp);
-		chatr = new Rectangle();
-		chatr.setTranslateX(chat.getTranslateX());
-		chatr.setTranslateY(chat.getTranslateY());
-		chatr.setWidth(70);
-		chatr.setHeight(70);
-		chatr.setFill(Color.TRANSPARENT);
-		sp.getChildren().add(chatr);
-		but(chatr);
-		compr = new Rectangle();
-		compr.setTranslateX(comp.getTranslateX());
-		compr.setTranslateY(comp.getTranslateY());
-		compr.setWidth(70);
-		compr.setHeight(70);
-		compr.setFill(Color.TRANSPARENT);
-		sp.getChildren().add(compr);
-		but(compr);
-		cur = "street";
-		weekText = new Text();
-		weekText.setTranslateX(415);
-		weekText.setTranslateY(30);
-		weekText.setFont(Functions.getFont("Courier", 40));
-		weekText.setFill(Color.WHITE);
-		weekText.setText("Week 1");
-		sp.getChildren().add(weekText);
-		picked = "";
-		left = MAP.get(cur)[ROUND.get(cur)][1];
-		cp = new StackPane();
-		b = new Button("Advance Week");
-		b.setTranslateX(400);
-		b.setTranslateY(240);
-		b.setPrefWidth(180);
-		b.setPrefHeight(50);
-		b.setTextFill(Color.BLACK);
-		b.setFont(Functions.getFont("Courier", 20));
-		b.setId("switchbutton");
-		but(b);
-		sp.getChildren().add(b);
-		g = new Group();
-		chatImg = new ImageView();
-		displayChat();
-		click();
+		Group g = new Group();
+    	Scene tmp = new Scene(g, Main.WIDTH, Main.HEIGHT);
+    	ImageView img = new ImageView(Functions.getScene("about3.png"));
+		g.getChildren().add(img);
+		Functions.setScene(tmp, Color.BLACK);
+		tmp.setOnKeyPressed((KeyEvent event) -> {
+			if(event.getCode() == KeyCode.SPACE) {
+				 try {
+					setup();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 	
 	public static void open() throws IOException {
@@ -252,9 +186,11 @@ public class EscapeRoom {
 	private static void handleHover(MouseEvent e) throws IOException {
 		if(e.getSource() == chatr) {
 			chat.setTranslateY(430);
+			sc.setCursor(Cursor.HAND);
 		}
 		if(e.getSource() == compr) {
 			comp.setTranslateY(430);
+			sc.setCursor(Cursor.HAND);
 		}
 		if(e.getSource() == leftB || e.getSource() == rightB) {
 			sc.setCursor(Cursor.HAND);
@@ -264,9 +200,11 @@ public class EscapeRoom {
 	private static void handleExit(MouseEvent e) throws IOException {
 		if(e.getSource() == chatr) {
 			chat.setTranslateY(440);
+			sc.setCursor(Cursor.DEFAULT);
 		}
 		if(e.getSource() == compr) {
 			comp.setTranslateY(440);
+			sc.setCursor(Cursor.DEFAULT);
 		}
 		if(e.getSource() == leftB || e.getSource() == rightB) {
 			sc.setCursor(Cursor.DEFAULT);
@@ -285,7 +223,6 @@ public class EscapeRoom {
 		if(e.getSource() == school) {
 			closeChat();
 			chatOpen = false;
-			DirectionsGame d = new DirectionsGame(Main.stage);
 			d.newGame();
 			bg = new Background(Functions.getBg("school.png"));
 			cur = "school";
@@ -344,10 +281,21 @@ public class EscapeRoom {
 				cp.getChildren().remove(left);
 				if(right != null) cp.getChildren().remove(right);
 				lastSettled = set;
+				if(response != null) cp.getChildren().remove(response);
+				response = new Text();
+				response.setText(left.response);
+				response.setTranslateX(20);
+				response.setWrappingWidth(600);
+				response.setTextAlignment(TextAlignment.CENTER);
+				response.setTranslateY(180);
+				response.setFill(Color.BLACK);
+				response.setFont(Functions.getFont("Courier", 14));
+				cp.getChildren().add(response);
 				right = left.right;
 				left = left.left;
 				displayChat();
 			} else {
+				if(response != null) cp.getChildren().remove(response);
 				ROUND.put(cur, ROUND.get(cur)+1);
 				cp.getChildren().remove(left);
 				if(right != null) cp.getChildren().remove(right);
@@ -375,10 +323,21 @@ public class EscapeRoom {
 				cp.getChildren().remove(left);
 				if(right != null) cp.getChildren().remove(right);
 				lastSettled = set;
+				if(response != null) cp.getChildren().remove(response);
+				response = new Text();
+				response.setText(right.response);
+				response.setTranslateX(20);
+				response.setTextAlignment(TextAlignment.CENTER);
+				response.setWrappingWidth(600);
+				response.setTranslateY(180);
+				response.setFill(Color.BLACK);
+				response.setFont(Functions.getFont("Courier", 14));
+				cp.getChildren().add(response);
 				left = right.left;
 				right = right.right;
 				displayChat();
 			} else {
+				if(response != null) cp.getChildren().remove(response);
 				ROUND.put(cur, ROUND.get(cur)+1);
 				cp.getChildren().remove(left);
 				if(right != null) cp.getChildren().remove(right);
@@ -401,6 +360,7 @@ public class EscapeRoom {
 			left = MAP.get(cur)[ROUND.get(cur)][1];
 			left.setTextAlignment(TextAlignment.CENTER);
 		} else {
+			cp.getChildren().add(chatImg);
 			displayChat();
 			return;
 		}
@@ -512,8 +472,8 @@ public class EscapeRoom {
 			rightB.setPrefWidth(270);
 			rightB.setPrefHeight(70);
 		}
-		cp.getChildren().add(leftB);
 		cp.getChildren().add(left);
+		cp.getChildren().add(leftB);
 		if(right != null) cp.getChildren().add(right);
 		if(rightB != null) cp.getChildren().add(rightB);
 		but(leftB);
@@ -536,7 +496,17 @@ public class EscapeRoom {
 				}
 			});
 		} else {
+			ImageView nxtday = new ImageView(Functions.getImage("week"+week+".png", Main.WIDTH, Main.HEIGHT));
+			sp.getChildren().add(nxtday);
+			FadeTransition fade = new FadeTransition(Duration.seconds(3), nxtday);
+			fade.setFromValue(1);
+			fade.setToValue(0);
+			fade.setCycleCount(1);
 			weekText.setText("Week " + week);
+			fade.play();
+			fade.setOnFinished((ActionEvent e) -> {
+				sp.getChildren().remove(nxtday);
+			});
 		}
 	}
 	
@@ -574,13 +544,7 @@ public class EscapeRoom {
 				if(t.getText().equals(LIB)) {
 					closeChat();
 					chatOpen = false;
-					DirectionsGame d;
-					try {
-						d = new DirectionsGame(Main.stage);
-						d.newGame();
-					} catch (IOException e2) {
-						e2.printStackTrace();
-					}
+					d.newGame();
 					try {
 						bg = new Background(Functions.getBg("library.png"));
 					} catch (IOException e1) {
@@ -616,6 +580,97 @@ public class EscapeRoom {
 				Functions.setScene(sc, Color.BLACK);
 			}
 		});
+	}
+	
+	private static void setup() throws IOException {
+		d = new DirectionsGame(Main.stage);
+		week = 1;
+		setParts();
+		sp = new StackPane();
+		bg = new Background(Functions.getBg("street.png"));
+		sp.setBackground(bg);
+		sp.setAlignment(Pos.TOP_LEFT);
+		sc = new Scene(sp, Main.WIDTH, Main.HEIGHT);
+		Functions.setScene(sc, Color.BLACK);
+		street = new Button();
+		street.setVisible(false);
+		street.setId("switchbutton");
+		street.setText("Back");
+		street.setPrefWidth(100);
+		street.setPrefHeight(50);
+		street.setFont(Functions.getFont("Courier", 20));
+		street.setTranslateX(50);
+		street.setTranslateY(50);
+		library = new Button();
+		library.setPrefWidth(100);
+		library.setPrefHeight(50);
+		library.setVisible(true);
+		library.setId("switchbutton");
+		library.setText("Library");
+		library.setTranslateX(50);
+		library.setTranslateY(240);
+		library.setFont(Functions.getFont("Courier", 20));
+		school = new Button();
+		school.setPrefWidth(100);
+		school.setPrefHeight(50);
+		school.setVisible(true);
+		school.setId("switchbutton");
+		school.setText("School");
+		school.setFont(Functions.getFont("Courier", 20));
+		school.setTranslateX(810);
+		school.setTranslateY(240);
+		sp.getChildren().addAll(school, library, street);
+		chat = new ImageView(Functions.getImage("chat.png", 70, 70));
+		comp = new ImageView(Functions.getImage("comp.png", 70, 70));
+		chat.setTranslateX(390);
+		chat.setTranslateY(440);
+		comp.setTranslateX(500);
+		comp.setTranslateY(440);
+		but(library);
+		but(school);
+		but(street);
+		sp.getChildren().addAll(chat, comp);
+		chatr = new Rectangle();
+		chatr.setTranslateX(chat.getTranslateX());
+		chatr.setTranslateY(chat.getTranslateY());
+		chatr.setWidth(70);
+		chatr.setHeight(70);
+		chatr.setFill(Color.TRANSPARENT);
+		sp.getChildren().add(chatr);
+		but(chatr);
+		compr = new Rectangle();
+		compr.setTranslateX(comp.getTranslateX());
+		compr.setTranslateY(comp.getTranslateY());
+		compr.setWidth(70);
+		compr.setHeight(70);
+		compr.setFill(Color.TRANSPARENT);
+		sp.getChildren().add(compr);
+		but(compr);
+		cur = "street";
+		weekText = new Text();
+		weekText.setTranslateX(415);
+		weekText.setTranslateY(30);
+		weekText.setFont(Functions.getFont("Courier", 40));
+		weekText.setFill(Color.WHITE);
+		weekText.setText("Week 1");
+		sp.getChildren().add(weekText);
+		picked = "";
+		left = MAP.get(cur)[ROUND.get(cur)][1];
+		cp = new StackPane();
+		b = new Button("Advance Week");
+		b.setTranslateX(400);
+		b.setTranslateY(240);
+		b.setPrefWidth(180);
+		b.setPrefHeight(50);
+		b.setTextFill(Color.BLACK);
+		b.setFont(Functions.getFont("Courier", 20));
+		b.setId("switchbutton");
+		but(b);
+		sp.getChildren().add(b);
+		g = new Group();
+		chatImg = new ImageView();
+		displayChat();
+		click();
 	}
 	
 }
