@@ -163,6 +163,9 @@ public class EscapeRoom {
 	 */
 	static long st;
 	
+	/**
+	 * guesses for each character
+	 */
 	static boolean[] guess;
 	
 	/**
