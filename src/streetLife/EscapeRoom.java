@@ -63,6 +63,9 @@ public class EscapeRoom {
 	 */
 	static ImageView chat, comp;
 	
+	/**
+	 * rectangles for chat and computer
+	 */
 	static Rectangle chatr, compr;
 
 	/**
