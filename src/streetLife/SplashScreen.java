@@ -50,6 +50,10 @@ public class SplashScreen {
 
 	/**
 	 * displays the company logo in a fade transition
+	 * 
+	 * @param stage
+	 * @param mainMenu
+	 * @throws IOException
 	 */
 	public SplashScreen(Stage stage, MainMenu mainMenu) throws IOException{
 		//stage init
