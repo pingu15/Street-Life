@@ -3,4 +3,5 @@
 'open <file>': open a file
 'cd <folder>': moves to a sub folder
 'cd ..': moves to parent folder
+'guess <location> <name>' to make a guess on one of the character's names
 'exit' closes the computer

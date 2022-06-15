@@ -57,10 +57,8 @@ public class Main extends Application {
 		stage.setResizable(false);
 		stage.setTitle("Street Life");
 		stage.show();
-		EscapeRoom.start();
-//		Computer.start();
-//		SplashScreen s = new SplashScreen(stage, new MainMenu(stage));
-//		s.run();
+		SplashScreen s = new SplashScreen(stage, new MainMenu(stage));
+		s.run();
 	}
 
 }

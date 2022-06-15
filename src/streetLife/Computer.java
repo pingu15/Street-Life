@@ -366,6 +366,40 @@ public class Computer {
 			}
 			return;
 		}
+		if(v.split(" ")[0].equals("guess")) {
+			if(v.split(" ").length != 3) {
+				s += "open: incorrect number of parameters\n";
+				update(s);
+				return;
+			}
+			String f = v.split(" ")[1];
+			String name = v.split(" ")[2];
+			if(f.equalsIgnoreCase("library")) {
+				if(name.equalsIgnoreCase("maya")) {
+					EscapeRoom.guess[0] = true;
+					s += "Correct!\n";
+				} else {
+					s += "Incorrect. Please try again.\n";
+				}
+			} else if(f.equalsIgnoreCase("street")) {
+				if(name.equalsIgnoreCase("jason")) {
+					EscapeRoom.guess[1] = true;
+					s += "Correct!\n";
+				} else {
+					s += "Incorrect. Please try again.\n";
+				}
+			} else if(f.equalsIgnoreCase("school")) {
+				if(name.equalsIgnoreCase("alexander")) {
+					EscapeRoom.guess[2] = true;
+					s += "Correct!\n";
+				} else {
+					s += "Incorrect. Please try again.\n";
+				}
+			} else {
+				s += "open: location not valid\n";
+			}
+			update(s);
+		}
 	}
 	
 	/**

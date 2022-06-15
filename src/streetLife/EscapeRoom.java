@@ -86,36 +86,81 @@ public class EscapeRoom {
 	static TextOption left, right;
 	
 	/**
-	 * 
+	 * the back button
 	 */
 	static Button b;
 	
+	/**
+	 * the left and right chocies
+	 */
 	static Button leftB, rightB;
 	
+	/**
+	 * the map for dialogue
+	 */
 	static HashMap<String, TextOption[][]> MAP;
+	
+	/**
+	 * which round each character interaction is on
+	 */
 	static HashMap<String, Integer> ROUND;
 
+	/**
+	 * which character the user picked if any
+	 */
 	static String picked;
 	
+	/**
+	 * the last settled text
+	 */
 	static Text lastSettled;
 	
+	/**
+	 * group to hold everything
+	 */
 	static Group g;
 	
+	/**
+	 * which week user is on
+	 */
 	static int week;
 	
+	/**
+	 * the week display
+	 */
 	static Text weekText;
 	
+	/**
+	 * library card number
+	 */
 	final static String LIB = "27131133966796";
 	
+	/**
+	 * chat image
+	 */
 	static ImageView chatImg;
 	
+	/**
+	 * response text
+	 */
 	static Text response;
 	
+	/**
+	 * directions game
+	 */
 	static DirectionsGame d;
 	
+	/**
+	 * number of map fails and wins
+	 */
 	static int mapFails, mapWins;
 	
+	/**
+	 * start time
+	 */
 	static long st;
+	
+	static boolean[] guess;
 	
 	/**
 	 * starts the escape room
@@ -124,6 +169,7 @@ public class EscapeRoom {
 	 */
 	public static void start() throws IOException {
 		st = System.nanoTime();
+		guess = new boolean[3];
 		mapFails = 0;
 		Group g = new Group();
     	Scene tmp = new Scene(g, Main.WIDTH, Main.HEIGHT);
@@ -141,6 +187,11 @@ public class EscapeRoom {
 		});
 	}
 	
+	/**
+	 * Opens the escape room
+	 * 
+	 * @throws IOException
+	 */
 	public static void open() throws IOException {
 		if(cur.equals("library")) {
 			bg = new Background(Functions.getBg("library.png"));
@@ -166,6 +217,11 @@ public class EscapeRoom {
 		Functions.setScene(sc, Color.BLACK);
 	}
 	
+	/**
+	 * handles button actions
+	 * 
+	 * @param b the button
+	 */
 	private static void but(Node b) {
 		b.setOnMousePressed((MouseEvent event) -> {
 			try {
@@ -190,6 +246,12 @@ public class EscapeRoom {
 		 });
 	}
 	
+	/**
+	 * handles hover action 
+	 * 
+	 * @param e the mouse event
+	 * @throws IOException
+	 */
 	private static void handleHover(MouseEvent e) throws IOException {
 		if(e.getSource() == chatr) {
 			chat.setTranslateY(430);
@@ -204,6 +266,12 @@ public class EscapeRoom {
 		}
 	}
 	
+	/**
+	 * handles exit action
+	 * 
+	 * @param e the mouse event
+	 * @throws IOException
+	 */
 	private static void handleExit(MouseEvent e) throws IOException {
 		if(e.getSource() == chatr) {
 			chat.setTranslateY(440);
@@ -218,6 +286,12 @@ public class EscapeRoom {
 		}
 	}
 	
+	/**
+	 * handles mouse click action
+	 * 
+	 * @param e the mouse event
+	 * @throws IOException
+	 */
 	private static void handleMouse(MouseEvent e) throws IOException {
 		if(e.getSource() == library) {
 			Group r = new Group();
@@ -230,7 +304,7 @@ public class EscapeRoom {
 		if(e.getSource() == school) {
 			closeChat();
 			chatOpen = false;
-			//d.newGame();
+			d.newGame();
 			bg = new Background(Functions.getBg("school.png"));
 			cur = "school";
 			weekText.setFill(Color.BLACK);
@@ -242,7 +316,7 @@ public class EscapeRoom {
 		if(e.getSource() == street) {
 			closeChat();
 			chatOpen = false;
-			//d.newGame();
+			d.newGame();
 			bg = new Background(Functions.getBg("street.png"));
 			cur = "street";
 			weekText.setFill(Color.WHITE);
@@ -356,6 +430,11 @@ public class EscapeRoom {
 		}
 	}
 	
+	/**
+	 * opens the chat window
+	 * 
+	 * @throws IOException
+	 */
 	private static void openChat() throws IOException {
 		cp = new StackPane();
 		cp.setAlignment(Pos.TOP_LEFT);
@@ -488,6 +567,11 @@ public class EscapeRoom {
 		return;
 	}
 	
+	/**
+	 * advances 1 week
+	 * 
+	 * @throws IOException
+	 */
 	private static void advWeek() throws IOException {
 		week++;
 		picked = "";
@@ -508,6 +592,13 @@ public class EscapeRoom {
 		}
 	}
 	
+	/**
+	 * creates a new box for library card input
+	 * 
+	 * @param r the group to hold everything
+	 * @param wa if the previous number was wrong
+	 * @throws IOException
+	 */
 	private static void newT(Group r, boolean wa) throws IOException {
 		TextArea t = new TextArea();
 		t.setPromptText("Enter a "+  LIB.length() + " digit card number");
@@ -575,6 +666,11 @@ public class EscapeRoom {
 		});
 	}
 	
+	/**
+	 * sets up the escape room
+	 * 
+	 * @throws IOException
+	 */
 	private static void setup() throws IOException {
 		d = new DirectionsGame(Main.stage);
 		week = 1;
@@ -665,6 +761,12 @@ public class EscapeRoom {
 		displayChat();
 	}
 	
+	/**
+	 * updates the status quo of other text options
+	 * 
+	 * @param c the current text option
+	 * @throws IOException
+	 */
 	private static void updateWait(TextOption c) throws IOException {
 		int idx = ROUND.get(cur);
 		if(cur.equals("library")) {
@@ -697,9 +799,16 @@ public class EscapeRoom {
 		}
 	}
 	
+	/**
+	 * on win of the game
+	 * 
+	 * @throws IOException
+	 */
 	private static void win() throws IOException {
 		Group r = new Group();
 		ImageView i = new ImageView(Functions.getScene("win.png"));
+		i.setFitWidth(Main.WIDTH);
+		i.setPreserveRatio(true);
 		r.getChildren().add(i);
 		Scene win = new Scene(r, Main.WIDTH, Main.HEIGHT);
 		Functions.setScene(win, Color.BLACK);
@@ -714,9 +823,16 @@ public class EscapeRoom {
 		});
 	}
 	
+	/**
+	 * on lose of the game
+	 * 
+	 * @throws IOException
+	 */
 	private static void lose() throws IOException {
 		Group r = new Group();
 		ImageView i = new ImageView(Functions.getScene("lose.png"));
+		i.setFitWidth(Main.WIDTH);
+		i.setPreserveRatio(true);
 		r.getChildren().add(i);
 		Scene win = new Scene(r, Main.WIDTH, Main.HEIGHT);
 		Functions.setScene(win, Color.BLACK);
@@ -731,29 +847,36 @@ public class EscapeRoom {
 		});
 	}
 	
+	/**
+	 * shows stats
+	 * 
+	 * @param won whether or not user won
+	 * @throws IOException
+	 */
 	private static void stats(boolean won) throws IOException {
 		Group r = new Group();
 		ImageView i = new ImageView(Functions.getScene("stats.png"));
+		i.setFitWidth(Main.WIDTH);
+		i.setFitHeight(Main.HEIGHT);
 		Text[] res = new Text[5];
 		long t = System.nanoTime()-st;
+		int guessRight = 0;
+		for(boolean b : guess) if(b) guessRight++;
 		res[0] = new Text(won ? "Yes\t10000" : "No\t2000");
 		res[1] = new Text(getTime(t)+"\t"+getTimeScore(t));
 		res[2] = new Text(mapFails+"\t"+(-mapFails*9));
-		res[3] = new Text(mapWins+"\t"+(mapWins*7));
+		res[3] = new Text(guessRight+"\t"+(guessRight*997));
 		res[4] = new Text("\t"+((won?10000:2000)+getTimeScore(t)+(-mapFails*9)+(mapWins*7))+"");
 		r.getChildren().add(i);
 		for(int j = 0; j < res.length; j++) {
 			res[j].setTranslateX(600);
-			res[j].setTranslateY(100+(j == res.length -1 ? 95*j : 80*j));
+			res[j].setTranslateY(100+(j == res.length -1 ? 85*j : 75*j));
 			res[j].setFill(Color.WHITE);
 			res[j].setFont(Functions.getFont("Courier", 40));
 			r.getChildren().add(res[j]);
 		}
 		Scene win = new Scene(r, Main.WIDTH, Main.HEIGHT);
 		Functions.setScene(win, Color.BLACK);
-		r.setOnMouseClicked((MouseEvent e) -> {
-			System.out.println((int)e.getX() + " " + (int)e.getY());
-		});
 		win.setOnKeyPressed((KeyEvent event) -> {
 			if(event.getCode() == KeyCode.SPACE) {
 				Main.mainMenu.run();
@@ -761,11 +884,23 @@ public class EscapeRoom {
 		});
 	}
 	
+	/**
+	 * gets the time as a string
+	 * 
+	 * @param t
+	 * @return
+	 */
 	private static String getTime(long t) {
 		long sec = t/(long)1e9;
 		return sec/60 + ":" + sec%60;
 	}
 	
+	/**
+	 * gets the time as a score
+	 * 
+	 * @param t
+	 * @return
+	 */
 	private static int getTimeScore(long t) {
 		return (int)(-t/(long)1e9);
 	}
