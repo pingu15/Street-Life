@@ -419,6 +419,7 @@ public class DirectionsGame implements EventHandler {
 
         } else {
             //what happens when the buttons are pressed in the incorrect order
+        	EscapeRoom.mapFails++;
             losePrompter.setVisible(true);
             losePrompterFade.play();
             stage.setScene(loseS);

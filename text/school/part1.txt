@@ -1,17 +1,13 @@
-14
+10
 1 2
 2 3
-3 4
 2 5
+3 4
 5 6
-5 7
-1 8
-8 9
-9 10
-9 11
-8 12
-12 13
-12 14
+6 7
+6 10
+7 8
+7 9
 
 1
 Hi.
@@ -26,32 +22,20 @@ Hm, check your computer maybe??? You can probably find your library card in thos
 Oh, thank you so much! I'll see you there then.
 No problem.
 5
-Do you think I can borrow yours?
+Uh, no... do you think I can borrow yours?
 I don't think that's allowed... and I don't know why you want to use a library computer instead of your laptop...
 6
 The thing is, my family kicked me out of the house, and I just need to place to do some work.
 Oh, I'm sorry to hear that... if you need any help, feel free to reach out then.
 7
-You know what, never mind.
-Okay, then.
+You know what, screw this. What am I gonna do at the library anyways?
+I mean, there's a lot that could help you get out of homelessness, but okay then.
 8
-Would it be okay if I borrow some money?
-Uh, what do you need it for?
+Oh.. Hm. Alright, I'll come.
+Great. Oh, and check your computer for a library card... I'm sure you got one in those files somewhere.
 9
-I don't have the money for dinner. Just 10 bucks would do.
-Oh yea, sure. Make sure to return it tomorrow, though.
+Nah, whatever.
+Alright, whatever suits you.
 10
-Wait, I don't know if I can get it to you then. It's alright, I won't take your money.
-Oh, okay then.
-11
-Oh, definitely. Thank you.
-No problem.
-12
-...stuff?
-Uh, that isn't the greatest reason. I'm sorry, but I don't think I can.
-13
-Alright then, sorry.
-Uh huh...
-14
-Okay, the thing is, my family kicked me out of the house, and I just need to place to do some work and have something to eat.
-Oh, I'm sorry to hear that... here, you can take this money then. Oh, and also, check your computer for a library card maybe.
+Thanks, but do you know where I can get a library card?
+Not sure, but check your computer perhaps. I'm sure you got a copy of it somewhere there.

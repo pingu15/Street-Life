@@ -1,10 +1,14 @@
-7
+8
 1 2
 2 3
 2 4
 1 5
 5 6
 5 7
+4 8
+8 7
+6 7
+3 8
 
 1
 Do you know about any help that the city gives to the homeless?
@@ -14,16 +18,19 @@ A research project.
 Ok. Well, I can help you sort through some sources on homelessness in Toronto. It's quite a difficult problem, especially on its scale and the people it affects.
 3
 Do you have resources on jobs available to the homeless population?
-Definitely. Right this way, I'll get you to a computer.
+Definitely. Well, before one can get a job, it would be best if they could create a resume...
 4
-Thank you. Can you  show me what the government currently does for homeless populations, especially homeless youth?
-Definitely. Right this way, I'll get you to a computer.
+Thank you. Can you show me how one would get out of such a situation?
+Definitely. One of the best things one could do for themself is create a resume.
 5
 I'm looking for some help. The thing is, my family kicked me out of the house, and I just need to place to do some work.
-I'm very sorry to hear that.  Myself and other librarians will be here to offer any help we can, so don't be afraid to ask.
+I'm very sorry to hear that. Myself and other librarians will be here to offer any help we can, so don't be afraid to ask.
 6
-Thank you. I'm fine, for now.
-Alright then.
+Do you know of any job openings lately?
+Not that I can think of, sorry. However, if one does pop up, I suggest you getting a resume.
 7
-I was wondering if there are any places for me to create a resume.
-Definitely. Right this way, I'll help you out.
+Are there any places for me to create a resume?
+Definitely. Right this way, I'll help you out. *You create a resume*
+8
+Oh... well... to come clean, I'm actually in need of help, I've been abandoned by my parents and I need a long term solution.
+Oh... I'm so sorry. You should've said so. Is there anything I can do to help?

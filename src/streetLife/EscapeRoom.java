@@ -85,6 +85,9 @@ public class EscapeRoom {
 	 */
 	static TextOption left, right;
 	
+	/**
+	 * 
+	 */
 	static Button b;
 	
 	static Button leftB, rightB;
@@ -104,13 +107,15 @@ public class EscapeRoom {
 	
 	final static String LIB = "27131133966796";
 	
-	static boolean validCard;
-	
 	static ImageView chatImg;
 	
 	static Text response;
 	
 	static DirectionsGame d;
+	
+	static int mapFails, mapWins;
+	
+	static long st;
 	
 	/**
 	 * starts the escape room
@@ -118,6 +123,8 @@ public class EscapeRoom {
 	 * @throws IOException
 	 */
 	public static void start() throws IOException {
+		st = System.nanoTime();
+		mapFails = 0;
 		Group g = new Group();
     	Scene tmp = new Scene(g, Main.WIDTH, Main.HEIGHT);
     	ImageView img = new ImageView(Functions.getScene("about3.png"));
@@ -223,7 +230,7 @@ public class EscapeRoom {
 		if(e.getSource() == school) {
 			closeChat();
 			chatOpen = false;
-			d.newGame();
+			//d.newGame();
 			bg = new Background(Functions.getBg("school.png"));
 			cur = "school";
 			weekText.setFill(Color.BLACK);
@@ -235,8 +242,7 @@ public class EscapeRoom {
 		if(e.getSource() == street) {
 			closeChat();
 			chatOpen = false;
-			DirectionsGame d = new DirectionsGame(Main.stage);
-			d.newGame();
+			//d.newGame();
 			bg = new Background(Functions.getBg("street.png"));
 			cur = "street";
 			weekText.setFill(Color.WHITE);
@@ -290,12 +296,13 @@ public class EscapeRoom {
 				response.setTranslateY(180);
 				response.setFill(Color.BLACK);
 				response.setFont(Functions.getFont("Courier", 14));
-				cp.getChildren().add(response);
 				right = left.right;
 				left = left.left;
 				displayChat();
 			} else {
+				updateWait(left);
 				if(response != null) cp.getChildren().remove(response);
+				response.setText(left.response);
 				ROUND.put(cur, ROUND.get(cur)+1);
 				cp.getChildren().remove(left);
 				if(right != null) cp.getChildren().remove(right);
@@ -332,12 +339,13 @@ public class EscapeRoom {
 				response.setTranslateY(180);
 				response.setFill(Color.BLACK);
 				response.setFont(Functions.getFont("Courier", 14));
-				cp.getChildren().add(response);
 				left = right.left;
 				right = right.right;
 				displayChat();
 			} else {
+				updateWait(right);
 				if(response != null) cp.getChildren().remove(response);
+				response.setText(right.response);
 				ROUND.put(cur, ROUND.get(cur)+1);
 				cp.getChildren().remove(left);
 				if(right != null) cp.getChildren().remove(right);
@@ -358,8 +366,10 @@ public class EscapeRoom {
 		sp.getChildren().add(cp);
 		if(ROUND.get(cur) < 4) {
 			left = MAP.get(cur)[ROUND.get(cur)][1];
-			left.setTextAlignment(TextAlignment.CENTER);
-		} else {
+			if(left.wait) left = null;
+			else left.setTextAlignment(TextAlignment.CENTER);
+		} 
+		if(left == null) {
 			cp.getChildren().add(chatImg);
 			displayChat();
 			return;
@@ -371,6 +381,7 @@ public class EscapeRoom {
 	
 	private static void closeChat() {
 		left = right = null;
+		response = null;
 		cp.setVisible(false);
 	}
 	
@@ -404,13 +415,8 @@ public class EscapeRoom {
 					cur[j].left = adj[j][0] == 0 ? null : cur[adj[j][0]];
 					cur[j].right = adj[j][1] == 0 ? null : cur[adj[j][1]];
 				}
+				cur[1].wait = i != 1;
 				r.close();
-				/*r = new Reader(s+"\\part"+i+"Res.txt");
-				while(r.ready()) {
-					int idx = r.readInt();
-					cur[idx].res = r.readLine().charAt(0);
-				}
-				r.close();*/
 			}
 		}
 	}
@@ -419,6 +425,7 @@ public class EscapeRoom {
 		chatImg.setImage(Functions.getImage(cur+(right == null ? "1.png" : "2.png"), 640, 400));
 		cp.getChildren().remove(rightB);
 		cp.getChildren().remove(leftB);
+		if(response != null) cp.getChildren().add(response);
 		if(!picked.equals("")) {
 			Text t = new Text("You already spoke with someone this week. Advance week to speak again.");
 			t.setTranslateX(35);
@@ -430,7 +437,7 @@ public class EscapeRoom {
 			cp.getChildren().add(t);
 			return;
 		}
-		if(ROUND.get(cur) == 4) {
+		if(ROUND.get(cur) == 4 || left == null) {
 			Text t = new Text("No more text options with this person.");
 			t.setTranslateX(35);
 			t.setTranslateY(310);
@@ -485,16 +492,7 @@ public class EscapeRoom {
 		week++;
 		picked = "";
 		if(week == 8) {
-			Group r = new Group();
-			ImageView i = new ImageView(Functions.getScene("win.png"));
-			r.getChildren().add(i);
-			Scene win = new Scene(r, Main.WIDTH, Main.HEIGHT);
-			Functions.setScene(win, Color.BLACK);
-			win.setOnKeyPressed((KeyEvent event) -> {
-				if(event.getCode() == KeyCode.SPACE) {
-					Main.mainMenu.run();
-				}
-			});
+			lose();
 		} else {
 			ImageView nxtday = new ImageView(Functions.getImage("week"+week+".png", Main.WIDTH, Main.HEIGHT));
 			sp.getChildren().add(nxtday);
@@ -508,12 +506,6 @@ public class EscapeRoom {
 				sp.getChildren().remove(nxtday);
 			});
 		}
-	}
-	
-	private static void click() {
-		sp.setOnMouseClicked((MouseEvent e) -> {
-			System.out.println((int)e.getX() + " " + (int)e.getY());
-		});
 	}
 	
 	private static void newT(Group r, boolean wa) throws IOException {
@@ -544,7 +536,7 @@ public class EscapeRoom {
 				if(t.getText().equals(LIB)) {
 					closeChat();
 					chatOpen = false;
-					d.newGame();
+					//d.newGame();
 					try {
 						bg = new Background(Functions.getBg("library.png"));
 					} catch (IOException e1) {
@@ -558,6 +550,7 @@ public class EscapeRoom {
 					street.setVisible(true);
 					r.getChildren().remove(t);
 					r.getChildren().remove(err);
+					Functions.setScene(sc, Color.BLACK);
 					return;
 				}
 				r.getChildren().remove(t);
@@ -670,7 +663,111 @@ public class EscapeRoom {
 		g = new Group();
 		chatImg = new ImageView();
 		displayChat();
-		click();
+	}
+	
+	private static void updateWait(TextOption c) throws IOException {
+		int idx = ROUND.get(cur);
+		if(cur.equals("library")) {
+			if(idx == 1) {
+				MAP.get("street")[3][1].wait = false;
+				MAP.get("library")[2][1].wait = false;
+			}
+			if(idx == 2) {
+				if(c.IDX != 10) {
+					win();
+				}
+				MAP.get("library")[3][1].wait = false;
+			}
+		}
+		if(cur.equals("street")) {
+			if(idx == 1) {
+				MAP.get("street")[2][1].wait = false;
+			}
+			if(idx == 3) {
+				win();
+			}
+		}
+		if(cur.equals("school")) {
+			if(idx == 1) {
+				MAP.get("school")[2][1].wait = false;
+			}
+			if(idx == 2) {
+				MAP.get("school")[3][1].wait = false;
+			}
+		}
+	}
+	
+	private static void win() throws IOException {
+		Group r = new Group();
+		ImageView i = new ImageView(Functions.getScene("win.png"));
+		r.getChildren().add(i);
+		Scene win = new Scene(r, Main.WIDTH, Main.HEIGHT);
+		Functions.setScene(win, Color.BLACK);
+		win.setOnKeyPressed((KeyEvent event) -> {
+			if(event.getCode() == KeyCode.SPACE) {
+				try {
+					stats(true);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+	
+	private static void lose() throws IOException {
+		Group r = new Group();
+		ImageView i = new ImageView(Functions.getScene("lose.png"));
+		r.getChildren().add(i);
+		Scene win = new Scene(r, Main.WIDTH, Main.HEIGHT);
+		Functions.setScene(win, Color.BLACK);
+		win.setOnKeyPressed((KeyEvent event) -> {
+			if(event.getCode() == KeyCode.SPACE) {
+				try {
+					stats(false);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+	
+	private static void stats(boolean won) throws IOException {
+		Group r = new Group();
+		ImageView i = new ImageView(Functions.getScene("stats.png"));
+		Text[] res = new Text[5];
+		long t = System.nanoTime()-st;
+		res[0] = new Text(won ? "Yes\t10000" : "No\t2000");
+		res[1] = new Text(getTime(t)+"\t"+getTimeScore(t));
+		res[2] = new Text(mapFails+"\t"+(-mapFails*9));
+		res[3] = new Text(mapWins+"\t"+(mapWins*7));
+		res[4] = new Text("\t"+((won?10000:2000)+getTimeScore(t)+(-mapFails*9)+(mapWins*7))+"");
+		r.getChildren().add(i);
+		for(int j = 0; j < res.length; j++) {
+			res[j].setTranslateX(600);
+			res[j].setTranslateY(100+(j == res.length -1 ? 95*j : 80*j));
+			res[j].setFill(Color.WHITE);
+			res[j].setFont(Functions.getFont("Courier", 40));
+			r.getChildren().add(res[j]);
+		}
+		Scene win = new Scene(r, Main.WIDTH, Main.HEIGHT);
+		Functions.setScene(win, Color.BLACK);
+		r.setOnMouseClicked((MouseEvent e) -> {
+			System.out.println((int)e.getX() + " " + (int)e.getY());
+		});
+		win.setOnKeyPressed((KeyEvent event) -> {
+			if(event.getCode() == KeyCode.SPACE) {
+				Main.mainMenu.run();
+			}
+		});
+	}
+	
+	private static String getTime(long t) {
+		long sec = t/(long)1e9;
+		return sec/60 + ":" + sec%60;
+	}
+	
+	private static int getTimeScore(long t) {
+		return (int)(-t/(long)1e9);
 	}
 	
 }

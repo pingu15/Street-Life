@@ -1,41 +1,38 @@
-10
+9
 1 2
+1 5
 2 3
-2 4
-4 5
-4 6
-1 7
-7 8
-7 9
-7 10
+3 4
+4 9
+5 6
+6 7
+6 8
+8 4
 
 1
 Hi boss.
-How is sweeping the store treating you
+How is sweeping the store treating you?
 2
 It's going well.
-That's nice. I'll still be looking if I need another employee.
+That's nice. My cashier has left for paternity leave... so I'll need to find a new employer.
 3
-Thank you.
-No problem. That might not happen in a while, though, so I'm not making any promises.
+Really? I would definetly be interested in that role.
+Hmm... I'll tell you what, if you can give me a resume, I'll think about it.
 4
-I've also been taking naps in the back office, do you think I could spend the night there a few times a week?
-As long as you work on the day of, and I get to check up on the room, you'll be fine. Will you be working here in the next few days?
+Thank you so much... do you know who I can get to help me make one?
+Hmm... maybe go to the library? They may know.
 5
-Yes.
-Great!
-6
-I'll be leaving this part of the city for now.
-Oh, okay. I'll hear from you later, then. You know where I am.
-7
 It could be better.
-I see. I don't know what else you can do, but if you want, I'd be glad to recieve a resume.
-8
+I see. I'll tell you what, if you want any sort of promotion, I'd be glad to recieve a resume from you.
+6
 Sure. I'll try to get one to you at some point, maybe for a cashier.
 Great! I'll see you when you put together a formal application, then.
-9
+7
 Actually, I don't know if I'm up for the job.
 This is fair. It's all up to you, but other people will be wanting that job too.
-10
+8
 What's the pay like?
 It's usually a minimum wage job. I'll see if you're qualified when we get there.
+9
+Ah, thank you!
+I'll see ya around. Get me the resume soon, or I'll have someone else lined up.

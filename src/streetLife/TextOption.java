@@ -12,10 +12,12 @@ public class TextOption extends Text {
 
 	int IDX;
 	
-	TextOption left = null, right = null;
+	TextOption left, right;
 	
 	String response;
 	
 	char res;
+	
+	boolean wait;
 	
 }

@@ -1,35 +1,41 @@
-8
+10
 1 2
 2 3
 3 4
-2 5
+3 5
+4 7
 5 6
-5 7
-1 8
-8 3
-8 5
+7 8
+8 9
+8 10
 
 1
-Do you have any tips on making a resume?
-I could give you some pointers. Do you want to focus on the resume or the jobs you're applying for?
+Hi there! Good to see you again. I've decided to apply to one of the job applications here.
+Oh really? How did you find out about us?
 2
-The jobs.
-Okay. You might've experienced this already, but there definitely aren't many jobs for teenagers like you. If anything, I suggest that you try to finish school and get a diploma. Are you planning to?
+A really kind person told me about this opportunity on the street.
+Ah, I'm glad. We are indeed hiring, follow me.
 3
-Yes.
-Ok. I'm glad you're thinking about your future. It's best to keep your options open, even when you're facing such a rough time.
+Great.
+So, what do you think you can bring to the facility?
 4
-Thank you for the list.
-I'll let you know how it goes.
+My lunch? 
+I- that's not the answer we're looking for. Let's be serious here... Why do you want to work here?
 5
-No, I don't see the point.
-Hmmm. For now, it might not affect you, but it will definitely limit your options in the future. I'm going to suggest against that, but again, it's about your current situation.
+I can bring a positive attitude, and I'll be sure to be present and treat my co-workers with respect.
+Good answer, now why do you want to work here?
 6
-I suppose so.
-Good luck.
+I think I can be a positive contributer and I could really use a job like this to get back on track with my life.
+Alright, I like your answers.. you're hired. Let's go fill out some forms and you'll be good to go.
 7
-I don't think I'm able to. Thank you, though.
-No problem, good luck.
+I think I can be a positive contributer and I could really use a job like this to get back on track with my life.
+Okay, that's better... Let's see... what is one reason we shouldn't hire you?
 8
-The resume.
-Sure! If you follow me, I can get that done in under half an hour. Along with this resume though, I still strongly suggest thinking of finishing your degree. Would you be interested in that?
+I need a job, I'm homeless man.
+Not quite the answer we're looking for.. but either way what is one reason we shouldn't hire you?
+9
+I'm very indecisive, but I'm willing to ask questions for help.
+I like that, and I like you. I'm willing to give you a shot. Let's go fill out some paperwork and you're hired.
+10
+I have no experience.
+Alright, I don't really think you have what we're looking for exactly, so I'm afraid I don't think we can get you a job... perhaps with some more experience we'll see you around next year.

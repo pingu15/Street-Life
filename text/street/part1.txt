@@ -3,7 +3,8 @@
 2 3
 3 4
 3 5
-2 6
+4 6
+5 7
 6 7
 
 1
@@ -20,9 +21,9 @@ Yes, but-
 Alright. I'll get the police to pick you up and find your parents.
 5
 No.
-Ok. Well, you're in front of my store, so you better find another place to stay the night.
+Okay... Well, you're in front of my store, so you better find another place to stay the night.
 6
-I really need a place to stay tonight.
+Wait no-I really need a place to stay tonight.
 Well, you're in front of my store, so you better find another place to stay the night.
 7
 Your store? Could I get a job here maybe?
