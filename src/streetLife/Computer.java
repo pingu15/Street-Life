@@ -95,6 +95,8 @@ public class Computer {
     	ImageView img = new ImageView(Functions.getScene("about2.png"));
 		g.getChildren().add(img);
 		Functions.setScene(tmp, Color.BLACK);
+		index = 0;
+		readBoss = false;
 		tmp.setOnKeyPressed((KeyEvent event) -> {
 			if(event.getCode() == KeyCode.SPACE) {
 				try {
