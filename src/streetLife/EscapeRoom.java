@@ -872,7 +872,7 @@ public class EscapeRoom {
 		res[1] = new Text(getTime(t)+"\t"+getTimeScore(t));
 		res[2] = new Text(mapFails+"\t"+(-mapFails*9));
 		res[3] = new Text(guessRight+"\t"+(guessRight*997));
-		res[4] = new Text("\t"+((won?10000:2000)+getTimeScore(t)+(-mapFails*9)+(mapWins*7))+"");
+		res[4] = new Text("\t"+((won?10000:2000)+getTimeScore(t)+(-mapFails*9)+(guessRight*997))+"");
 		r.getChildren().add(i);
 		for(int j = 0; j < res.length; j++) {
 			res[j].setTranslateX(600);
